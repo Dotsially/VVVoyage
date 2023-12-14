@@ -21,8 +21,9 @@ namespace Domain
             {
                 Label = "Bezienswaardigheid",
                 Address = sightName,
-                Type = PinType.Place,  
-                Location = new L
+                Type = PinType.Place, 
+                //TODO: Author fix pls
+                //Location = new L
             };
 
             SightDescription = sightDescription;
