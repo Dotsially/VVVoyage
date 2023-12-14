@@ -2,5 +2,5 @@
 .vs/
 obj/
 bin/
-*.sln.DotSettings.user
+*.user
 VVVoyage/global.json
