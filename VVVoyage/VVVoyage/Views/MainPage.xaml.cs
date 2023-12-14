@@ -24,6 +24,7 @@ namespace VVVoyage
             SemanticScreenReader.Announce(CounterBtn.Text);
 
             Debug.WriteLine(CounterBtn.Text);
+            Location location = new Location();
         }
     }
 
