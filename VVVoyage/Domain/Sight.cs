@@ -22,7 +22,7 @@ namespace Domain
                 Label = "Bezienswaardigheid",
                 Address = sightName,
                 Type = PinType.Place,  
-                Location = new L
+                
             };
 
             SightDescription = sightDescription;
