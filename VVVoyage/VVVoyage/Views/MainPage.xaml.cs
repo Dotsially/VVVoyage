@@ -1,31 +1,24 @@
-﻿using Domain;
 using System.Diagnostics;
+using Microsoft.Maui.Maps;
 
 namespace VVVoyage
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
+            var location = await Geolocation.GetLocationAsync(request);
+          
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(5)));
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
-
-            Debug.WriteLine(CounterBtn.Text);
-            Location location = new Location();
         }
     }
-
 }
