@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VVVoyage.Views.InstructionsPage"
+             Title="InstructionsPage">
+    <VerticalStackLayout>
+        <Button
+            Text="Back"
+            Margin="10" />
+
+        <Label 
+            Text="Welcome to VVVoyage, your tour guide through Breda!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label
+            Text="General outline"
+            Margin="10" />
+
+        <Label
+            Text="To start a route, simply click the route button on the home screen.You are then able to choose any route you'd like. The route will start right away! Follow the route instructions on the screen to arrive at the next landmark. You will get a notification once you're close. Hang around for a bit, and then visit the next landmark. The tour will automatically end once you've visited all landmarks of the route."
+            Margin="10, 0" />
+
+        <Label
+            Text="Important"
+            Margin="10" />
+
+        <Label
+            Text="- Ensure that the GPS functionality on your phone is working and that this app has access to it;"
+            Margin="10, 0" />
+    </VerticalStackLayout>
+</ContentPage>
