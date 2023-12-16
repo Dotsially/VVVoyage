@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 using VVVoyage.Models;
 
@@ -14,6 +13,7 @@ namespace VVVoyage
         {
             InitializeComponent();
             InitialiseSights();
+            CheckGPSAccess();
 
             foreach(var sight in sights)
             {
@@ -34,18 +34,36 @@ namespace VVVoyage
             sights = new List<Sight> { oldBuilding, loveSister, monument, lightHouse, castle, easterEgg };
         }
 
-        protected override async void OnAppearing()
+        async Task CheckGPSAccess()
         {
-            base.OnAppearing();
+            PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>() | await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
-            var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-            var location = await Geolocation.GetLocationAsync(request);
-          
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.25)));
-
-            OnStartListening();
+            if (status != PermissionStatus.Granted)
+            {
+                // GPS location permission not granted let the user know.               
+                await App.Current.MainPage.DisplayAlert("Permission Required", "GPS location permission is required to use this app.", "OK");
+            }  
         }
 
+        protected override async void OnAppearing()
+        {
+            try
+            {
+                base.OnAppearing();
+
+                var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
+                var location = await Geolocation.GetLocationAsync(request);
+
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.25)));
+
+                OnStartListening();
+            }
+            catch (PermissionException ex)
+            {
+                Trace.WriteLine(ex.Message);
+            }
+        }
+            
         async void OnStartListening()
         {
             try
