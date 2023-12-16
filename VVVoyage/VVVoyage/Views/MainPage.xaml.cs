@@ -15,11 +15,7 @@ namespace VVVoyage
             InitializeComponent();
             InitialiseSights();
 
-            foreach(var sight in sights)
-            {
-                map.Pins.Add(sight.SightPin);
-            }
-
+            DrawSights();
         }
 
         private void InitialiseSights()
@@ -32,6 +28,62 @@ namespace VVVoyage
             Sight easterEgg = new Sight("Geheime Excelsior bijeenkomst", new Location(51.66222507319058, 4.739362181917831), "fujas");
 
             sights = new List<Sight> { oldBuilding, loveSister, monument, lightHouse, castle, easterEgg };
+        }
+
+        private void DrawSights()
+        {
+            foreach (var sight in sights)
+            {
+                map.Pins.Add(sight.SightPin);
+
+                Circle circle = new Circle
+                {
+                    Center = sight.SightPin.Location,
+                    Radius = new Distance(15),
+                    StrokeColor = Color.FromArgb("#88FF0000"),
+                    StrokeWidth = 8,
+                    FillColor = Color.FromArgb("#88FFC0CB")
+                };
+
+                map.MapElements.Add(circle);
+            }
+        }
+
+        private void DrawSightsWithout(Sight sightToChange)
+        {
+            foreach (var sight in sights)
+            {
+                if (!sight.Equals(sightToChange))
+                {
+                    map.Pins.Add(sight.SightPin);
+
+                    Circle circle = new Circle
+                    {
+                        Center = sight.SightPin.Location,
+                        Radius = new Distance(15),
+                        StrokeColor = Color.FromArgb("#88FF0000"),
+                        StrokeWidth = 8,
+                        FillColor = Color.FromArgb("#88FFC0CB")
+                    };
+
+                    map.MapElements.Add(circle);
+                }
+                else
+                {
+                    map.Pins.Add(sight.SightPin);
+
+                    Circle circle = new Circle
+                    {
+                        Center = sight.SightPin.Location,
+                        Radius = new Distance(15),
+                        StrokeColor = Color.FromArgb("#16288c"),
+                        StrokeWidth = 8,
+                        FillColor = Color.FromArgb("#2949ff")
+                    };
+
+                    map.MapElements.Add(circle);
+                }
+            }
         }
 
         protected override async void OnAppearing()
@@ -60,9 +112,34 @@ namespace VVVoyage
             }
         }
 
-        void LocationChanged(object sender, GeolocationLocationChangedEventArgs e)
+        async void LocationChanged(object sender, GeolocationLocationChangedEventArgs e)
         {
             map.MoveToRegion(MapSpan.FromCenterAndRadius(e.Location, Distance.FromKilometers(0.25)));
+
+            SightColorChangerIfClose(e.Location);
+        }
+
+        private void SightColorChangerIfClose(Location newUserLocation)
+        {
+            foreach (var sight in sights) 
+            {
+                double distance = CalculateDistance(newUserLocation.Latitude, newUserLocation.Longitude, sight.SightPin.Location.Latitude, sight.SightPin.Location.Longitude);
+
+                // if the distance is smaller than 15 meters then the user is close to the sight.
+                if (distance < 0.17) 
+                {
+                    // TODO: <Wessel> using Plugin.LocalNotification;
+
+                    map.MapElements.Clear();
+                    DrawSightsWithout(sight);
+                }
+            }
+        }
+
+        private double CalculateDistance(double userLat, double userLong, double stationLat, double stationLong)
+        {
+            double distance = Location.CalculateDistance(userLat, userLong, stationLat, stationLong, DistanceUnits.Kilometers);
+            return distance;
         }
     }
 }
