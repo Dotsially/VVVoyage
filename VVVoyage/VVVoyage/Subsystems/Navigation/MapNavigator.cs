@@ -24,8 +24,8 @@ namespace VVVoyage.Subsystems.Navigation
         private readonly List<Sight> _route;
         private readonly string _googleMapsAPIKey;
         private Sight _landmarkToReach;
-        private CancellationTokenSource? _cancellation;
-        private bool _isCheckingLocation;
+        private CancellationTokenSource? _cancellationTokenSource;
+        private bool _isUpdatingMap;
 
         /// <exception cref="ArgumentOutOfRangeException">Whenever the route list contains zero landmarks</exception>
         public MapNavigator(IGeolocation geolocationAPI, List<Sight> route, string googleMapsAPIKey)
@@ -38,19 +38,40 @@ namespace VVVoyage.Subsystems.Navigation
             else _landmarkToReach = route[0];
         }
 
+        /// <summary>
+        /// Asynchronously gets the user's location, the next landmark (if necessary), whether the user is close enough to the landmark
+        /// and the list of positions between the user's location and landmark picturing the route. These are put inside a MapUpdate object,
+        /// which is then returned.
+        /// </summary>
+        /// <returns>A MapUpdate object with all the necessary information. Or, when the map update is canceled, null.</returns>
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
         /// <exception cref="Exception">Any other error that occurs when attempting to retrieve the user's location.</exception>
-        public async Task<MapUpdate> UpdateMapAsync()
+        public async Task<MapUpdate?> UpdateMapAsync()
         {
-            Location userLocation = await GetUserLocation();
+            _isUpdatingMap = true;
+            _cancellationTokenSource = new();
+            
+            try
+            {
+                Location userLocation = await GetUserLocation(_cancellationTokenSource.Token);
 
-            bool isUserCloseToLandmark = IsUserCloseEnough(userLocation);
+                bool isUserCloseToLandmark = IsUserCloseEnough(userLocation);
 
-            List<Location> userToLandmarkPolylineLocations = await GetRoutePolyline(userLocation);
+                List<Location> userToLandmarkPolylineLocations = await GetRoutePolyline(userLocation, _cancellationTokenSource.Token);
 
-            return new(userLocation, _landmarkToReach, isUserCloseToLandmark, userToLandmarkPolylineLocations);
+                if (_cancellationTokenSource.IsCancellationRequested) return null;
+                else return new(userLocation, _landmarkToReach, isUserCloseToLandmark, userToLandmarkPolylineLocations);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _isUpdatingMap = false;
+            }
         }
 
         /// <summary>
@@ -60,28 +81,23 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
+        /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
         /// <exception cref="Exception">Any other error that occurs when attempting to reetrieve the user's location.</exception>
-        private async Task<Location> GetUserLocation()
+        private async Task<Location> GetUserLocation(CancellationToken cancellationToken)
         {
-            _isCheckingLocation = true;
-
             GeolocationRequest request = new(LOCATION_ACCURACY, TimeSpan.FromSeconds(LOCATION_REQUEST_TIMEOUT_SECONDS));
-            _cancellation = new();
 
-            Location? userLocation = await _geolocationAPI.GetLocationAsync(request, _cancellation.Token);
-
-            _isCheckingLocation = false;
+            Location? userLocation = await _geolocationAPI.GetLocationAsync(request, cancellationToken);
 
             if (userLocation != null) return userLocation;
             else throw new Exception("Could not get location from this phone.");
         }
 
-        public void CancelMapUpdate()
-        {
-            if (_isCheckingLocation && _cancellation != null && _cancellation.IsCancellationRequested)
-                _cancellation.Cancel();
-        }
-
+        /// <summary>
+        /// Calculates the distance between the user and the landmark to reach. Determines if the user is close enough to the landmark.
+        /// </summary>
+        /// <param name="userLocation"></param>
+        /// <returns>Whether the user is X meters away from the landmark.</returns>
         private bool IsUserCloseEnough(Location userLocation)
         {
             Location landmarkLocation = _landmarkToReach.SightPin.Location;
@@ -99,7 +115,11 @@ namespace VVVoyage.Subsystems.Navigation
             return false;
         }
 
-        private async Task<List<Location>> GetRoutePolyline(Location userLocation)
+        /// <summary>
+        /// Gets the encoded polyline from the Google Directions API between the user's location and the current landmark's location.
+        /// </summary>
+        /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
+        private async Task<List<Location>> GetRoutePolyline(Location userLocation, CancellationToken cancellationToken)
         {
             List<Location> locations = [];
 
@@ -108,7 +128,7 @@ namespace VVVoyage.Subsystems.Navigation
             Location landmarkLocation = _landmarkToReach.SightPin.Location;
             var requestURL = $"https://maps.googleapis.com/maps/api/directions/json?origin={userLocation.Latitude}%2C{userLocation.Longitude}&destination={landmarkLocation.Latitude}%2C{landmarkLocation.Longitude}&mode=walking&key={_googleMapsAPIKey}";
             // Receive response
-            var response = await client.GetAsync(requestURL);
+            var response = await client.GetAsync(requestURL, cancellationToken);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -118,7 +138,7 @@ namespace VVVoyage.Subsystems.Navigation
             }
 
             // Read response as JSON
-            var jsonResponse = await response.Content.ReadFromJsonAsync<JsonObject>();
+            var jsonResponse = await response.Content.ReadFromJsonAsync<JsonObject>(cancellationToken);
 
             // TODO more robust error handling
             var encodedPolyline =
@@ -141,6 +161,15 @@ namespace VVVoyage.Subsystems.Navigation
                 locations.Add(new Location(coordinate.Latitude, coordinate.Longitude));
             }
             return locations;
+        }
+
+        /// <summary>
+        /// Cancels the map update if it is in progress.
+        /// </summary>
+        public void CancelMapUpdate()
+        {
+            if (_isUpdatingMap && _cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+                _cancellationTokenSource.Cancel();
         }
     }
 }

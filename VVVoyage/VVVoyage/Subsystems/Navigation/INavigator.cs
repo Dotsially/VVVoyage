@@ -8,7 +8,7 @@ namespace VVVoyage.Subsystems.Navigation
 {
     interface INavigator
     {
-        Task<MapUpdate> UpdateMapAsync();
+        Task<MapUpdate?> UpdateMapAsync();
         void CancelMapUpdate();
     }
 }
