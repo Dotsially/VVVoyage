@@ -6,4 +6,9 @@ public partial class InstructionsPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	public async void BackBtn_Clicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync("MainPage");
+	}
 }

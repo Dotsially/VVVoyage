@@ -6,7 +6,8 @@
     <VerticalStackLayout>
         <Button
             Text="Back"
-            Margin="10" />
+            Margin="10"
+            Clicked="BackBtn_Clicked" />
 
         <Label 
             Text="Welcome to VVVoyage, your tour guide through Breda!"
