@@ -13,18 +13,31 @@ using VVVoyage.Models;
 
 namespace VVVoyage.Subsystems.Navigation
 {
-    // TODO make route class and replace with List<Sight>
+    // TODO make route class and replace with List<Sight>, and/or rename Sight to Landmark
     class MapNavigator : INavigator
     {
+        // The accuracy in which the GPS displays the location. Fiddle around with this to see
+        // what works best.
         private readonly GeolocationAccuracy LOCATION_ACCURACY = GeolocationAccuracy.Medium;
+
+        // This many seconds after requesting the user's location, the GPS location request
+        // will be cancelled. To prevent long waiting scenarios.
         private readonly int LOCATION_REQUEST_TIMEOUT_SECONDS = 10;
+
+        // Threshold at which a new landmark is triggered. According to
+        // documentation, this should be at fifteen meters.
         private readonly int SIGHT_TRIGGER_DISTANCE_METERS = 15;
 
         private readonly IGeolocation _geolocationAPI;
         private readonly List<Sight> _route;
         private readonly string _googleMapsAPIKey;
         private Sight _landmarkToReach;
+
+        // The cancellation token, used for cancelling a map update if needed
         private CancellationTokenSource? _cancellationTokenSource;
+
+        // Whether the map is currently updating, to signal that it can be
+        // cancelled while this variable is true.
         private bool _isUpdatingMap;
 
         /// <exception cref="ArgumentOutOfRangeException">Whenever the route list contains zero landmarks</exception>
@@ -51,7 +64,7 @@ namespace VVVoyage.Subsystems.Navigation
         public async Task<MapUpdate?> UpdateMapAsync()
         {
             _isUpdatingMap = true;
-            _cancellationTokenSource = new();
+            _cancellationTokenSource = new CancellationTokenSource();
             
             try
             {
@@ -61,15 +74,18 @@ namespace VVVoyage.Subsystems.Navigation
 
                 List<Location> userToLandmarkPolylineLocations = await GetRoutePolyline(userLocation, _cancellationTokenSource.Token);
 
+                // If the cancellation token was cancelled, return null, otherwise return a MapUpdate.
                 if (_cancellationTokenSource.IsCancellationRequested) return null;
-                else return new(userLocation, _landmarkToReach, isUserCloseToLandmark, userToLandmarkPolylineLocations);
+                else return new MapUpdate(userLocation, _landmarkToReach, isUserCloseToLandmark, userToLandmarkPolylineLocations);
             }
             catch (Exception)
             {
+                // Re-throw the exception, so the finally block can be executed.
                 throw;
             }
             finally
             {
+                // Set this to false for cleanup
                 _isUpdatingMap = false;
             }
         }
@@ -90,22 +106,23 @@ namespace VVVoyage.Subsystems.Navigation
             Location? userLocation = await _geolocationAPI.GetLocationAsync(request, cancellationToken);
 
             if (userLocation != null) return userLocation;
-            else throw new Exception("Could not get location from this phone.");
+            else throw new Exception("Could not get location from this phone."); // Something unknown went wrong
         }
 
         /// <summary>
         /// Calculates the distance between the user and the landmark to reach. Determines if the user is close enough to the landmark.
         /// </summary>
-        /// <param name="userLocation"></param>
         /// <returns>Whether the user is X meters away from the landmark.</returns>
         private bool IsUserCloseEnough(Location userLocation)
         {
             Location landmarkLocation = _landmarkToReach.SightPin.Location;
 
+            // TODO think about replacing this calculation with one that accounts for roads.
             double distanceKM = Location.CalculateDistance(userLocation, landmarkLocation, DistanceUnits.Kilometers);
 
             if (distanceKM <= SIGHT_TRIGGER_DISTANCE_METERS)
             {
+                // Update the landmark to reach by getting the next landmark in the list.
                 int nextIndex = _route.IndexOf(_landmarkToReach) + 1;
                 _landmarkToReach = _route[nextIndex];
 
@@ -121,25 +138,28 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
         private async Task<List<Location>> GetRoutePolyline(Location userLocation, CancellationToken cancellationToken)
         {
-            List<Location> locations = [];
-
             using var client = new HttpClient();
 
+            List<Location> locations = [];
             Location landmarkLocation = _landmarkToReach.SightPin.Location;
+
+            // Request URL contains the user's location and the landmark's location, and requests for the route between them.
             var requestURL = $"https://maps.googleapis.com/maps/api/directions/json?origin={userLocation.Latitude}%2C{userLocation.Longitude}&destination={landmarkLocation.Latitude}%2C{landmarkLocation.Longitude}&mode=walking&key={_googleMapsAPIKey}";
-            // Receive response
+            
+            // Make the request and receive the response
             var response = await client.GetAsync(requestURL, cancellationToken);
 
             if (!response.IsSuccessStatusCode)
             {
                 Debug.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
                 // TODO add more robust error handling
-                return locations;
+                return [];
             }
 
             // Read response as JSON
             var jsonResponse = await response.Content.ReadFromJsonAsync<JsonObject>(cancellationToken);
 
+            // Get the encoded polyline value from the response
             // TODO more robust error handling
             var encodedPolyline =
                 // Get the routes array
@@ -160,6 +180,7 @@ namespace VVVoyage.Subsystems.Navigation
             {
                 locations.Add(new Location(coordinate.Latitude, coordinate.Longitude));
             }
+
             return locations;
         }
 
