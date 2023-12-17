@@ -3,30 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VVVoyage.Views.InstructionsPage"
              Title="InstructionsPage">
-    <VerticalStackLayout>
-        <Button
-            Text="Back"
-            Margin="10"
-            Clicked="BackBtn_Clicked" />
 
-        <Label 
-            Text="Welcome to VVVoyage, your tour guide through Breda!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label
-            Text="General outline"
-            Margin="10" />
+    <ContentPage.Resources>
+        <Style x:Key="InstructionBody"
+               TargetType="Label">
+            <Setter Property="FontSize" Value="Medium" />
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid Margin="10, 0" RowDefinitions="Auto, *">
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,*" Margin="20,0,20,20">
+                <ImageButton
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    Source="back_arrow.svg"
+                    WidthRequest="70"
+                    HeightRequest="50"
+                    Padding="5"
+                    BackgroundColor="{StaticResource Secondary}"
+                    CornerRadius="8"
+                    Clicked="BackBtn_Clicked"/>
 
-        <Label
-            Text="To start a route, simply click the route button on the home screen.You are then able to choose any route you'd like. The route will start right away! Follow the route instructions on the screen to arrive at the next landmark. You will get a notification once you're close. Hang around for a bit, and then visit the next landmark. The tour will automatically end once you've visited all landmarks of the route."
-            Margin="10, 0" />
+                <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                    <Image 
+                        HorizontalOptions="End"
+                        WidthRequest="60"
+                        Source="vvv_logo.svg"/>
 
-        <Label
-            Text="Important"
-            Margin="10" />
+                    <Image
+                        HorizontalOptions="End"
+                        WidthRequest="70"
+                        Source="ags_logo.png" />
+                </HorizontalStackLayout>
+            </Grid>
 
-        <Label
-            Text="- Ensure that the GPS functionality on your phone is working and that this app has access to it;"
-            Margin="10, 0" />
-    </VerticalStackLayout>
+            <BoxView
+                Color="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray600}}"
+                HeightRequest="2"
+                Margin="0,0,0,20"
+                VerticalOptions="Center"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+                <Label
+                    Style="{StaticResource SubHeadline}"
+                    Text="Welcome to VVVoyage, your tour guide through Breda!"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,10"/>
+
+                <Label
+                    Style="{StaticResource Headline}"
+                    Text="General outline"
+                    Margin="0,0,0,5"/>
+
+                <Label
+                    Style="{StaticResource InstructionBody}"
+                    Margin="0,0,0,20"
+                    Text="To start a route, simply click the route button on the main menu screen. You are then able to choose any route you'd like. The route will start right away! Follow the line on the screen to arrive at the next landmark. You will get a notification once you're close. The app will give a useful name and description for the landmark as well. Admire its beauty, and then visit the next landmark. The tour will automatically end once you've visited all landmarks of the route." />
+
+                <Label
+                    Style="{StaticResource Headline}"
+                    Text="Important"
+                    Margin="0,0,0,5"/>
+
+                <Label
+                    Style="{StaticResource InstructionBody}"
+                    Text="• Ensure that the GPS functionality on your phone is working and that this app has access to it;" />
+
+                <Label
+                    Style="{StaticResource InstructionBody}"
+                    Text="• Ensure that you are using Wi-Fi or cellular data throughout the tour;" />
+
+                <Label
+                    Style="{StaticResource InstructionBody}"
+                    Text="• Closing the app while doing the tour stops the tour." />
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
