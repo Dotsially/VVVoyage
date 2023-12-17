@@ -16,7 +16,7 @@ namespace VVVoyage.Subsystems.Notification
                 // Apparently this package requires the dev to insert a notification ID, so try a random number.
                 NotificationId = new Random().Next(700, 9000),
                 Title = title,
-                Subtitle = message
+                Description = message
             };
             await LocalNotificationCenter.Current.Show(notification);
         }
