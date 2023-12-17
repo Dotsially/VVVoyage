@@ -1,7 +1,10 @@
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
 using Microsoft.Maui.Controls.Maps;
+using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Maps;
 using VVVoyage.Models;
+using VVVoyage.Subsystems.Navigation;
 
 namespace VVVoyage
 {
@@ -10,13 +13,19 @@ namespace VVVoyage
         List<Sight> sights;
 
 
+
+        private readonly INavigator _navigator;
+
         public MainPage()
         {
             InitializeComponent();
-            InitialiseSights();
-            CheckGPSAccess();
 
-            DrawSights();
+            InitialiseSights();
+
+            _navigator = new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o");
+
+            // Move map to Grote Kerk Breda
+            map.MoveToRegion(new MapSpan(new Location(51.588833, 4.775278), 0.02, 0.02));
         }
 
         private void InitialiseSights()
@@ -42,123 +51,114 @@ namespace VVVoyage
             }
         }
 
-        private void DrawSights()
-        {
-            foreach (var sight in sights)
-            {
-                map.Pins.Add(sight.SightPin);
-
-                Circle circle = new Circle
-                {
-                    Center = sight.SightPin.Location,
-                    Radius = new Distance(15),
-                    StrokeColor = Color.FromArgb("#88FF0000"),
-                    StrokeWidth = 8,
-                    FillColor = Color.FromArgb("#88FFC0CB")
-                };
-
-                map.MapElements.Add(circle);
-            }
-        }
-
-        private void DrawSightsWithout(Sight sightToChange)
-        {
-            foreach (var sight in sights)
-            {
-                if (!sight.Equals(sightToChange))
-                {
-                    map.Pins.Add(sight.SightPin);
-
-                    Circle circle = new Circle
-                    {
-                        Center = sight.SightPin.Location,
-                        Radius = new Distance(15),
-                        StrokeColor = Color.FromArgb("#88FF0000"),
-                        StrokeWidth = 8,
-                        FillColor = Color.FromArgb("#88FFC0CB")
-                    };
-
-                    map.MapElements.Add(circle);
-                }
-                else
-                {
-                    map.Pins.Add(sight.SightPin);
-
-                    Circle circle = new Circle
-                    {
-                        Center = sight.SightPin.Location,
-                        Radius = new Distance(15),
-                        StrokeColor = Color.FromArgb("#16288c"),
-                        StrokeWidth = 8,
-                        FillColor = Color.FromArgb("#2949ff")
-                    };
-
-                    map.MapElements.Add(circle);
-                }
-            }
-        }
-
         protected override async void OnAppearing()
         {
-            try
-            {
-                base.OnAppearing();
+            base.OnAppearing();
 
-                var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-                var location = await Geolocation.GetLocationAsync(request);
-
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.25)));
-
-                OnStartListening();
-            }
-            catch (PermissionException ex)
-            {
-                Trace.WriteLine(ex.Message);
-            }
-        }
-            
-        async void OnStartListening()
-        {
-            try
-            {
-                Geolocation.LocationChanged += LocationChanged;
-                var request = new GeolocationListeningRequest(GeolocationAccuracy.High);
-                await Geolocation.StartListeningForegroundAsync(request);
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex.Message);
-            }
+            await UpdateMapRepeatedly();
         }
 
-        async void LocationChanged(object sender, GeolocationLocationChangedEventArgs e)
+        private async Task UpdateMapRepeatedly()
         {
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(e.Location, Distance.FromKilometers(0.25)));
+            List<Sight> visibleLandmarks = [];
+            visibleLandmarks.Add(sights[0]);
 
-            SightColorChangerIfClose(e.Location);
-        }
-
-        private void SightColorChangerIfClose(Location newUserLocation)
-        {
-            foreach (var sight in sights) 
+            while (true)
             {
-                double distance = CalculateDistance(newUserLocation.Latitude, newUserLocation.Longitude, sight.SightPin.Location.Latitude, sight.SightPin.Location.Longitude);
+                MapUpdate? mapUpdate = await _navigator.UpdateMapAsync(visibleLandmarks.Last());
 
-                // if the distance is smaller than 15 meters then the user is close to the sight.
-                if (distance < 0.17) 
+                // If null, that means the map update has been canceled. So, this method should
+                // not request any more map updates.
+                // TODO add a route back to the main menu screen.
+                if (mapUpdate == null) return;
+
+                Debug.WriteLine("Map update called");
+
+                map.Pins.Clear();
+                map.MapElements.Clear();
+
+                // Add visited landmarks to map
+                DisplayLandmarks(visibleLandmarks);
+
+                // Add route polyline to map
+                DisplayRoutePolyline(mapUpdate.UserToLandmarkPolylineLocations);
+
+                if (mapUpdate.IsUserCloseToLandmark)
                 {
-                    // TODO: <Wessel> using Plugin.LocalNotification;
-
-                    map.MapElements.Clear();
-                    DrawSightsWithout(sight);
+                    if (visibleLandmarks.Count < sights.Count)
+                    {
+                        // TODO landmark reached, so add a popup about the landmark
+                        Sight nextSight = sights[visibleLandmarks.Count];
+                        visibleLandmarks.Add(nextSight);
+                    }
+                    else
+                    {
+                        // TODO add a popup to indicate the route was finished,
+                        // and route back to the main menu screen.
+                        Debug.WriteLine("Route finished");
+                        return;
+                    }
                 }
+
+                await Task.Delay(2000);
             }
         }
 
-        private double CalculateDistance(double userLat, double userLong, double stationLat, double stationLong)
+        /// <summary>
+        /// Displays a circle on the map on each visible landmark's location in their correct color.
+        /// The last element in the visibleLandmarks list will be colored differently than the other
+        /// landmarks.
+        /// </summary>
+        private void DisplayLandmarks(List<Sight> visibleLandmarks)
         {
-            double distance = Location.CalculateDistance(userLat, userLong, stationLat, stationLong, DistanceUnits.Kilometers);
-            return distance;
+            // Loop through all the visible landmarks, except the last one
+            // (because the last landmark is unvisited and should have a different color).
+            for (int i = 0; i < visibleLandmarks.Count - 1; i++)
+            {
+                Circle visitedLandmarkCircle = new()
+                {
+                    Center = visibleLandmarks[i].SightPin.Location,
+                    Radius = new Distance(15),
+                    StrokeColor = Color.FromArgb("#886CBF00"),
+                    StrokeWidth = 8,
+                    FillColor = Color.FromArgb("#88ABABAB")
+                };
+                map.MapElements.Add(visitedLandmarkCircle);
+            }
+
+            // Add the circle and pin for the unvisited landmark,
+            // which is the last element in the visibleLandmarks list.
+            map.MapElements.Add(new Circle()
+            {
+                Center = visibleLandmarks.Last().SightPin.Location,
+                Radius = new Distance(15),
+                StrokeColor = Color.FromArgb("#88FF0000"),
+                StrokeWidth = 8,
+                FillColor = Color.FromArgb("#88FFC0CB")
+            });
+            map.Pins.Add(new Pin()
+            {
+                Label = "Landmark to reach",
+                Location = visibleLandmarks.Last().SightPin.Location
+            });
+        }
+
+        /// <summary>
+        /// Displays the route polyline on the map between the user and the next landmark.
+        /// </summary>
+        private void DisplayRoutePolyline(List<Location> userToLandmarkPolylineLocations)
+        {
+            Polyline polyline = new()
+            {
+                StrokeColor = Colors.Blue,
+                StrokeWidth = 5
+            };
+
+            // Add all locations in the polyline to the physical polyline
+            foreach (var location in userToLandmarkPolylineLocations)
+                polyline.Geopath.Add(location);
+
+            map.MapElements.Add(polyline);
         }
     }
 }

@@ -14,24 +14,10 @@ using VVVoyage.Models;
 namespace VVVoyage.Subsystems.Navigation
 {
     // TODO make route class and replace with List<Sight>, and/or rename Sight to Landmark
-    class MapNavigator : INavigator
+    class MapNavigator(IGeolocation geolocationAPI, string googleMapsAPIKey) : INavigator
     {
-        // The accuracy in which the GPS displays the location. Fiddle around with this to see
-        // what works best.
-        private readonly GeolocationAccuracy LOCATION_ACCURACY = GeolocationAccuracy.Medium;
-
-        // This many seconds after requesting the user's location, the GPS location request
-        // will be cancelled. To prevent long waiting scenarios.
-        private readonly int LOCATION_REQUEST_TIMEOUT_SECONDS = 10;
-
-        // Threshold at which a new landmark is triggered. According to
-        // documentation, this should be at fifteen meters.
-        private readonly int SIGHT_TRIGGER_DISTANCE_METERS = 15;
-
-        private readonly IGeolocation _geolocationAPI;
-        private readonly List<Sight> _route;
-        private readonly string _googleMapsAPIKey;
-        private Sight _landmarkToReach;
+        private readonly IGeolocation _geolocationAPI = geolocationAPI;
+        private readonly string _googleMapsAPIKey = googleMapsAPIKey;
 
         // The cancellation token, used for cancelling a map update if needed
         private CancellationTokenSource? _cancellationTokenSource;
@@ -40,28 +26,18 @@ namespace VVVoyage.Subsystems.Navigation
         // cancelled while this variable is true.
         private bool _isUpdatingMap;
 
-        /// <exception cref="ArgumentOutOfRangeException">Whenever the route list contains zero landmarks</exception>
-        public MapNavigator(IGeolocation geolocationAPI, List<Sight> route, string googleMapsAPIKey)
-        {
-            _geolocationAPI = geolocationAPI;
-            _route = route;
-            _googleMapsAPIKey = googleMapsAPIKey;
-
-            if (route.Count == 0) throw new ArgumentOutOfRangeException(nameof(route), "The route cannot have zero landmarks defined!");
-            else _landmarkToReach = route[0];
-        }
-
         /// <summary>
         /// Asynchronously gets the user's location, the next landmark (if necessary), whether the user is close enough to the landmark
         /// and the list of positions between the user's location and landmark picturing the route. These are put inside a MapUpdate object,
         /// which is then returned.
         /// </summary>
+        /// <param name="landmarkToReach">The landmark which the user needs to reach next.</param>
         /// <returns>A MapUpdate object with all the necessary information. Or, when the map update is canceled, null.</returns>
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
-        /// <exception cref="Exception">Any other error that occurs when attempting to retrieve the user's location.</exception>
-        public async Task<MapUpdate?> UpdateMapAsync()
+        /// <exception cref="Exception">Any other error that occurs when attempting to retrieve the user's location or any HTTP request error.</exception>
+        public async Task<MapUpdate?> UpdateMapAsync(Sight landmarkToReach)
         {
             _isUpdatingMap = true;
             _cancellationTokenSource = new CancellationTokenSource();
@@ -70,17 +46,17 @@ namespace VVVoyage.Subsystems.Navigation
             {
                 Location userLocation = await GetUserLocation(_cancellationTokenSource.Token);
 
-                bool isUserCloseToLandmark = IsUserCloseEnough(userLocation);
+                bool isUserCloseToLandmark = IsUserCloseEnough(userLocation, landmarkToReach);
 
-                List<Location> userToLandmarkPolylineLocations = await GetRoutePolyline(userLocation, _cancellationTokenSource.Token);
+                List<Location> userToLandmarkPolylineLocations = await GetRoutePolyline(userLocation, landmarkToReach, _cancellationTokenSource.Token);
 
                 // If the cancellation token was cancelled, return null, otherwise return a MapUpdate.
                 if (_cancellationTokenSource.IsCancellationRequested) return null;
-                else return new MapUpdate(userLocation, _landmarkToReach, isUserCloseToLandmark, userToLandmarkPolylineLocations);
+                else return new MapUpdate(userLocation, isUserCloseToLandmark, userToLandmarkPolylineLocations);
             }
             catch (Exception)
             {
-                // Re-throw the exception, so the finally block can be executed.
+                // Re-throw the same exception, so the finally block can be executed.
                 throw;
             }
             finally
@@ -101,7 +77,7 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="Exception">Any other error that occurs when attempting to reetrieve the user's location.</exception>
         private async Task<Location> GetUserLocation(CancellationToken cancellationToken)
         {
-            GeolocationRequest request = new(LOCATION_ACCURACY, TimeSpan.FromSeconds(LOCATION_REQUEST_TIMEOUT_SECONDS));
+            GeolocationRequest request = new(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
 
             Location? userLocation = await _geolocationAPI.GetLocationAsync(request, cancellationToken);
 
@@ -113,35 +89,26 @@ namespace VVVoyage.Subsystems.Navigation
         /// Calculates the distance between the user and the landmark to reach. Determines if the user is close enough to the landmark.
         /// </summary>
         /// <returns>Whether the user is X meters away from the landmark.</returns>
-        private bool IsUserCloseEnough(Location userLocation)
+        private bool IsUserCloseEnough(Location userLocation, Sight landmark)
         {
-            Location landmarkLocation = _landmarkToReach.SightPin.Location;
+            Location landmarkLocation = landmark.SightPin.Location;
 
             // TODO think about replacing this calculation with one that accounts for roads.
             double distanceKM = Location.CalculateDistance(userLocation, landmarkLocation, DistanceUnits.Kilometers);
 
-            if (distanceKM <= SIGHT_TRIGGER_DISTANCE_METERS)
-            {
-                // Update the landmark to reach by getting the next landmark in the list.
-                int nextIndex = _route.IndexOf(_landmarkToReach) + 1;
-                _landmarkToReach = _route[nextIndex];
-
-                return true;
-            }
-
-            return false;
+            return distanceKM <= 0.015;
         }
 
         /// <summary>
         /// Gets the encoded polyline from the Google Directions API between the user's location and the current landmark's location.
         /// </summary>
         /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
-        private async Task<List<Location>> GetRoutePolyline(Location userLocation, CancellationToken cancellationToken)
+        private async Task<List<Location>> GetRoutePolyline(Location userLocation, Sight landmarkToReach, CancellationToken cancellationToken)
         {
             using var client = new HttpClient();
 
             List<Location> locations = [];
-            Location landmarkLocation = _landmarkToReach.SightPin.Location;
+            Location landmarkLocation = landmarkToReach.SightPin.Location;
 
             // Request URL contains the user's location and the landmark's location, and requests for the route between them.
             var requestURL = $"https://maps.googleapis.com/maps/api/directions/json?origin={userLocation.Latitude}%2C{userLocation.Longitude}&destination={landmarkLocation.Latitude}%2C{landmarkLocation.Longitude}&mode=walking&key={_googleMapsAPIKey}";
