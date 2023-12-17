@@ -9,7 +9,7 @@ namespace VVVoyage.Subsystems.Notification
 {
     internal class PushNotifier : INotifier
     {
-        public async Task ShowNotificationAsync(string message, string title, string okText)
+        public async Task ShowNotificationAsync(string message, string title, string okText = "")
         {
             NotificationRequest notification = new()
             {

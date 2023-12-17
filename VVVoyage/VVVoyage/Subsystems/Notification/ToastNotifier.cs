@@ -10,7 +10,7 @@ namespace VVVoyage.Subsystems.Notification
 {
     internal class ToastNotifier : INotifier
     {
-        public async Task ShowNotificationAsync(string message, string title, string okText)
+        public async Task ShowNotificationAsync(string message, string title = "", string okText = "")
         {
             var toast = Toast.Make(message, ToastDuration.Short);
             await toast.Show();

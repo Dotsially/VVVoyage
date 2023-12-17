@@ -10,7 +10,7 @@ namespace VVVoyage.Subsystems.Notification
     {
         public async Task ShowNotificationAsync(string message, string title, string okText)
         {
-            await Shell.Current.DisplayAlert(message, title, okText);
+            await Shell.Current.DisplayAlert(title, message, okText);
         }
     }
 }
