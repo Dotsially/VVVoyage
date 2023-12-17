@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:VVVoyage.Models"
+             xmlns:viewmodels="clr-namespace:VVVoyage.ViewModels"
+             x:Class="VVVoyage.Views.MainMenuPage"
+             x:DataType="viewmodels:MainMenuPageViewModel"
+             Title="MainMenuPage">
+    <Grid Margin="20, 0" HorizontalOptions="Fill" RowDefinitions="Auto,Auto,Auto,*">
+        <HorizontalStackLayout Grid.Row="0" Margin="0,0,0,50">
+            <Image
+                WidthRequest="70"
+                Source="vvv_logo.svg"/>
+
+            <Image
+                WidthRequest="70"
+                Source="ags_logo.png"/>
+        </HorizontalStackLayout>
+
+        <Picker
+            Title="Select language"
+            HorizontalOptions="End"
+            Grid.Row="0"
+            VerticalOptions="Start"
+            SelectedIndex="0"
+            SelectedIndexChanged="SelectedLanguage_Changed"
+            >
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>English</x:String>
+                    <x:String>Nederlands</x:String>
+                    <x:String>Français</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Label
+            Grid.Row="1"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            Style="{StaticResource Headline}"
+            FontSize="60"
+            Margin="0,0,0,30"
+            FontAttributes="Bold"
+            Text="VVVoyage"/>
+
+        <Label
+            Grid.Row="2"
+            Text="Select a tour"
+            Margin="0,0,0,15"
+            Style="{StaticResource SubHeadline}" />
+
+        <CollectionView
+            Grid.Row="3"
+            ItemsSource="{Binding Tours}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tour">
+                    <Border
+                        StrokeShape="RoundRectangle 40,0,0,40"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray100}}"
+                        StrokeThickness="2">
+                        <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray600}}" Padding="15">
+                            <Grid ColumnDefinitions="*, *">
+                                <Label
+                                    VerticalOptions="Center"
+                                    Grid.Column="0"
+                                    FontSize="Medium"
+                                    Text="{Binding Name}"
+                                    HorizontalOptions="Start" />
+
+                                <Button
+                                    Grid.Column="1"
+                                    Text="Select"
+                                    Clicked="TourButton_Clicked"
+                                    HorizontalOptions="End" />
+                            </Grid>
+
+                            <Label
+                                Margin="0, 10, 0, 0"
+                                Text="{Binding Description}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

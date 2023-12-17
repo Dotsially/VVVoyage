@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using VVVoyage.ViewModels;
+using VVVoyage.Views;
 
 namespace VVVoyage
 {
@@ -21,6 +23,9 @@ namespace VVVoyage
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddSingleton<MainMenuPageViewModel>();
+            builder.Services.AddSingleton<MainMenuPage>();
 
             return builder.Build();
         }
