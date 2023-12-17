@@ -3,6 +3,7 @@ using System.IO.IsolatedStorage;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Maps;
+using VVVoyage.ViewModels;
 using VVVoyage.Models;
 using VVVoyage.Subsystems.Navigation;
 using VVVoyage.Subsystems.Notification;
@@ -11,14 +12,19 @@ namespace VVVoyage
 {
     public partial class MainPage : ContentPage
     {
+        private RootPageViewModel _rootPageViewModel;
+
         private readonly List<Sight> sights;
 
         private readonly INavigator _navigator;
         private readonly INotifier _popupNotifier = new PopupNotifier();
 
+
         public MainPage()
         {
             InitializeComponent();
+
+            _rootPageViewModel = new RootPageViewModel(map);
 
             sights = InitialiseSights();
 
@@ -54,6 +60,13 @@ namespace VVVoyage
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
+            var location = await Geolocation.GetLocationAsync(request);
+
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.25)));
+
+            _rootPageViewModel.OnStartListening();
 
             await UpdateMapRepeatedly();
         }
