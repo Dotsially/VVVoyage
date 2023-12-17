@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VVVoyage.Models
 {
-    internal class Sight
+    public class Sight
     {
         
         public Pin SightPin { get; set; }
