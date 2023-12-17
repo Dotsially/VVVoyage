@@ -9,6 +9,7 @@ namespace VVVoyage
             InitializeComponent();
 
             Routing.RegisterRoute("InstructionsPage", typeof(InstructionsPage));
+            Routing.RegisterRoute("MainMenuPage", typeof(MainMenuPage));
         }
     }
 }
