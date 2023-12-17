@@ -100,8 +100,13 @@ namespace VVVoyage
                         return;
                     }
                 }
-
-                await Task.Delay(2000);
+                else
+                {
+                    // Only wait this interval if the user did not reach a landmark.
+                    // This way, when the user does reach a landmark, there is no/less
+                    // delay when loading the next landmark
+                    await Task.Delay(2000);
+                }
             }
         }
 

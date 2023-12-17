@@ -110,8 +110,16 @@ namespace VVVoyage.Subsystems.Navigation
             List<Location> locations = [];
             Location landmarkLocation = landmarkToReach.SightPin.Location;
 
+            // In the Netherlands, converting a double value to string will result in the dot
+            // being replaced by a comma (so 4.5 becomes 4,5). The Google Directions API does
+            // not accept this, so we need to convert them ourselves.
+            // Also, the comma between latitude and longitude needs to be replaced by %2C for
+            // the URL to work.
+            string userLocationURLString = $"{userLocation.Latitude.ToString().Replace(',', '.')}%2C{userLocation.Longitude.ToString().Replace(',', '.')}";
+            string landmarkLocationURLString = $"{landmarkLocation.Latitude.ToString().Replace(',', '.')}%2C{landmarkLocation.Longitude.ToString().Replace(',', '.')}";
+
             // Request URL contains the user's location and the landmark's location, and requests for the route between them.
-            var requestURL = $"https://maps.googleapis.com/maps/api/directions/json?origin={userLocation.Latitude}%2C{userLocation.Longitude}&destination={landmarkLocation.Latitude}%2C{landmarkLocation.Longitude}&mode=walking&key={_googleMapsAPIKey}";
+            var requestURL = $"https://maps.googleapis.com/maps/api/directions/json?origin={userLocationURLString}&destination={landmarkLocationURLString}&mode=walking&key={_googleMapsAPIKey}";
             
             // Make the request and receive the response
             var response = await client.GetAsync(requestURL, cancellationToken);
