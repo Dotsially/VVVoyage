@@ -14,7 +14,8 @@
 
             <Image
                 WidthRequest="70"
-                Source="ags_logo.png"/>
+                Margin="20,0,0,0"
+                Source="ags_logo.svg"/>
         </HorizontalStackLayout>
 
         <Picker
