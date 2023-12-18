@@ -6,7 +6,7 @@ namespace VVVoyage.Views;
 
 public partial class MainMenuPage : ContentPage
 {
-	public MainMenuPage(MainMenuPageViewModel viewModel)
+	public MainMenuPage(MainMenuViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;

@@ -9,12 +9,12 @@ using VVVoyage.Models;
 
 namespace VVVoyage.ViewModels
 {
-    public partial class MainMenuPageViewModel : ObservableObject
+    public partial class MainMenuViewModel : ObservableObject
     {
         [ObservableProperty]
         public ObservableCollection<Tour> tours;
 
-        public MainMenuPageViewModel()
+        public MainMenuViewModel()
         {
             tours = [
                 new("Antique tour", "Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today."),

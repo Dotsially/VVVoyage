@@ -24,7 +24,7 @@ namespace VVVoyage
     		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<MainMenuPageViewModel>();
+            builder.Services.AddSingleton<MainMenuViewModel>();
             builder.Services.AddSingleton<MainMenuPage>();
 
             return builder.Build();
