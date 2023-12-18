@@ -9,8 +9,8 @@
     Title="VVVoyage">
 
     <ShellContent
-        Title="Home"
+        Title="Main menu"
         ContentTemplate="{DataTemplate views:MainMenuPage}"
-        Route="MainPage" />
+        Route="MainMenuPage" />
 
 </Shell>

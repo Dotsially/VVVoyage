@@ -49,6 +49,7 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\back_arrow.svg" Resize="True" BaseSize="100,100" />
 		<MauiImage Update="Resources\Images\vvv_logo.svg" Resize="True" BaseSize="100,100" />
+		<MauiImage Update="Resources\Images\help_circle.svg" Resize="True" BaseSize="50,50" TintColor="#DFDFDF" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
@@ -61,6 +62,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\ags_logo.svg" />
 	  <None Remove="Resources\Images\back_arrow.svg" />
+	  <None Remove="Resources\Images\help_circle.svg" />
 	  <None Remove="Resources\Images\vvv_logo.svg" />
 	</ItemGroup>
 

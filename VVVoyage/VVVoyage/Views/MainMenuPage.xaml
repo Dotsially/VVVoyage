@@ -4,9 +4,9 @@
              xmlns:models="clr-namespace:VVVoyage.Models"
              xmlns:viewmodels="clr-namespace:VVVoyage.ViewModels"
              x:Class="VVVoyage.Views.MainMenuPage"
-             x:DataType="viewmodels:MainMenuPageViewModel"
+             x:DataType="viewmodels:MainMenuViewModel"
              Title="MainMenuPage">
-    <Grid Margin="20, 0" HorizontalOptions="Fill" RowDefinitions="Auto,Auto,Auto,*">
+    <Grid Margin="20, 0" HorizontalOptions="Fill" RowDefinitions="Auto,Auto,Auto,*,Auto">
         <HorizontalStackLayout Grid.Row="0" Margin="0,0,0,50">
             <Image
                 WidthRequest="70"
@@ -21,7 +21,6 @@
         <Picker
             Title="Select language"
             HorizontalOptions="End"
-            Grid.Row="0"
             VerticalOptions="Start"
             SelectedIndex="0"
             SelectedIndexChanged="SelectedLanguage_Changed"
@@ -87,5 +86,18 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <VerticalStackLayout Grid.Row="4">
+            <Button
+                ImageSource="help_circle.svg"
+                HorizontalOptions="Center"
+                HeightRequest="50"
+                Margin="15"
+                Clicked="InstructionsButton_Clicked"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                Text="Help">
+                
+            </Button>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

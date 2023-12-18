@@ -10,8 +10,20 @@ using VVVoyage.Subsystems.Notification;
 
 namespace VVVoyage
 {
+    [QueryProperty(nameof(TourName), "tourName")]
     public partial class MainPage : ContentPage
     {
+        private string _tourName;
+        public string TourName
+        {
+            get => _tourName;
+            set
+            {
+                _tourName = value;
+                OnPropertyChanged();
+            }
+        }
+
         private RootPageViewModel _rootPageViewModel;
 
         public MainPage()

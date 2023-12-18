@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,15 +13,20 @@ namespace VVVoyage.ViewModels
     public partial class MainMenuViewModel : ObservableObject
     {
         [ObservableProperty]
-        public ObservableCollection<Tour> tours;
-
-        public MainMenuViewModel()
-        {
-            tours = [
+        public ObservableCollection<Tour> tours = [
                 new("Antique tour", "Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today."),
                 new("Food tour", "Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?"),
                 new("Wagenberg tour", "One-way ticket to Wagenberg (if it even exists). You'll probably die alone on this tour.")
             ];
+
+        public void SetLanguage(string language)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task StartTourAsync(Tour tour)
+        {
+            await Shell.Current.GoToAsync($"MainPage?tourName={tour.Name}");
         }
     }
 }

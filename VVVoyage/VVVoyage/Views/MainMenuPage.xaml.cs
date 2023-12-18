@@ -6,27 +6,29 @@ namespace VVVoyage.Views;
 
 public partial class MainMenuPage : ContentPage
 {
+	private readonly MainMenuViewModel _viewModel;
+
 	public MainMenuPage(MainMenuViewModel viewModel)
 	{
 		InitializeComponent();
+		_viewModel = viewModel;
         BindingContext = viewModel;
     }
 
 	private void SelectedLanguage_Changed(object sender, EventArgs e)
 	{
 		if (sender is Picker picker && picker.SelectedItem is string selectedLanguage)
-		{
-			// TODO change language to newly selected language
-			Debug.WriteLine(selectedLanguage);
-		}
+			_viewModel.SetLanguage(selectedLanguage);
 	}
 
-	private void TourButton_Clicked(object sender, EventArgs e)
+	private async void TourButton_Clicked(object sender, EventArgs e)
 	{
 		if (sender is Button button && button.BindingContext is Tour tour)
-		{
-			// TODO hook this up to MainMenuViewModel
-			Debug.WriteLine($"{tour.Name}, {tour.Description}");
-		}
-	}
+			await _viewModel.StartTourAsync(tour);
+    }
+
+    private async void InstructionsButton_Clicked(object sender, EventArgs e)
+    {
+		await Shell.Current.GoToAsync("InstructionsPage");
+    }
 }
