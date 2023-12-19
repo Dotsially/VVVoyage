@@ -3,9 +3,21 @@ namespace TestProject.Tests
     public class NotificationTests
     {
         [Fact]
-        public void Test()
+        public async Task TestPopupNotifier()
         {
+            
+        }
 
+        [Fact]
+        public async Task TestPushNotifier()
+        {
+            
+        }
+
+        [Fact]
+        public async Task TestToastNotifier()
+        {
+            
         }
     }
 }
