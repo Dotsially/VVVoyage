@@ -10,41 +10,52 @@ using VVVoyage.Subsystems.Notification;
 
 namespace VVVoyage
 {
-    [QueryProperty(nameof(TourName), "tourName")]
+    [QueryProperty(nameof(Tour), "Tour")]
     public partial class MainPage : ContentPage
     {
-        private string _tourName;
-        public string TourName
+        private Tour _tour;
+        public Tour Tour
         {
-            get => _tourName;
+            get => _tour;
             set
             {
-                _tourName = value;
+                _tour = value;
                 OnPropertyChanged();
             }
         }
 
-        private RootPageViewModel _rootPageViewModel;
+        private RootPageViewModel _viewModel;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         public MainPage()
         {
             InitializeComponent();
-
-            _rootPageViewModel = new RootPageViewModel(map);
         }
 
-        protected override async void OnAppearing()
+        protected async override void OnAppearing()
         {
-            base.OnAppearing();
+            await Task.Delay(500);
 
-            var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-            var location = await Geolocation.GetLocationAsync(request);
+            // Move map to Grote Kerk Breda
+            map.MoveToRegion(new MapSpan(new Location(51.588833, 4.775278), 0.02, 0.02));
 
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(0.25)));
+            _viewModel = new RootPageViewModel(
+                new(Tour.Landmarks),
+                map,
+                new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
+                new PopupNotifier()
+            );
 
-            _rootPageViewModel.OnStartListening();
+            await _viewModel.CheckGPSAccess();
 
-            await _rootPageViewModel.UpdateMapRepeatedly();
+            await _viewModel.UpdateMapRepeatedly(_cancellationTokenSource.Token);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            _cancellationTokenSource.Cancel();
         }
     }
 }

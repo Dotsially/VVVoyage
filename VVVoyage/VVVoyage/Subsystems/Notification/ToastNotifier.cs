@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VVVoyage.Subsystems.Notification
 {
-    internal class ToastNotifier : INotifier
+    public class ToastNotifier : INotifier
     {
         public async Task ShowNotificationAsync(string message, string title = "", string okText = "")
         {

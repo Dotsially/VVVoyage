@@ -36,6 +36,7 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
+        /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
         /// <exception cref="Exception">Any other error that occurs when attempting to retrieve the user's location or any HTTP request error.</exception>
         public async Task<MapUpdate?> UpdateMapAsync(Sight landmarkToReach)
         {
@@ -44,7 +45,7 @@ namespace VVVoyage.Subsystems.Navigation
             
             try
             {
-                Location userLocation = await GetUserLocation(_cancellationTokenSource.Token);
+                Location userLocation = await GetUserLocationAsync(_cancellationTokenSource.Token);
 
                 bool isUserCloseToLandmark = IsUserCloseEnough(userLocation, landmarkToReach);
 
@@ -73,9 +74,8 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
-        /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
         /// <exception cref="Exception">Any other error that occurs when attempting to reetrieve the user's location.</exception>
-        private async Task<Location> GetUserLocation(CancellationToken cancellationToken)
+        public async Task<Location> GetUserLocationAsync(CancellationToken cancellationToken)
         {
             GeolocationRequest request = new(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
 

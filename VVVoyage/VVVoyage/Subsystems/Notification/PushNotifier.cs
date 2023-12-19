@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VVVoyage.Subsystems.Notification
 {
-    internal class PushNotifier : INotifier
+    public class PushNotifier : INotifier
     {
         public async Task ShowNotificationAsync(string message, string title, string okText = "")
         {

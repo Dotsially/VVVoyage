@@ -7,7 +7,7 @@ using VVVoyage.Models;
 
 namespace VVVoyage.Subsystems.Navigation
 {
-    class MapUpdate(
+    public class MapUpdate(
         Location userLocation,
         bool isUserCloseToLandmark,
         List<Location> userToLandmarkPolylineLocations

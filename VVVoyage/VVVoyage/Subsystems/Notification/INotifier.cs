@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VVVoyage.Subsystems.Notification
 {
-    internal interface INotifier
+    public interface INotifier
     {
         Task ShowNotificationAsync(string message, string title, string okText);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VVVoyage.Subsystems.Notification
 {
-    internal class PopupNotifier : INotifier
+    public class PopupNotifier : INotifier
     {
         public async Task ShowNotificationAsync(string message, string title, string okText)
         {

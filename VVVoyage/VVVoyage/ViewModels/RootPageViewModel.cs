@@ -9,167 +9,64 @@ using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace VVVoyage.ViewModels
 {
-    public class RootPageViewModel
+    public class RootPageViewModel(List<Sight> landmarks, Map map, INavigator navigator, INotifier popupNotifier)
     {
-        private List<Sight> sights;
-        private Map map;
-        private readonly INavigator _navigator;
-        private readonly INotifier _popupNotifier = new PopupNotifier();
+        private readonly Map _map = map;
+        private readonly INavigator _navigator = navigator;
+        private readonly INotifier _popupNotifier = popupNotifier;
 
-        public RootPageViewModel(Map map)
+        private readonly List<Sight> _landmarks = landmarks;
+
+        public async Task CheckGPSAccess()
         {
-            CheckGPSAccess();
-            this.map = map;
-            InitialiseSights();
-            DrawSights();
+            // Check the status before displaying the prompt.
+            // If the permission was already granted, just return.
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
 
-            _navigator = new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o");
+            if (status == PermissionStatus.Granted) return;
 
-            // Move map to Grote Kerk Breda
-            map.MoveToRegion(new MapSpan(new Location(51.588833, 4.775278), 0.02, 0.02));
-        }
+            // Some permissions show a rationale, which happens when a permission has a reason
+            // to be granted by the user. If true, we can write a custom popup that explains
+            // why we need that permission.
+            if (Permissions.ShouldShowRationale<Permissions.LocationAlways>())
+                await _popupNotifier.ShowNotificationAsync("Need permissions", "Map needs to work.", "OK");
 
-        private async void InitialiseSights()
-        {
-            Sight oldBuilding = new Sight("Oud VVV pand", new Location(51.592412225120796, 4.775692730162895), "Een heel mooi kerkje, of optimel drinkyoghurt passievrucht?");
-            Sight loveSister = new Sight("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), "volkswagen polo 1.4 5000 rpm");
-            Sight monument = new Sight("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), "dr oetker tonijn pizza");
-            Sight lightHouse = new Sight("The Light House", new Location(51.584039168945026, 4.774673039583854), "oof");
-            Sight castle = new Sight("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), "marktplaats koopjesjagen");
-            Sight easterEgg = new Sight("Geheime Excelsior bijeenkomst", new Location(51.66222507319058, 4.739362181917831), "fujas");
+            // Request the permission.
+            status = await Permissions.RequestAsync<Permissions.LocationAlways>();
 
-            sights = new List<Sight> { oldBuilding, loveSister, monument, lightHouse, castle, easterEgg };
-        }
-
-        private void DrawSights()
-        {
-            foreach (var sight in sights)
-            {
-                map.Pins.Add(sight.SightPin);
-
-                Circle circle = new Circle
-                {
-                    Center = sight.SightPin.Location,
-                    Radius = new Distance(15),
-                    StrokeColor = Color.FromArgb("#88FF0000"),
-                    StrokeWidth = 8,
-                    FillColor = Color.FromArgb("#88FFC0CB")
-                };
-
-                map.MapElements.Add(circle);
-            }
-        }
-
-        private void DrawSightsWithout(Sight sightToChange)
-        {
-            foreach (var sight in sights)
-            {
-                if (!sight.Equals(sightToChange))
-                {
-                    map.Pins.Add(sight.SightPin);
-
-                    Circle circle = new Circle
-                    {
-                        Center = sight.SightPin.Location,
-                        Radius = new Distance(15),
-                        StrokeColor = Color.FromArgb("#88FF0000"),
-                        StrokeWidth = 8,
-                        FillColor = Color.FromArgb("#88FFC0CB")
-                    };
-
-                    map.MapElements.Add(circle);
-                }
-                else
-                {
-                    map.Pins.Add(sight.SightPin);
-
-                    Circle circle = new Circle
-                    {
-                        Center = sight.SightPin.Location,
-                        Radius = new Distance(15),
-                        StrokeColor = Color.FromArgb("#16288c"),
-                        StrokeWidth = 8,
-                        FillColor = Color.FromArgb("#2949ff")
-                    };
-
-                    map.MapElements.Add(circle);
-                }
-            }
-        }
-
-        private void SightColorChangerIfClose(Location newUserLocation)
-        {
-            foreach (var sight in sights)
-            {
-                double distance = CalculateDistance(newUserLocation.Latitude, newUserLocation.Longitude, sight.SightPin.Location.Latitude, sight.SightPin.Location.Longitude);
-
-                // if the distance is smaller than 15 meters then the user is close to the sight.
-                if (distance < 0.17)
-                {
-                    // TODO: <Wessel> using Plugin.LocalNotification;
-
-                    map.MapElements.Clear();
-                    DrawSightsWithout(sight);
-                }
-            }
-        }
-
-        public async Task OnStartListening()
-        {
-            try
-            {
-                Geolocation.LocationChanged += LocationChanged;
-                var request = new GeolocationListeningRequest(GeolocationAccuracy.High);
-                await Geolocation.StartListeningForegroundAsync(request);
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex.Message);
-            }
-        }
-
-        private async void LocationChanged(object sender, GeolocationLocationChangedEventArgs e)
-        {
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(e.Location, Distance.FromKilometers(0.25)));
-
-            SightColorChangerIfClose(e.Location);
-        }
-
-        private double CalculateDistance(double userLat, double userLong, double stationLat, double stationLong)
-        {
-            double distance = Location.CalculateDistance(userLat, userLong, stationLat, stationLong, DistanceUnits.Kilometers);
-            return distance;
-        }
-
-        private async Task CheckGPSAccess()
-        {
-            var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>() | await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-
+            // GPS location permission not granted let the user know.
             if (status != PermissionStatus.Granted)
             {
-                // GPS location permission not granted let the user know.               
-                await App.Current.MainPage.DisplayAlert("Permission Required", "GPS location permission is required to use this app.", "OK");
+                await _popupNotifier.ShowNotificationAsync("Permission Required", "GPS location permission is required to use this app.", "OK");
+
+                await Shell.Current.GoToAsync("MainMenuPage");
             }
 
             try
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-                var location = await Geolocation.GetLocationAsync(request);
+                await _navigator.GetUserLocationAsync(new());
             }
-            catch(FeatureNotEnabledException ex)
+            catch (FeatureNotSupportedException)
+            {
+                await _popupNotifier.ShowNotificationAsync("GPS not supported", "The app cannot work on this phone, since it does not have a GPS.", "OK");
+
+                await Shell.Current.GoToAsync("MainMenuPage");
+            }
+            catch (FeatureNotEnabledException)
             {
                 // GPS not on   
-                await App.Current.MainPage.DisplayAlert("GPS Required", "GPS is required but turned off now :c", "OK");
+                await _popupNotifier.ShowNotificationAsync("GPS Required", "GPS is required but turned off now :c", "OK");
+
+                await Shell.Current.GoToAsync("MainMenuPage");
             }
-            
         }
 
-        public async Task UpdateMapRepeatedly()
+        public async Task UpdateMapRepeatedly(CancellationToken cancellationToken)
         {
             List<Sight> visibleLandmarks = [];
-            visibleLandmarks.Add(sights[0]);
+            visibleLandmarks.Add(_landmarks[0]);
 
-            while (true)
+            while (Shell.Current.CurrentPage is MainPage)
             {
                 Sight lastLandmark = visibleLandmarks.Last();
                 MapUpdate? mapUpdate = await _navigator.UpdateMapAsync(lastLandmark);
@@ -177,12 +74,12 @@ namespace VVVoyage.ViewModels
                 // If null, that means the map update has been canceled. So, this method should
                 // not request any more map updates.
                 // TODO add a route back to the main menu screen.
-                if (mapUpdate == null) return;
+                if (mapUpdate == null) break;
 
                 Debug.WriteLine("Map update called");
 
-                map.Pins.Clear();
-                map.MapElements.Clear();
+                _map.Pins.Clear();
+                _map.MapElements.Clear();
 
                 // Add visited landmarks to map
                 DisplayLandmarks(visibleLandmarks);
@@ -194,16 +91,17 @@ namespace VVVoyage.ViewModels
                 {
                     await _popupNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "Continue");
 
-                    if (visibleLandmarks.Count < sights.Count)
+                    if (visibleLandmarks.Count < _landmarks.Count)
                     {
-                        Sight nextSight = sights[visibleLandmarks.Count];
+                        Sight nextSight = _landmarks[visibleLandmarks.Count];
                         visibleLandmarks.Add(nextSight);
                     }
                     else
                     {
                         // TODO add route back to the main menu screen.
                         await _popupNotifier.ShowNotificationAsync("Route is done.", "Finished", "OK");
-                        return;
+                        await Shell.Current.GoToAsync("..");
+                        break;
                     }
                 }
                 else
@@ -211,9 +109,14 @@ namespace VVVoyage.ViewModels
                     // Only wait this interval if the user did not reach a landmark.
                     // This way, when the user does reach a landmark, there is no/less
                     // delay when loading the next landmark
-                    await Task.Delay(2000);
+                    try { await Task.Delay(2000, cancellationToken); }
+                    catch (TaskCanceledException) { }
                 }
             }
+
+            _navigator.CancelMapUpdate();
+
+            Debug.WriteLine("Map updating stopped");
         }
 
         /// <summary>
@@ -235,12 +138,12 @@ namespace VVVoyage.ViewModels
                     StrokeWidth = 8,
                     FillColor = Color.FromArgb("#88ABABAB")
                 };
-                map.MapElements.Add(visitedLandmarkCircle);
+                _map.MapElements.Add(visitedLandmarkCircle);
             }
 
             // Add the circle and pin for the unvisited landmark,
             // which is the last element in the visibleLandmarks list.
-            map.MapElements.Add(new Circle()
+            _map.MapElements.Add(new Circle()
             {
                 Center = visibleLandmarks.Last().SightPin.Location,
                 Radius = new Distance(15),
@@ -248,7 +151,7 @@ namespace VVVoyage.ViewModels
                 StrokeWidth = 8,
                 FillColor = Color.FromArgb("#88FFC0CB")
             });
-            map.Pins.Add(new Pin()
+            _map.Pins.Add(new Pin()
             {
                 Label = "Landmark to reach",
                 Location = visibleLandmarks.Last().SightPin.Location
@@ -270,7 +173,7 @@ namespace VVVoyage.ViewModels
             foreach (var location in userToLandmarkPolylineLocations)
                 polyline.Geopath.Add(location);
 
-            map.MapElements.Add(polyline);
+            _map.MapElements.Add(polyline);
         }
     }
 }

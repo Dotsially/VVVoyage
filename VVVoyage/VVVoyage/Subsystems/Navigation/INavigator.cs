@@ -7,9 +7,10 @@ using VVVoyage.Models;
 
 namespace VVVoyage.Subsystems.Navigation
 {
-    interface INavigator
+    public interface INavigator
     {
         Task<MapUpdate?> UpdateMapAsync(Sight landmarkToReach);
+        Task<Location> GetUserLocationAsync(CancellationToken cancellationToken);
         void CancelMapUpdate();
     }
 }
