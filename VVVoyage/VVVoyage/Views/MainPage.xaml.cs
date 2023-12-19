@@ -30,6 +30,9 @@ namespace VVVoyage
         public MainPage()
         {
             InitializeComponent();
+
+            // Hides the App bar at the top of the screen
+            Shell.SetNavBarIsVisible(this, false);
         }
 
         protected async override void OnAppearing()
@@ -56,6 +59,16 @@ namespace VVVoyage
             base.OnDisappearing();
 
             _cancellationTokenSource.Cancel();
+        }
+
+        private async void InstructionsButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("InstructionsPage");
+        }
+
+        private async void StopRouteButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
