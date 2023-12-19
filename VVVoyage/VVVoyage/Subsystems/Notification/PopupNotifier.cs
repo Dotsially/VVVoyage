@@ -8,9 +8,21 @@ namespace VVVoyage.Subsystems.Notification
 {
     public class PopupNotifier : INotifier
     {
-        public async Task ShowNotificationAsync(string message, string title, string okText)
+        public async Task<bool> ShowNotificationAsync(string message, string title, string okText, string cancelText = "")
         {
-            await Shell.Current.DisplayAlert(title, message, okText);
+            bool accepted = true;
+
+            if (string.IsNullOrEmpty(cancelText))
+            {
+                await Shell.Current.DisplayAlert(title, message, okText);
+            }
+            else
+            {
+                accepted = await Shell.Current.DisplayAlert(title, message, okText, cancelText);
+            }
+            
+
+            return accepted;
         }
     }
 }
