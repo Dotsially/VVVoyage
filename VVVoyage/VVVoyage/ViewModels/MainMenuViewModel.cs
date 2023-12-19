@@ -43,17 +43,17 @@ namespace VVVoyage.ViewModels
         public ObservableCollection<Tour> tours = [
             new(
                 "Antique tour",
-                "Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today.",
+                Resources.Localization.AppResources.Antique_Description,
                 [.. tour1Landmarks]
             ),
             new(
                 "Food tour",
-                "Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?",
+                Resources.Localization.AppResources.Food_Description,
                 [.. tour2Landmarks]
             ),
             new(
                 "Wagenberg tour",
-                "One-way ticket to Wagenberg (if it even exists). You'll probably die alone on this tour.",
+                Resources.Localization.AppResources.Wagenberg_Description,
                 [.. tour3Landmarks]
             )
         ];

@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Antique_Description" xml:space="preserve">
-    <value>Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today.</value>
+    <value>Ontdek enkele van de oudste bezienswaardigheden van Breda. Ontdek welke culturele betekenis ze vandaag de dag nog steeds hebben.</value>
   </data>
   <data name="App_Instructions" xml:space="preserve">
-    <value>To start a route, simply click the route button on the main menu screen. You are then able to choose any route you'd like. The route will start right away! Follow the line on the screen to arrive at the next landmark. You will get a notification once you're close. The app will give a useful name and description for the landmark as well. Admire its beauty, and then visit the next landmark. The tour will automatically end once you've visited all landmarks of the route.</value>
+    <value>Om een route te starten, klikt u eenvoudig op de routeknop in het hoofdmenuscherm. Vervolgens kunt u elke gewenste route kiezen. De route gaat meteen van start! Volg de lijn op het scherm om bij het volgende oriëntatiepunt te komen. Je krijgt een melding zodra je in de buurt bent. De app geeft ook een nuttige naam en beschrijving voor het oriëntatiepunt. Bewonder de schoonheid ervan en bezoek vervolgens het volgende monument. De tour eindigt automatisch zodra je alle bezienswaardigheden van de route hebt bezocht.</value>
   </data>
   <data name="Castle_Description" xml:space="preserve">
     <value>Description of the Castle of Breda.</value>
   </data>
   <data name="Ensure_Gps" xml:space="preserve">
-    <value>• Ensure that the GPS functionality on your phone is working and that this app has access to it;</value>
+    <value>• Zorg ervoor dat de GPS-functionaliteit op uw telefoon werkt en dat deze app hier toegang toe heeft;</value>
   </data>
   <data name="Ensure_Wifi" xml:space="preserve">
-    <value>• Ensure that you are using Wi-Fi or cellular data throughout the tour;</value>
+    <value>• Zorg ervoor dat u tijdens de tour Wi-Fi of mobiele data gebruikt;</value>
   </data>
   <data name="Food_Description" xml:space="preserve">
-    <value>Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?</value>
+    <value>Breda is de thuisbasis van enkele van de meest unieke snacks en maaltijden. Altijd al willen weten hoe een frikandel of kroket smaakt?</value>
   </data>
   <data name="General_Outline" xml:space="preserve">
-    <value>General outline</value>
+    <value>Algemeen overzicht</value>
   </data>
   <data name="Important" xml:space="preserve">
-    <value>Important</value>
+    <value>Belangrijk</value>
   </data>
   <data name="Liefdeszusters_Description" xml:space="preserve">
     <value>Description of the Liefdeszusters landmark.</value>
@@ -154,15 +154,15 @@
     <value>The building in which the VVV used to be housed inside.</value>
   </data>
   <data name="Select_Tour" xml:space="preserve">
-    <value>Select a tour</value>
+    <value>Kies een tour</value>
   </data>
   <data name="Wagenberg_Description" xml:space="preserve">
-    <value>One-way ticket to Wagenberg (if it even exists). You'll probably die alone on this tour.</value>
+    <value>Enkeltje Wagenberg (als dat überhaupt bestaat). Tijdens deze tour zul je waarschijnlijk alleen sterven. (pas op voor wilde vcw voetbalfans)</value>
   </data>
   <data name="Warning_Close" xml:space="preserve">
-    <value>• Closing the app while doing the tour stops the tour.</value>
+    <value>• Als u de app sluit terwijl u de rondleiding doet, wordt de rondleiding stopgezet.</value>
   </data>
   <data name="Welcome_Message" xml:space="preserve">
-    <value>Welcome to VVVoyage, your tour guide through Breda!</value>
+    <value>Welkom bij VVVoyage, jouw rondreisgids door Breda!</value>
   </data>
 </root>

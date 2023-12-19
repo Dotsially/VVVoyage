@@ -61,11 +61,74 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today..
+        /// </summary>
+        internal static string Antique_Description {
+            get {
+                return ResourceManager.GetString("Antique_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To start a route, simply click the route button on the main menu screen. You are then able to choose any route you&apos;d like. The route will start right away! Follow the line on the screen to arrive at the next landmark. You will get a notification once you&apos;re close. The app will give a useful name and description for the landmark as well. Admire its beauty, and then visit the next landmark. The tour will automatically end once you&apos;ve visited all landmarks of the route..
+        /// </summary>
+        internal static string App_Instructions {
+            get {
+                return ResourceManager.GetString("App_Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description of the Castle of Breda..
         /// </summary>
         internal static string Castle_Description {
             get {
                 return ResourceManager.GetString("Castle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Ensure that the GPS functionality on your phone is working and that this app has access to it;.
+        /// </summary>
+        internal static string Ensure_Gps {
+            get {
+                return ResourceManager.GetString("Ensure_Gps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Ensure that you are using Wi-Fi or cellular data throughout the tour;.
+        /// </summary>
+        internal static string Ensure_Wifi {
+            get {
+                return ResourceManager.GetString("Ensure_Wifi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?.
+        /// </summary>
+        internal static string Food_Description {
+            get {
+                return ResourceManager.GetString("Food_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General outline.
+        /// </summary>
+        internal static string General_Outline {
+            get {
+                return ResourceManager.GetString("General_Outline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Important.
+        /// </summary>
+        internal static string Important {
+            get {
+                return ResourceManager.GetString("Important", resourceCulture);
             }
         }
         
@@ -102,6 +165,42 @@ namespace VVVoyage.Resources.Localization {
         internal static string Old_VVV_Description {
             get {
                 return ResourceManager.GetString("Old_VVV_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a tour.
+        /// </summary>
+        internal static string Select_Tour {
+            get {
+                return ResourceManager.GetString("Select_Tour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One-way ticket to Wagenberg (if it even exists). You&apos;ll probably die alone on this tour..
+        /// </summary>
+        internal static string Wagenberg_Description {
+            get {
+                return ResourceManager.GetString("Wagenberg_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to • Closing the app while doing the tour stops the tour..
+        /// </summary>
+        internal static string Warning_Close {
+            get {
+                return ResourceManager.GetString("Warning_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to VVVoyage, your tour guide through Breda!.
+        /// </summary>
+        internal static string Welcome_Message {
+            get {
+                return ResourceManager.GetString("Welcome_Message", resourceCulture);
             }
         }
     }
