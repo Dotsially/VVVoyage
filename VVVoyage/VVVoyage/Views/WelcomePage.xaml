@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VVVoyage.Views.WelcomePage"
+             >
+    <VerticalStackLayout>
+        
+        <Label 
+            Text="VVVoayage"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontSize="28"
+            Margin="0,15,0,30"/>
+
+        <Button Text="Random route" BackgroundColor="YellowGreen" Margin="0,0,0,10"/>
+        <Button Text="Help" BackgroundColor="Bisque" Margin="0,0,0,10"/>
+
+        <HorizontalStackLayout Padding="20">
+            <Image Source="ags.jpg"/>
+            <Image Source="ags.jpg"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
