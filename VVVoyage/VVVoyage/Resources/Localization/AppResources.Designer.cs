@@ -136,7 +136,9 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description of the Liefdeszusters landmark..
+        ///   Looks up a localized string similar to Officially, this statue is called the &quot;Liefdeszuster of St. Vincent de St. Paul de Chartres.&quot; It symbolizes the religious history of Breda. The creator, Jos van Riemsdijk, depicts with the Liefdeszuster the care that the hospice sisters practiced for centuries.
+        ///
+        ///The Meeùs concern donated the statue in 1990..
         /// </summary>
         internal static string Liefdeszusters_Description {
             get {
@@ -145,7 +147,7 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description of the light house..
+        ///   Looks up a localized string similar to Certainly noteworthy, a lighthouse in the Breda canal. It is not intended to guide seafaring vessels, though. &quot;The Lighthouse&quot; is an artwork by the Italian architect/artist Aldo Rossi. The idea for a Rossi artwork in Breda originated when he exhibited in the Breda Beyerd in the 1980s (the current location of the Stedelijk Museum). Rossi had previously exhibited lighthouses in Toronto and Rotterdam, and in 1992, &quot;The Lighthouse&quot; was installed in Breda. Initially placed in the Wilhelminavijver, it found its p [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Light_House_Description {
             get {
@@ -154,7 +156,9 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description of the Nassau Baronie landmark..
+        ///   Looks up a localized string similar to The Nassau Monument, also known as the Baroniemonument, commemorates the arrival of the German Count Engelbrecht of Nassau in the Netherlands. The three reliefs depict the inauguration of Engelbrecht and his wife, the eleven-year-old Johanna van Polanen from Breda, as Lord and Lady of Breda. Through their marriage, Engelbrecht and Johanna laid the foundation for the House of Orange-Nassau, our Dutch Royal Family.
+        ///
+        ///The monument was ceremoniously unveiled in 1905 by Queen Wilhelmina. Around it, the coats of [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Nassau_Description {
             get {
@@ -163,7 +167,9 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The building in which the VVV used to be housed inside..
+        ///   Looks up a localized string similar to At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
+        ///
+        ///However, a bit of the VVV is mak [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Old_VVV_Description {
             get {
