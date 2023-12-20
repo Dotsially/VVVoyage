@@ -124,7 +124,15 @@
     <value>To start a route, simply click the route button on the main menu screen. You are then able to choose any route you'd like. The route will start right away! Follow the line on the screen to arrive at the next landmark. You will get a notification once you're close. The app will give a useful name and description for the landmark as well. Admire its beauty, and then visit the next landmark. The tour will automatically end once you've visited all landmarks of the route.</value>
   </data>
   <data name="Castle_Description" xml:space="preserve">
-    <value>Description of the Castle of Breda.</value>
+    <value>Breda Castle was once the ancestral home of the Nassaus, the ancestors of our royal family. Because of the important international role of the Nassaus, the Castle was an important place in Europe during the 15th to 17th centuries.
+
+A long history
+Breda Castle has a long history. A castle stood on the site of the current castle as early as 1198. The castle came into the hand of the Nassaus in the early 15th century through the marriage of German count Engelbrecht van Nassau to Breda’s Johanna van Polanen.
+
+The castle has been demolished and built almost continuously over the centuries.
+
+From Renaissance Palace to KMA
+In the 16th century, County Henry III of Nassau had the castle rigorously rebuilt into a Renaissance palace. For this, he brought Thomas Vincidor de Bologna, a pupil of Rafael, to Breda. With the arrival of the Royal Military Academy in 1826, the castle was again downsized and many of the Renaissance ornaments disappeared.</value>
   </data>
   <data name="Ensure_Gps" xml:space="preserve">
     <value>• Ensure that the GPS functionality on your phone is working and that this app has access to it;</value>
