@@ -20,6 +20,9 @@ namespace VVVoyage.ViewModels
         private readonly List<Sight> _landmarks = landmarks;
 
         [ObservableProperty]
+        private string landmarkName;
+
+        [ObservableProperty]
         private string imageString;
 
         public async Task CheckGPSAccess()
@@ -77,6 +80,7 @@ namespace VVVoyage.ViewModels
                 MapUpdate? mapUpdate = await _navigator.UpdateMapAsync(lastLandmark);
 
                 ImageString = lastLandmark.GetImageString();
+                LandmarkName = lastLandmark.SightPin.Address;
 
                 // If null, that means the map update has been canceled. So, this method should
                 // not request any more map updates.

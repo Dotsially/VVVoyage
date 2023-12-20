@@ -7,50 +7,68 @@
              xmlns:viewModel="clr-namespace:VVVoyage.ViewModels"
              xmlns:lang="clr-namespace:VVVoyage.Resources.Localization">
 
-    <Grid RowDefinitions="Auto, *">
+    <Grid RowDefinitions="Auto, Auto, *">
         <maps:Map
             Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             x:Name="map"
             IsShowingUser="True" />
 
-        <VerticalStackLayout Grid.Row="0" Margin="10">
-            
-            <HorizontalStackLayout Margin="10">
-                
-                <Button
-                    Margin="10"
-                    ImageSource="help_circle.svg"
-                    Clicked="InstructionsButton_Clicked"
-                    BackgroundColor="{StaticResource Primary}"
-                    Text="Help"
-                    TextColor="White"/>
+        <HorizontalStackLayout
+            Grid.Row="0"
+            Spacing="10"
+            Margin="10"
+            HorizontalOptions="Start">
 
-                <Button
-                    Margin="10"
-                    Text="Stop route"
-                    Clicked="StopRouteButton_Clicked"
-                    BackgroundColor="DarkRed"
-                    TextColor="White"/>
+            <Border
+                VerticalOptions="Start"
+                MaximumWidthRequest="130"
+                MaximumHeightRequest="130"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 10">
+                <Image
+                    Aspect="AspectFit"
+                    Source="{Binding ImageString}" />
+            </Border>
 
-            </HorizontalStackLayout>
-            
-            <Label 
-                Margin="10"
-                Text="{x:Static lang:AppResources.Next_Sight}"
-                TextColor="Black"
-                BackgroundColor="White"
+            <Border
+                VerticalOptions="Start"
+                StrokeThickness="0"
                 MaximumWidthRequest="150"
-                HorizontalOptions="Start"/>
-            
-            <Image
-                Margin="10"
-                Source="{Binding ImageString}"
                 MaximumHeightRequest="150"
-                MaximumWidthRequest="150"
-                HorizontalOptions="Start"/>
-            
+                StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout
+                    Padding="10"
+                    BackgroundColor="{StaticResource Secondary}">
+                    <Label
+                        Text="{x:Static lang:AppResources.Navigation_Instruction}"
+                        TextColor="Black"
+                        FontAttributes="Bold"/>
+
+                    <Label
+                        Text="{Binding LandmarkName}"
+                        TextColor="Black"
+                        />
+                </VerticalStackLayout>
+                
+            </Border>
+        </HorizontalStackLayout>
+
+        <VerticalStackLayout Margin="0,65,10,0" Spacing="15" HorizontalOptions="End">
+            <Button
+                VerticalOptions="Start"
+                ImageSource="help_circle.svg"
+                Clicked="InstructionsButton_Clicked"
+                BackgroundColor="{StaticResource Primary}"
+                Text="Help"
+                TextColor="White"/>
+
+            <Button
+                VerticalOptions="Start"
+                Text="Stop tour"
+                Clicked="StopRouteButton_Clicked"
+                BackgroundColor="DarkRed"
+                TextColor="White"/>
         </VerticalStackLayout>
-        
     </Grid>
 </ContentPage>
