@@ -14,8 +14,10 @@ namespace VVVoyage.Models
         public Pin SightPin { get; set; }
         public string SightDescription { get; set; }
 
+        private string imageString;
 
-        public Sight(string sightName, Location location, string sightDescription)
+
+        public Sight(string sightName, Location location, string sightDescription, string imageString)
         {
             SightPin = new Pin
             {
@@ -26,6 +28,8 @@ namespace VVVoyage.Models
             };
 
             SightDescription = sightDescription;
+
+            this.imageString = imageString;
         }
 
         public Sight(string sightLabel, string sightName, Location location, string sightDescription) 
@@ -41,5 +45,9 @@ namespace VVVoyage.Models
             SightDescription = sightDescription;
         }
 
+        public string GetImageString()
+        {
+            return imageString;
+        }
     }
 }

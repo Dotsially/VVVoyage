@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VVVoyage.MainPage">
+             x:Class="VVVoyage.MainPage"
+             x:DataType="viewModel:RootPageViewModel"
+             xmlns:viewModel="clr-namespace:VVVoyage.ViewModels">
 
     <Grid RowDefinitions="Auto, *">
         <maps:Map
@@ -11,21 +13,43 @@
             x:Name="map"
             IsShowingUser="True" />
 
-        <HorizontalStackLayout Grid.Row="0" Margin="10">
-            <Button
-                ImageSource="help_circle.svg"
-                Clicked="InstructionsButton_Clicked"
-                HeightRequest="45"
-                BackgroundColor="{StaticResource Primary}"
-                Text="Help"
-                TextColor="White"/>
+        <VerticalStackLayout Grid.Row="0" Margin="10">
             
-            <Button
-                Text="Stop route"
-                Clicked="StopRouteButton_Clicked"
-                Margin="10,0"
-                BackgroundColor="DarkRed"
-                TextColor="White"/>
-        </HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
+                
+                <Button
+                    Margin="10"
+                    ImageSource="help_circle.svg"
+                    Clicked="InstructionsButton_Clicked"
+                    BackgroundColor="{StaticResource Primary}"
+                    Text="Help"
+                    TextColor="White"/>
+
+                <Button
+                    Margin="10"
+                    Text="Stop route"
+                    Clicked="StopRouteButton_Clicked"
+                    BackgroundColor="DarkRed"
+                    TextColor="White"/>
+
+            </HorizontalStackLayout>
+            
+            <Label 
+                Margin="10"
+                Text="hier de localization"
+                TextColor="Black"
+                BackgroundColor="White"
+                MaximumWidthRequest="150"
+                HorizontalOptions="Start"/>
+            
+            <Image
+                Margin="10"
+                Source="{Binding ImageString}"
+                MaximumHeightRequest="150"
+                MaximumWidthRequest="150"
+                HorizontalOptions="Start"/>
+            
+        </VerticalStackLayout>
+        
     </Grid>
 </ContentPage>

@@ -14,29 +14,29 @@ namespace VVVoyage.ViewModels
     {
         private static readonly List<Sight> tour1Landmarks =
         [
-            new("Old VVV building", new Location(51.594112, 4.779417), Resources.Localization.AppResources.Old_VVV_Description),
-            new("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), Resources.Localization.AppResources.Liefdeszusters_Description),
-            new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), Resources.Localization.AppResources.Nassau_Description),
-            new("The Light House", new Location(51.584039168945026, 4.774673039583854), Resources.Localization.AppResources.Light_House_Description),
-            new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), Resources.Localization.AppResources.Castle_Description),
+            new("Old VVV building", new Location(51.594112, 4.779417), Resources.Localization.AppResources.Old_VVV_Description, "dotnet_bot.png"),
+            new("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), Resources.Localization.AppResources.Liefdeszusters_Description, "ags_logo.svg"),
+            new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), Resources.Localization.AppResources.Nassau_Description, "dotnet_bot.png"),
+            new("The Light House", new Location(51.584039168945026, 4.774673039583854), Resources.Localization.AppResources.Light_House_Description, "dotnet_bot.png"),
+            new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), Resources.Localization.AppResources.Castle_Description, "dotnet_bot.png"),
         ];
 
         private static readonly List<Sight> tour2Landmarks =
         [
-            new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), Resources.Localization.AppResources.Nassau_Description),
-            new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), Resources.Localization.AppResources.Castle_Description),
-            new("Old VVV building", new Location(51.594112, 4.779417), Resources.Localization.AppResources.Old_VVV_Description),
-            new("The Light House", new Location(51.584039168945026, 4.774673039583854), Resources.Localization.AppResources.Light_House_Description),
-            new("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), Resources.Localization.AppResources.Liefdeszusters_Description),
+            new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), Resources.Localization.AppResources.Nassau_Description, "dotnet_bot.png"),
+            new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), Resources.Localization.AppResources.Castle_Description, "dotnet_bot.png"),
+            new("Old VVV building", new Location(51.594112, 4.779417), Resources.Localization.AppResources.Old_VVV_Description, "dotnet_bot.png"),
+            new("The Light House", new Location(51.584039168945026, 4.774673039583854), Resources.Localization.AppResources.Light_House_Description, "dotnet_bot.png"),
+            new("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), Resources.Localization.AppResources.Liefdeszusters_Description, "dotnet_bot.png"),
         ];
 
         private static readonly List<Sight> tour3Landmarks =
         [
-            new("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), Resources.Localization.AppResources.Liefdeszusters_Description),
-            new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), Resources.Localization.AppResources.Nassau_Description),
-            new("The Light House", new Location(51.584039168945026, 4.774673039583854), Resources.Localization.AppResources.Light_House_Description),
-            new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), Resources.Localization.AppResources.Castle_Description),
-            new("Old VVV building", new Location(51.594112, 4.779417), Resources.Localization.AppResources.Old_VVV_Description),
+            new("Liefdeszusters", new Location(51.59336561016905, 4.779405797254084), Resources.Localization.AppResources.Liefdeszusters_Description, "dotnet_bot.png"),
+            new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), Resources.Localization.AppResources.Nassau_Description, "dotnet_bot.png"),
+            new("The Light House", new Location(51.584039168945026, 4.774673039583854), Resources.Localization.AppResources.Light_House_Description, "dotnet_bot.png"),
+            new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), Resources.Localization.AppResources.Castle_Description, "dotnet_bot.png"),
+            new("Old VVV building", new Location(51.594112, 4.779417), Resources.Localization.AppResources.Old_VVV_Description, "dotnet_bot.png"),
         ];
 
         [ObservableProperty]

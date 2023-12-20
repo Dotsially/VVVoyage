@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Maps;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -9,7 +10,7 @@ using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace VVVoyage.ViewModels
 {
-    public class RootPageViewModel(List<Sight> landmarks, Map map, INavigator navigator, INotifier popupNotifier, INotifier pushNotifier)
+    public partial class RootPageViewModel(List<Sight> landmarks, Map map, INavigator navigator, INotifier popupNotifier, INotifier pushNotifier):ObservableObject
     {
         private readonly Map _map = map;
         private readonly INavigator _navigator = navigator;
@@ -17,6 +18,9 @@ namespace VVVoyage.ViewModels
         private readonly INotifier _pushNotifier = pushNotifier;
 
         private readonly List<Sight> _landmarks = landmarks;
+
+        [ObservableProperty]
+        private string imageString;
 
         public async Task CheckGPSAccess()
         {
@@ -71,6 +75,9 @@ namespace VVVoyage.ViewModels
             {
                 Sight lastLandmark = visibleLandmarks.Last();
                 MapUpdate? mapUpdate = await _navigator.UpdateMapAsync(lastLandmark);
+
+               
+                ImageString = lastLandmark.GetImageString();
 
                 // If null, that means the map update has been canceled. So, this method should
                 // not request any more map updates.

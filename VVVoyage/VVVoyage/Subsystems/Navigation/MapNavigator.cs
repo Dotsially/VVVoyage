@@ -91,6 +91,7 @@ namespace VVVoyage.Subsystems.Navigation
         /// <returns>Whether the user is X meters away from the landmark.</returns>
         private bool IsUserCloseEnough(Location userLocation, Sight landmark)
         {
+            return true;
             Location landmarkLocation = landmark.SightPin.Location;
 
             // TODO think about replacing this calculation with one that accounts for roads.
