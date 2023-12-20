@@ -9,11 +9,12 @@ using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace VVVoyage.ViewModels
 {
-    public class RootPageViewModel(List<Sight> landmarks, Map map, INavigator navigator, INotifier popupNotifier)
+    public class RootPageViewModel(List<Sight> landmarks, Map map, INavigator navigator, INotifier popupNotifier, INotifier pushNotifier)
     {
         private readonly Map _map = map;
         private readonly INavigator _navigator = navigator;
         private readonly INotifier _popupNotifier = popupNotifier;
+        private readonly INotifier _pushNotifier = pushNotifier;
 
         private readonly List<Sight> _landmarks = landmarks;
 
@@ -73,7 +74,6 @@ namespace VVVoyage.ViewModels
 
                 // If null, that means the map update has been canceled. So, this method should
                 // not request any more map updates.
-                // TODO add a route back to the main menu screen.
                 if (mapUpdate == null) break;
 
                 Debug.WriteLine("Map update called");
@@ -89,6 +89,8 @@ namespace VVVoyage.ViewModels
 
                 if (mapUpdate.IsUserCloseToLandmark)
                 {
+                    await _pushNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "");
+
                     await _popupNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "Continue");
 
                     if (visibleLandmarks.Count < _landmarks.Count)
@@ -98,9 +100,12 @@ namespace VVVoyage.ViewModels
                     }
                     else
                     {
-                        // TODO add route back to the main menu screen.
+                        await _pushNotifier.ShowNotificationAsync("You have finished the tour! We hope you had a wonderful experience!", "Tour end", "");
+                        
                         await _popupNotifier.ShowNotificationAsync("Route is done.", "Finished", "OK");
+
                         await Shell.Current.GoToAsync("..");
+
                         break;
                     }
                 }

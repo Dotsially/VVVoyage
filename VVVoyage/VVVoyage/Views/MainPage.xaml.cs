@@ -46,7 +46,8 @@ namespace VVVoyage
                 new(Tour.Landmarks),
                 map,
                 new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
-                new PopupNotifier()
+                new PopupNotifier(),
+                new PushNotifier()
             );
 
             await _viewModel.CheckGPSAccess();

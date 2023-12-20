@@ -8,6 +8,6 @@ namespace VVVoyage.Subsystems.Notification
 {
     public interface INotifier
     {
-        Task ShowNotificationAsync(string message, string title, string okText);
+        Task<bool> ShowNotificationAsync(string message, string title, string okText, string cancelText = "");
     }
 }
