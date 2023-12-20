@@ -36,8 +36,6 @@ namespace VVVoyage.ViewModels
             // Request the permission.
             status = await Permissions.RequestAsync<Permissions.LocationAlways>();
 
-            await _navigator.GetUserLocationAsync(new());
-
             return status;
         }
 

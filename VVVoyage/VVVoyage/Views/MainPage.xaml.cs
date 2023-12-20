@@ -7,6 +7,7 @@ using VVVoyage.ViewModels;
 using VVVoyage.Models;
 using VVVoyage.Subsystems.Navigation;
 using VVVoyage.Subsystems.Notification;
+using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace VVVoyage
 {
@@ -27,12 +28,16 @@ namespace VVVoyage
         private RootPageViewModel _viewModel;
         private CancellationTokenSource _cancellationTokenSource;
 
+        private readonly Map _map;
+
         public MainPage()
         {
             InitializeComponent();
 
             // Hides the App bar at the top of the screen
             Shell.SetNavBarIsVisible(this, false);
+
+            _map = new() { IsShowingUser = true };
         }
 
         protected async override void OnAppearing()
@@ -40,14 +45,9 @@ namespace VVVoyage
             _cancellationTokenSource = new();
             INotifier popupNotifier = new PopupNotifier();
 
-            await Task.Delay(500);
-
-            // Move map to Grote Kerk Breda
-            map.MoveToRegion(new MapSpan(new Location(51.588833, 4.775278), 0.02, 0.02));
-
             _viewModel = new RootPageViewModel(
                 new(Tour.Landmarks),
-                map,
+                _map,
                 new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
                 popupNotifier,
                 new PushNotifier()
@@ -55,7 +55,16 @@ namespace VVVoyage
 
             await HandlePermissions(popupNotifier);
 
-            await HandleUserTooFarAway(popupNotifier);
+            await HandleLocationExceptions(popupNotifier);
+
+            mapContainer.Clear();
+            mapContainer.Add(_map);
+
+            // Move map to Grote Kerk Breda
+            _map.MoveToRegion(new MapSpan(new Location(51.588833, 4.775278), 0.02, 0.02));
+
+            instructionsBtn.IsEnabled = true;
+            stopRouteBtn.IsEnabled = true;
 
             try
             {
@@ -63,7 +72,12 @@ namespace VVVoyage
             }
             catch (ApplicationException)
             {
-                await popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Too far away", "OK");
+                await popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Error: too far away", "OK");
+                await Shell.Current.GoToAsync("..");
+            }
+            catch (FeatureNotEnabledException)
+            {
+                await popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.", "Error: location disabled", "OK");
                 await Shell.Current.GoToAsync("..");
             }
         }
@@ -89,40 +103,41 @@ namespace VVVoyage
         {
             PermissionStatus status = PermissionStatus.Unknown;
 
-            try
-            {
-                status = await _viewModel.CheckGPSAccess();
-            }
-            catch (FeatureNotSupportedException)
-            {
-                await notifier.ShowNotificationAsync("GPS not supported", "The app cannot work on this phone, since it does not have a GPS.", "OK");
+            status = await _viewModel.CheckGPSAccess();
 
-                await Shell.Current.GoToAsync("MainMenuPage");
-            }
-            catch (FeatureNotEnabledException)
-            {
-                // GPS not on   
-                await notifier.ShowNotificationAsync("GPS Required", "GPS is required but turned off now :c", "OK");
-
-                await Shell.Current.GoToAsync("MainMenuPage");
-            }
 
             // Permission not granted, let the user know.
             if (status != PermissionStatus.Granted)
             {
                 await notifier.ShowNotificationAsync("Permission Required", "GPS location permission is required to use this app.", "OK");
 
-                await Shell.Current.GoToAsync("MainMenuPage");
+                await Shell.Current.GoToAsync("..");
             }
         }
 
-        private async Task HandleUserTooFarAway(INotifier notifier)
+        private async Task HandleLocationExceptions(INotifier notifier)
         {
             Location centerOfBreda = new(51.588833, 4.775278);
 
-            if (!await _viewModel.IsUserInProximity(centerOfBreda, 5))
+            try
             {
-                await notifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Too far away", "OK");
+                if (!await _viewModel.IsUserInProximity(centerOfBreda, 5))
+                {
+                    await notifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Too far away", "OK");
+                    await Shell.Current.GoToAsync("..");
+                }
+            }
+            catch (FeatureNotSupportedException)
+            {
+                await notifier.ShowNotificationAsync("GPS not supported", "The app cannot work on this phone, since it does not have a GPS.", "OK");
+
+                await Shell.Current.GoToAsync("..");
+            }
+            catch (FeatureNotEnabledException)
+            {
+                // GPS not on   
+                await notifier.ShowNotificationAsync("The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.", "Error: location disabled", "OK");
+
                 await Shell.Current.GoToAsync("..");
             }
         }

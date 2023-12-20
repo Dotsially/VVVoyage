@@ -5,14 +5,14 @@
              x:Class="VVVoyage.MainPage">
 
     <Grid RowDefinitions="Auto, *">
-        <maps:Map
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            x:Name="map"
-            IsShowingUser="True" />
+        <StackLayout Grid.Row="0" Grid.RowSpan="2" x:Name="mapContainer" HorizontalOptions="Center" VerticalOptions="Center">
+            <ActivityIndicator IsRunning="True"/>
+        </StackLayout>
 
         <HorizontalStackLayout Grid.Row="0" Margin="10">
             <Button
+                x:Name="instructionsBtn"
+                IsEnabled="False"
                 ImageSource="help_circle.svg"
                 Clicked="InstructionsButton_Clicked"
                 HeightRequest="45"
@@ -21,6 +21,8 @@
                 TextColor="White"/>
             
             <Button
+                x:Name="stopRouteBtn"
+                IsEnabled="False"
                 Text="Stop route"
                 Clicked="StopRouteButton_Clicked"
                 Margin="10,0"
