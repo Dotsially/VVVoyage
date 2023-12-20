@@ -76,7 +76,6 @@ namespace VVVoyage.ViewModels
                 Sight lastLandmark = visibleLandmarks.Last();
                 MapUpdate? mapUpdate = await _navigator.UpdateMapAsync(lastLandmark);
 
-               
                 ImageString = lastLandmark.GetImageString();
 
                 // If null, that means the map update has been canceled. So, this method should

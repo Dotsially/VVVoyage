@@ -51,6 +51,8 @@ namespace VVVoyage
                 new PushNotifier()
             );
 
+            BindingContext = _viewModel;
+
             await _viewModel.CheckGPSAccess();
 
             await _viewModel.UpdateMapRepeatedly(_cancellationTokenSource.Token);
