@@ -134,6 +134,9 @@ The castle has been demolished and built almost continuously over the centuries.
 From Renaissance Palace to KMA
 In the 16th century, County Henry III of Nassau had the castle rigorously rebuilt into a Renaissance palace. For this, he brought Thomas Vincidor de Bologna, a pupil of Rafael, to Breda. With the arrival of the Royal Military Academy in 1826, the castle was again downsized and many of the Renaissance ornaments disappeared.</value>
   </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
   <data name="Ensure_Gps" xml:space="preserve">
     <value>• Ensure that the GPS functionality on your phone is working and that this app has access to it;</value>
   </data>
@@ -172,6 +175,9 @@ The renowned Dr. P.J.H. Cuypers, the architect of, among other things, the Rijks
   <data name="Next_Sight" xml:space="preserve">
     <value>Next sight:</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="Old_VVV_Description" xml:space="preserve">
     <value>At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
 
@@ -186,6 +192,9 @@ However, a bit of the VVV is making a comeback in the space. CoffeeLab is set to
   <data name="Select_Tour" xml:space="preserve">
     <value>Select a tour</value>
   </data>
+  <data name="Stop_Route_Confirmation" xml:space="preserve">
+    <value>Are you sure you want to stop the tour? Your progress will be lost!</value>
+  </data>
   <data name="Wagenberg_Description" xml:space="preserve">
     <value>One-way ticket to Wagenberg (if it even exists). You'll probably die alone on this tour.</value>
   </data>
@@ -194,5 +203,8 @@ However, a bit of the VVV is making a comeback in the space. CoffeeLab is set to
   </data>
   <data name="Welcome_Message" xml:space="preserve">
     <value>Welcome to VVVoyage, your tour guide through Breda!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

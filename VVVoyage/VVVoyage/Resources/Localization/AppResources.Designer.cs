@@ -91,6 +91,15 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        internal static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to • Ensure that the GPS functionality on your phone is working and that this app has access to it;.
         /// </summary>
         internal static string Ensure_Gps {
@@ -185,6 +194,15 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
         ///
         ///However, a bit of the VVV is mak [rest of string was truncated]&quot;;.
@@ -223,6 +241,15 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to stop the tour? Your progress will be lost!.
+        /// </summary>
+        internal static string Stop_Route_Confirmation {
+            get {
+                return ResourceManager.GetString("Stop_Route_Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One-way ticket to Wagenberg (if it even exists). You&apos;ll probably die alone on this tour..
         /// </summary>
         internal static string Wagenberg_Description {
@@ -246,6 +273,15 @@ namespace VVVoyage.Resources.Localization {
         internal static string Welcome_Message {
             get {
                 return ResourceManager.GetString("Welcome_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

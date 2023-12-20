@@ -8,6 +8,7 @@ using VVVoyage.Models;
 using VVVoyage.Subsystems.Navigation;
 using VVVoyage.Subsystems.Notification;
 using Map = Microsoft.Maui.Controls.Maps.Map;
+using VVVoyage.Resources.Localization;
 
 namespace VVVoyage
 {
@@ -29,6 +30,7 @@ namespace VVVoyage
         private CancellationTokenSource _cancellationTokenSource;
 
         private readonly Map _map;
+        private readonly INotifier _popupNotifier = new PopupNotifier();
 
         public MainPage()
         {
@@ -43,20 +45,19 @@ namespace VVVoyage
         protected async override void OnAppearing()
         {
             _cancellationTokenSource = new();
-            INotifier popupNotifier = new PopupNotifier();
 
             _viewModel = new RootPageViewModel(
                 new(Tour.Landmarks),
                 _map,
                 new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
-                popupNotifier,
+                _popupNotifier,
                 new PushNotifier()
             );
             BindingContext = _viewModel;
 
-            await HandlePermissions(popupNotifier);
+            await HandlePermissions(_popupNotifier);
 
-            await HandleLocationExceptions(popupNotifier);
+            await HandleLocationExceptions(_popupNotifier);
 
             mapContainer.Clear();
             mapContainer.Add(_map);
@@ -73,12 +74,12 @@ namespace VVVoyage
             }
             catch (ApplicationException)
             {
-                await popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Error: too far away", "OK");
+                await _popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Error: too far away", "OK");
                 await Shell.Current.GoToAsync("..");
             }
             catch (FeatureNotEnabledException)
             {
-                await popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.", "Error: location disabled", "OK");
+                await _popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.", "Error: location disabled", "OK");
                 await Shell.Current.GoToAsync("..");
             }
         }
@@ -97,7 +98,8 @@ namespace VVVoyage
 
         private async void StopRouteButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("..");
+            bool decision = await _popupNotifier.ShowNotificationAsync(AppResources.Stop_Route_Confirmation, AppResources.Confirmation, AppResources.Yes, AppResources.No);
+            if (decision) await Shell.Current.GoToAsync("..");
         }
 
         private async Task HandlePermissions(INotifier notifier)

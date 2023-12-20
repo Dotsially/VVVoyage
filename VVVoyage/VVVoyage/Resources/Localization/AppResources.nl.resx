@@ -138,6 +138,9 @@ In de zestiende eeuw liet Graaf Hendrik III van Nassau het kasteel rigoureus ver
 Rondleidingen
 Omdat het Kasteel op militair terrein staat, is het maar heel beperkt te bezoeken. Gilde de Baronie geeft regelmatig rondleidingen over het terrein. Hiervoor dien je je van tevoren aan te melden.</value>
   </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmatie</value>
+  </data>
   <data name="Ensure_Gps" xml:space="preserve">
     <value>• Zorg ervoor dat de GPS-functionaliteit op uw telefoon werkt en dat deze app hier toegang toe heeft;</value>
   </data>
@@ -174,6 +177,9 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   <data name="Next_Sight" xml:space="preserve">
     <value>Volgende bezienswaardigheid:</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Nee</value>
+  </data>
   <data name="Old_VVV_Description" xml:space="preserve">
     <value>Aan het begin van de coronacrisis moest de Bredase VVV de deuren sluiten. Een paar maanden later, in juni, werd besloten dat dit permament was. De winkel leed al geruime tijd verlies en pogingen het tij te keren mochten niet baten. In juli van dat jaar nam CoffeeLab zijn intrek in het pand aan de Willemstraat. Sindsdien was het plek om te genieten van een kop koffie of een lunch of om op een van de flexplekken te werken. Toch wil keert er weer een beetje VVV terug in het pand. CoffeeLab gaat namelijk samenwerken met InBreda om informatie over de stad, uitjes en Bredase cadeaus aan te bieden.</value>
   </data>
@@ -186,6 +192,9 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   <data name="Select_Tour" xml:space="preserve">
     <value>Kies een tour</value>
   </data>
+  <data name="Stop_Route_Confirmation" xml:space="preserve">
+    <value>Weet u zeker dat u wilt stoppen met het volgen van de tour? Alle progressie zal verloren gaan!</value>
+  </data>
   <data name="Wagenberg_Description" xml:space="preserve">
     <value>Enkeltje Wagenberg (als dat überhaupt bestaat). Tijdens deze tour zul je waarschijnlijk alleen sterven. (pas op voor wilde vcw voetbalfans)</value>
   </data>
@@ -194,5 +203,8 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   </data>
   <data name="Welcome_Message" xml:space="preserve">
     <value>Welkom bij VVVoyage, jouw rondreisgids door Breda!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>
