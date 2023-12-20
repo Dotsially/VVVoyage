@@ -124,7 +124,19 @@
     <value>Om een route te starten, klikt u eenvoudig op de routeknop in het hoofdmenuscherm. Vervolgens kunt u elke gewenste route kiezen. De route gaat meteen van start! Volg de lijn op het scherm om bij het volgende oriëntatiepunt te komen. Je krijgt een melding zodra je in de buurt bent. De app geeft ook een nuttige naam en beschrijving voor het oriëntatiepunt. Bewonder de schoonheid ervan en bezoek vervolgens het volgende monument. De tour eindigt automatisch zodra je alle bezienswaardigheden van de route hebt bezocht.</value>
   </data>
   <data name="Castle_Description" xml:space="preserve">
-    <value>Description of the Castle of Breda.</value>
+    <value>Het Kasteel van Breda was ooit het stamslot van de Nassaus, de voorouders van onze Koninklijke familie. 
+Vanwege de belangrijke internationale rol van de Nassaus was het Kasteel in de 15e t/m de 17e eeuw een belangrijke plek in Europa.  
+
+Lange geschiedenis
+Het Kasteel van Breda kent een lange geschiedenis. Al in 1198 stond er op de plaats van het huidige kasteel een burcht. Het Kasteel kwam begin 15e eeuw in handen van de Nassaus door het huwelijk van de Duitse graaf Engelbrecht van Nassau met de Bredase Johanna van Polanen. 
+
+ Er is in de loop der eeuwen bijna voortdurend aan het Kasteel gesloopt en gebouwd.
+
+Van Renaissancepaleis naar KMA
+In de zestiende eeuw liet Graaf Hendrik III van Nassau het kasteel rigoureus verbouwen tot renaissancepaleis. Hij haalde hiervoor Thomas Vincidor de Bologna, een leerling van Rafael, naar Breda. Met de komst van de Koninklijke Militaire Academie in 1826 is het kasteel weer versoberd en zijn er veel van de renaissancistische ornamenten verdwenen.
+
+Rondleidingen
+Omdat het Kasteel op militair terrein staat, is het maar heel beperkt te bezoeken. Gilde de Baronie geeft regelmatig rondleidingen over het terrein. Hiervoor dien je je van tevoren aan te melden.</value>
   </data>
   <data name="Ensure_Gps" xml:space="preserve">
     <value>• Zorg ervoor dat de GPS-functionaliteit op uw telefoon werkt en dat deze app hier toegang toe heeft;</value>
@@ -160,7 +172,7 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
     <value>Volgende bezienswaardigheid:</value>
   </data>
   <data name="Old_VVV_Description" xml:space="preserve">
-    <value>The building in which the VVV used to be housed inside.</value>
+    <value>Aan het begin van de coronacrisis moest de Bredase VVV de deuren sluiten. Een paar maanden later, in juni, werd besloten dat dit permament was. De winkel leed al geruime tijd verlies en pogingen het tij te keren mochten niet baten. In juli van dat jaar nam CoffeeLab zijn intrek in het pand aan de Willemstraat. Sindsdien was het plek om te genieten van een kop koffie of een lunch of om op een van de flexplekken te werken. Toch wil keert er weer een beetje VVV terug in het pand. CoffeeLab gaat namelijk samenwerken met InBreda om informatie over de stad, uitjes en Bredase cadeaus aan te bieden.</value>
   </data>
   <data name="Select_Tour" xml:space="preserve">
     <value>Kies een tour</value>
