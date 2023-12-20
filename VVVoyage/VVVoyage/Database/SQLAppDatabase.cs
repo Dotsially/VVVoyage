@@ -188,7 +188,7 @@ Text TEXT
                         id);
                 if (lm.Count != 1) throw new Exception("Invalid Landmark (route)");
                 Sight sight = new Sight(lm[0].Name, new Location(lm[0].Latitude, lm[0].Longitude),
-                    lmDesc.Count != 1 ? "" : lmDesc[0].Text);
+                    lmDesc.Count != 1 ? "" : lmDesc[0].Text, lm[0].ImagePath);
                 sights.Add(sight);
             }
         }
