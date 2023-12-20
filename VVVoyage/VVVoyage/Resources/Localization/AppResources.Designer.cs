@@ -79,7 +79,10 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description of the Castle of Breda..
+        ///   Looks up a localized string similar to Breda Castle was once the ancestral home of the Nassaus, the ancestors of our royal family. Because of the important international role of the Nassaus, the Castle was an important place in Europe during the 15th to 17th centuries.
+        ///
+        ///A long history
+        ///Breda Castle has a long history. A castle stood on the site of the current castle as early as 1198. The castle came into the hand of the Nassaus in the early 15th century through the marriage of German count Engelbrecht van Nassau to Breda’s Johanna van Polanen. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Castle_Description {
             get {
