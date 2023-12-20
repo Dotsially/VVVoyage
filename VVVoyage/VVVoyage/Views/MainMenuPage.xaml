@@ -8,26 +8,6 @@
              x:DataType="viewmodels:MainMenuViewModel"
              Title="MainMenuPage">
     <Grid Margin="20, 0" HorizontalOptions="Fill" RowDefinitions="Auto,Auto,*,Auto">
-        <Picker
-            Grid.Row="0"
-            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray600}}"
-            Margin="0,10,0,0"
-            Title="Select language"
-            HorizontalOptions="End"
-            VerticalOptions="Start"
-            TextColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}"
-            
-            SelectedIndex="0"
-            SelectedIndexChanged="SelectedLanguage_Changed">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>English</x:String>
-                    <x:String>Nederlands</x:String>
-                    <x:String>Français</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
-
         <Label
             Grid.Row="0"
             HorizontalOptions="Center"
