@@ -65,11 +65,6 @@ namespace VVVoyage.ViewModels
             )
         ];
 
-        public void SetLanguage(string language)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task StartTourAsync(Tour tour)
         {
             Dictionary<string, object> param = new()
