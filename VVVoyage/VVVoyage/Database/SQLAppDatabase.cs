@@ -3,7 +3,6 @@ using VVVoyage.Models;
 using System.Diagnostics;
 using System.Text;
 using Location = Microsoft.Maui.Devices.Sensors.Location;
-using Android.Hardware.Lights;
 
 namespace VVVoyage.Database;
 

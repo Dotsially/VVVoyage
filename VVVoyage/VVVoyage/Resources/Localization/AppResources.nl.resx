@@ -180,6 +180,18 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   <data name="No" xml:space="preserve">
     <value>Nee</value>
   </data>
+  <data name="No_Internet_Continue" xml:space="preserve">
+    <value>Doorgaan met tour</value>
+  </data>
+  <data name="No_Internet_Message" xml:space="preserve">
+    <value>Het lijkt erop alsof u geen internetverbinding heeft! Dit kan gebeuren wanneer u switcht tussen Wi-Fi-netwerken, of wanneer u switcht van Wi-Fi naar mobiele data. Doorgaan met de tour kan helpen.</value>
+  </data>
+  <data name="No_Internet_Stop" xml:space="preserve">
+    <value>Tour stoppen</value>
+  </data>
+  <data name="No_Internet_Title" xml:space="preserve">
+    <value>Geen internet</value>
+  </data>
   <data name="Old_VVV_Description" xml:space="preserve">
     <value>Aan het begin van de coronacrisis moest de Bredase VVV de deuren sluiten. Een paar maanden later, in juni, werd besloten dat dit permament was. De winkel leed al geruime tijd verlies en pogingen het tij te keren mochten niet baten. In juli van dat jaar nam CoffeeLab zijn intrek in het pand aan de Willemstraat. Sindsdien was het plek om te genieten van een kop koffie of een lunch of om op een van de flexplekken te werken. Toch wil keert er weer een beetje VVV terug in het pand. CoffeeLab gaat namelijk samenwerken met InBreda om informatie over de stad, uitjes en Bredase cadeaus aan te bieden.</value>
   </data>
