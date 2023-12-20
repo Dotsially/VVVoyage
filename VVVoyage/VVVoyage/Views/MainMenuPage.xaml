@@ -40,7 +40,7 @@
 
         <Label
             Grid.Row="1"
-            Text="{x:Static lang:AppResources.Select_Tour} 
+            Text="{x:Static lang:AppResources.Select_Tour}" 
             TextDecorations="Underline"
             Margin="0,0,0,15"
             FontSize="20"
