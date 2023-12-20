@@ -13,6 +13,7 @@ namespace VVVoyage.Models
         
         public Pin SightPin { get; set; }
         public string SightDescription { get; set; }
+        public string ImagePath { get; set; }
 
         private string imageString;
 
