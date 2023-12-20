@@ -129,7 +129,11 @@ Text TEXT
 
     public async Task<Tour> GetRandomRouteAsync(string locale)
     {
-        throw new NotImplementedException();
+        List<Route> r = await _database.QueryAsync<Route>(@"SELECT * FROM Routes");
+        Random random = new Random();
+        int randInt = random.Next(0, r.Count);
+
+        return await GetRouteAsync(locale, r[randInt].Name);
     }
 
     public async Task<Tour> GetRouteAsync(string locale, string name)
