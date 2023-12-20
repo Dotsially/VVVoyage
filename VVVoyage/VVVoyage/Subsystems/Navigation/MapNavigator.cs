@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -36,8 +37,9 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
+        /// <exception cref="WebException">Whenever the user does not have internet access (the hostname cannot be resolved).</exception>
         /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
-        /// <exception cref="Exception">Any other error that occurs when attempting to retrieve the user's location or any HTTP request error.</exception>
+        /// <exception cref="InvalidNavigationException">Any other error that occurs when attempting to retrieve the user's location.</exception>
         public async Task<MapUpdate?> UpdateMapAsync(Sight landmarkToReach)
         {
             _isUpdatingMap = true;
@@ -74,7 +76,7 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="FeatureNotSupportedException">Whenever the phone does not support GPS location tracking.</exception>
         /// <exception cref="FeatureNotEnabledException">Whenever the phone has GPS but has not enabled it.</exception>
         /// <exception cref="PermissionException">Whenever this app does not have the user's permission to track their location.</exception>
-        /// <exception cref="Exception">Any other error that occurs when attempting to reetrieve the user's location.</exception>
+        /// <exception cref="InvalidNavigationException">Any other error that occurs when attempting to reetrieve the user's location.</exception>
         public async Task<Location> GetUserLocationAsync(CancellationToken cancellationToken)
         {
             GeolocationRequest request = new(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
@@ -82,7 +84,7 @@ namespace VVVoyage.Subsystems.Navigation
             Location? userLocation = await _geolocationAPI.GetLocationAsync(request, cancellationToken);
 
             if (userLocation != null) return userLocation;
-            else throw new Exception("Could not get location from this phone."); // Something unknown went wrong
+            else throw new InvalidNavigationException("Could not get location from this phone."); // Something unknown went wrong
         }
 
         /// <summary>
@@ -102,10 +104,12 @@ namespace VVVoyage.Subsystems.Navigation
         /// <summary>
         /// Gets the encoded polyline from the Google Directions API between the user's location and the current landmark's location.
         /// </summary>
+        /// <exception cref="WebException">Whenever the user does not have internet access (the hostname cannot be resolved).</exception>
         /// <exception cref="HttpRequestException">When something goes wrong with the HTTP request to the Google Directions API.</exception>
         private async Task<List<Location>> GetRoutePolyline(Location userLocation, Sight landmarkToReach, CancellationToken cancellationToken)
         {
             using var client = new HttpClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
 
             List<Location> locations = [];
             Location landmarkLocation = landmarkToReach.SightPin.Location;

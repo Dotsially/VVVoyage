@@ -203,6 +203,42 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue tour.
+        /// </summary>
+        internal static string No_Internet_Continue {
+            get {
+                return ResourceManager.GetString("No_Internet_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currently, it looks like you don&apos;t have internet access! This may happen when you&apos;re switching Wi-Fi networks, or when switching from Wi-Fi to cellular data. Continuing the tour might help..
+        /// </summary>
+        internal static string No_Internet_Message {
+            get {
+                return ResourceManager.GetString("No_Internet_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop tour.
+        /// </summary>
+        internal static string No_Internet_Stop {
+            get {
+                return ResourceManager.GetString("No_Internet_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No internet.
+        /// </summary>
+        internal static string No_Internet_Title {
+            get {
+                return ResourceManager.GetString("No_Internet_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
         ///
         ///However, a bit of the VVV is mak [rest of string was truncated]&quot;;.

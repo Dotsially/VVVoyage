@@ -2,8 +2,10 @@
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 using System.Diagnostics;
+using System.Net;
 using System.Windows.Input;
 using VVVoyage.Models;
+using VVVoyage.Resources.Localization;
 using VVVoyage.Subsystems.Navigation;
 using VVVoyage.Subsystems.Notification;
 using Map = Microsoft.Maui.Controls.Maps.Map;
@@ -27,9 +29,12 @@ namespace VVVoyage.ViewModels
 
         public async Task<bool> IsUserInProximity(Location location, int maxDistanceKm)
         {
-            Location userLocation = await _navigator.GetUserLocationAsync(new());
-
-            return Distance.BetweenPositions(location, userLocation).Kilometers < maxDistanceKm;
+            try
+            {
+                Location userLocation = await _navigator.GetUserLocationAsync(new());
+                return Distance.BetweenPositions(location, userLocation).Kilometers < maxDistanceKm;
+            }
+            catch (InvalidNavigationException) { return true; }
         }
 
         public async Task<PermissionStatus> CheckGPSAccess()
@@ -54,7 +59,33 @@ namespace VVVoyage.ViewModels
             while (Shell.Current.CurrentPage is MainPage)
             {
                 Sight lastLandmark = visibleLandmarks.Last();
-                MapUpdate? mapUpdate = await _navigator.UpdateMapAsync(lastLandmark);
+                MapUpdate? mapUpdate = null;
+
+                try
+                {
+                    mapUpdate = await _navigator.UpdateMapAsync(lastLandmark);
+                }
+                catch (InvalidNavigationException) { continue; }
+                catch (WebException)
+                {
+                    bool quitTour = await _popupNotifier.ShowNotificationAsync(AppResources.No_Internet_Message, AppResources.No_Internet_Title, AppResources.No_Internet_Stop, AppResources.No_Internet_Continue);
+                    if (quitTour)
+                    {
+                        await Shell.Current.GoToAsync("..");
+                        return;
+                    }
+                    continue;
+                }
+                catch (HttpRequestException)
+                {
+                    bool quitTour = await _popupNotifier.ShowNotificationAsync(AppResources.No_Internet_Message, AppResources.No_Internet_Title, AppResources.No_Internet_Stop, AppResources.No_Internet_Continue);
+                    if (quitTour)
+                    {
+                        await Shell.Current.GoToAsync("..");
+                        return;
+                    }
+                    continue;
+                }
 
                 ImageString = lastLandmark.GetImageString();
                 LandmarkName = lastLandmark.SightPin.Address;
