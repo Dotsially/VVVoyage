@@ -31,6 +31,8 @@ namespace VVVoyage.Models
             SightDescription = sightDescription;
 
             this.imageString = imageString;
+
+            ImagePath = imageString;
         }
 
         public Sight(string sightLabel, string sightName, Location location, string sightDescription) 

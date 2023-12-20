@@ -3,6 +3,7 @@ using VVVoyage.Models;
 using System.Diagnostics;
 using System.Text;
 using Location = Microsoft.Maui.Devices.Sensors.Location;
+using Android.Hardware.Lights;
 
 namespace VVVoyage.Database;
 
@@ -11,18 +12,69 @@ public class SQLAppDatabase : IAppDatabase
     private const string FILENAME = "vvvoyage.db";
     private readonly SQLiteAsyncConnection _database;
 
-    public SQLAppDatabase()
+    public SQLAppDatabase(bool resetDb)
     {
         const SQLiteOpenFlags flags = SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.SharedCache |
                                       SQLiteOpenFlags.FullMutex;
 
         string path = Path.Combine(FileSystem.AppDataDirectory, FILENAME);
 
+        if (resetDb && File.Exists(path))
+            File.Delete(path);
+
         _database = new SQLiteAsyncConnection(path, flags);
     }
 
     public async Task Init()
     {
+        Sight vvv = new("Oude VVV pand", new Location(51.594112, 4.779417), "", "old_vvv.jpg");
+        Sight sister = new("Liefdeszuster", new Location(51.59336561016905, 4.779405797254084), "", "liefdeszuster.jpg");
+        Sight nassau = new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
+        Sight lightHouse = new("The Light House", new Location(51.584039168945026, 4.774673039583854), "", "light_house.jpg");
+        Sight castle = new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), "", "kasteel.jpg");
+        List<Sight> landmarks = [vvv, sister, nassau, lightHouse, castle];
+
+        string vvvDescriptionEn = "At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.\r\n\r\nHowever, a bit of the VVV is making a comeback in the space. CoffeeLab is set to collaborate with InBreda to offer information about the city, local activities, and Breda-themed gifts.";
+        string vvvDescriptionNl = "Aan het begin van de COVID-19-crisis moest VVV Breda de deuren sluiten. Een paar maanden later, in juni, werd besloten dat deze sluiting definitief zou zijn. De winkel kampte al geruime tijd met verliezen en pogingen om het tij te keren bleken niet succesvol. In juli van dat jaar nam CoffeeLab de ruimte aan de Willemstraat over. Sindsdien is het een plek waar je heerlijk kunt genieten van een kopje koffie, lunchen of werken op een van de flexibele werkplekken.\r\n\r\nEen stukje VVV maakt echter een comeback in de ruimte. CoffeeLab gaat samenwerken met InBreda om informatie aan te bieden over de stad, lokale activiteiten en cadeaus met een Breda-thema.";
+
+        string sisterDescriptionEn = "Officially, this statue is called the \"Liefdeszuster of St. Vincent de St. Paul de Chartres.\" It symbolizes the religious history of Breda. The creator, Jos van Riemsdijk, depicts with the Liefdeszuster the care that the hospice sisters practiced for centuries.\r\n\r\nThe Meeùs concern donated the statue in 1990.";
+        string sisterDescriptionNl = "Officieel heet dit beeld de \"Liefdeszuster van St. Vincent de St. Paul de Chartres.\" Het symboliseert de religieuze geschiedenis van Breda. De maker, Jos van Riemsdijk, verbeeldt met de Liefdeszuster de zorg die de hospicezusters eeuwenlang beoefenden.\r\n\r\nHet Meeùs-concern schonk het beeld in 1990.";
+
+        string nassauDescriptionEn = "The Nassau Monument, also known as the Baroniemonument, commemorates the arrival of the German Count Engelbrecht of Nassau in the Netherlands. The three reliefs depict the inauguration of Engelbrecht and his wife, the eleven-year-old Johanna van Polanen from Breda, as Lord and Lady of Breda. Through their marriage, Engelbrecht and Johanna laid the foundation for the House of Orange-Nassau, our Dutch Royal Family.\r\n\r\nThe monument was ceremoniously unveiled in 1905 by Queen Wilhelmina. Around it, the coats of arms of twenty municipalities around Breda are displayed. At the top, the Lion of Nassau rises with a royal crown, sword, and coat of arms.\r\n\r\nThe renowned Dr. P.J.H. Cuypers, the architect of, among other things, the Rijksmuseum and Central Station in Amsterdam, designed the monument.";
+        string nassauDescriptionNl = "Het Nassaumonument, ook wel het Baroniemonument genoemd, herdenkt de aankomst van de Duitse graaf Engelbrecht van Nassau in Nederland. De drie reliëfs verbeelden de inhuldiging van Engelbrecht en zijn vrouw, de elfjarige Johanna van Polanen uit Breda, als Heer en Vrouwe van Breda. Door hun huwelijk legden Engelbrecht en Johanna de basis voor het Huis Oranje-Nassau, ons Nederlandse koningshuis.\r\n\r\nHet monument werd in 1905 plechtig onthuld door Koningin Wilhelmina. Daaromheen worden de wapenschilden getoond van twintig gemeenten rond Breda. Bovenaan verrijst de Leeuw van Nassau met een koninklijke kroon, zwaard en wapen.\r\n\r\nDe gerenommeerde Dr. P.J.H. Cuypers, de architect van onder meer het Rijksmuseum en het Centraal Station in Amsterdam, ontwierp het monument.";
+
+        string lightHouseDescriptionEn = "Certainly noteworthy, a lighthouse in the Breda canal. It is not intended to guide seafaring vessels, though. \"The Lighthouse\" is an artwork by the Italian architect/artist Aldo Rossi. The idea for a Rossi artwork in Breda originated when he exhibited in the Breda Beyerd in the 1980s (the current location of the Stedelijk Museum). Rossi had previously exhibited lighthouses in Toronto and Rotterdam, and in 1992, \"The Lighthouse\" was installed in Breda. Initially placed in the Wilhelminavijver, it found its permanent location in the Academiesingel after protests from local residents.\r\n\r\nOpinions on its aesthetic appeal may vary, but it is certainly an eye-catching piece.";
+        string lightHouseDescriptionNl = "Zeker opmerkelijk, een vuurtoren in de Bredase gracht. Het is echter niet bedoeld om zeeschepen te begeleiden. \"The Lighthouse\" is een kunstwerk van de Italiaanse architect/kunstenaar Aldo Rossi. Het idee voor een Rossi-kunstwerk in Breda ontstond toen hij in de jaren tachtig exposeerde in de Bredase Beyerd (de huidige locatie van het Stedelijk Museum). Rossi had eerder vuurtorens tentoongesteld in Toronto en Rotterdam, en in 1992 werd \"The Lighthouse\" geïnstalleerd in Breda. Aanvankelijk geplaatst in de Wilhelminavijver, vond het na protesten van omwonenden zijn definitieve locatie aan de Academiesingel.\r\n\r\nDe meningen over de esthetische aantrekkingskracht kunnen verschillen, maar het is zeker een opvallend stuk.";
+
+        string castleDescriptionEn = "Breda Castle was once the ancestral home of the Nassaus, the ancestors of our royal family. Because of the important international role of the Nassaus, the Castle was an important place in Europe during the 15th to 17th centuries.\r\n\r\nA long history\r\nBreda Castle has a long history. A castle stood on the site of the current castle as early as 1198. The castle came into the hand of the Nassaus in the early 15th century through the marriage of German count Engelbrecht van Nassau to Breda’s Johanna van Polanen.\r\n\r\nThe castle has been demolished and built almost continuously over the centuries.\r\n\r\nFrom Renaissance Palace to KMA\r\nIn the 16th century, County Henry III of Nassau had the castle rigorously rebuilt into a Renaissance palace. For this, he brought Thomas Vincidor de Bologna, a pupil of Rafael, to Breda. With the arrival of the Royal Military Academy in 1826, the castle was again downsized and many of the Renaissance ornaments disappeared.";
+        string castleDescriptionNl = "Kasteel Breda was ooit het voorouderlijk huis van de Nassaus, de voorouders van ons koningshuis. Vanwege de belangrijke internationale rol van de Nassaus was het kasteel van de 15e tot 17e eeuw een belangrijke plaats in Europa.\r\n\r\nEen lange geschiedenis\r\nKasteel Breda kent een lange geschiedenis. Op de plaats van het huidige kasteel stond al in 1198 een kasteel. Het kasteel kwam begin 15e eeuw in handen van de Nassaus door het huwelijk van de Duitse graaf Engelbrecht van Nassau met de Bredase Johanna van Polanen.\r\n\r\nHet kasteel is door de eeuwen heen vrijwel continu afgebroken en gebouwd.\r\n\r\nVan Renaissancepaleis tot KMA\r\nIn de 16e eeuw liet Graafschap Hendrik III van Nassau het kasteel rigoureus herbouwen tot een renaissancepaleis. Hiervoor haalde hij Thomas Vincidor de Bologna, een leerling van Rafael, naar Breda. Met de komst van de Koninklijke Militaire Academie in 1826 werd het kasteel opnieuw verkleind en verdwenen veel renaissance-ornamenten.";
+
+        Tour antiqueTour = new(
+                "Antique tour",
+                "",
+                [vvv, sister, nassau, lightHouse, castle]
+            );
+        Tour foodTour = new(
+                "Food tour",
+                "",
+                [nassau, castle, vvv, lightHouse, sister]
+            );
+        Tour wagenbergTour = new(
+                "Wagenberg tour",
+                "",
+                [sister, nassau, lightHouse, castle, vvv]
+            );
+        List<Tour> tours = [antiqueTour, foodTour, wagenbergTour];
+
+        string antiqueDescriptionEn = "Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today.";
+        string antiqueDescriptionNl = "Ontdek enkele van de oudste bezienswaardigheden van Breda. Ontdek welke culturele betekenis ze vandaag de dag nog steeds hebben.";
+
+        string foodDescriptionEn = "Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?";
+        string foodDescriptionNl = "Breda is de thuisbasis van enkele van de meest unieke snacks en maaltijden. Altijd al willen weten hoe een frikandel of kroket smaakt?";
+
+        string wagenbergDescriptionEn = "One-way ticket to Wagenberg (if it even exists). You'll probably die alone on this tour.";
+        string wagenbergDescriptionNl = "Enkeltje Wagenberg (als dat überhaupt bestaat). Tijdens deze tour zul je waarschijnlijk alleen sterven. (pas op voor wilde vcw voetbalfans)";
+
         try
         {
             await _database.CreateTableAsync<Landmark>()
@@ -32,11 +84,47 @@ public class SQLAppDatabase : IAppDatabase
             //resLandmark.Start();
             //resRoute.Start();
             //await Task.WhenAll(resLandmark, resRoute);
+
+            foreach (var landmark in landmarks)
+            {
+                await AddLandmarkAsync(landmark);
+            }
+
+            foreach(var tour in tours)
+            {
+                await AddTourAsync(tour);
+            }
+
+            await AddDescriptionAsync(vvv, "en", vvvDescriptionEn);
+            await AddDescriptionAsync(vvv, "nl", vvvDescriptionNl);
+
+            await AddDescriptionAsync(sister, "en", sisterDescriptionEn);
+            await AddDescriptionAsync(sister, "nl", sisterDescriptionNl);
+
+            await AddDescriptionAsync(nassau, "en", nassauDescriptionEn);
+            await AddDescriptionAsync(nassau, "nl", nassauDescriptionNl);
+
+            await AddDescriptionAsync(lightHouse, "en", lightHouseDescriptionEn);
+            await AddDescriptionAsync(lightHouse, "nl", lightHouseDescriptionNl);
+
+            await AddDescriptionAsync(castle, "en", castleDescriptionEn);
+            await AddDescriptionAsync(castle, "nl", castleDescriptionNl);
+
+
+
+            await AddDescriptionAsync(antiqueTour, "en", antiqueDescriptionEn);
+            await AddDescriptionAsync(antiqueTour, "nl", antiqueDescriptionNl);
+
+            await AddDescriptionAsync(foodTour, "en", foodDescriptionEn);
+            await AddDescriptionAsync(foodTour, "nl", foodDescriptionNl);
+
+            await AddDescriptionAsync(wagenbergTour, "en", wagenbergDescriptionEn);
+            await AddDescriptionAsync(wagenbergTour, "nl", wagenbergDescriptionNl);
         }
         catch (Exception e)
         {
-            Debug.WriteLine("{msg}", e.StackTrace);
-            Debug.WriteLine("{msg}", e.Message);
+            Debug.WriteLine($"{e.StackTrace}");
+            Debug.WriteLine($"{e.Message}");
         }
     }
 
@@ -55,12 +143,12 @@ public class SQLAppDatabase : IAppDatabase
         try
         {
             var res = await _database.InsertAsync(lm);
-            Debug.WriteLine("insertion {0}", res);
+            Debug.WriteLine($"insertion {res}");
         }
         catch (Exception e)
         {
-            Debug.WriteLine("{msg}", e.StackTrace);
-            Debug.WriteLine("{msg}", e.Message);
+            Debug.WriteLine($"{e.StackTrace}");
+            Debug.WriteLine($"{e.Message}");
         }
     }
 
@@ -82,8 +170,8 @@ public class SQLAppDatabase : IAppDatabase
             }
             catch (SQLiteException e)
             {
-                Debug.WriteLine("{msg}", e.StackTrace);
-                Debug.WriteLine("{msg}", e.Message);
+                Debug.WriteLine($"{e.StackTrace}");
+                Debug.WriteLine($"{e.Message}");
                 throw;
             }
 
@@ -98,8 +186,8 @@ public class SQLAppDatabase : IAppDatabase
         }
         catch (SQLiteException e)
         {
-            Debug.WriteLine("{msg}", e.StackTrace);
-            Debug.WriteLine("{msg}", e.Message);
+            Debug.WriteLine($"{e.StackTrace}");
+            Debug.WriteLine($"{e.Message}");
             throw;
         }
     }
@@ -150,8 +238,8 @@ Text TEXT
         }
         catch (SQLiteException e)
         {
-            Debug.WriteLine("{msg}", e.StackTrace);
-            Debug.WriteLine("{msg}", e.Message);
+            Debug.WriteLine($"{e.StackTrace}");
+            Debug.WriteLine($"{e.Message}");
             throw;
         }
     }
@@ -194,12 +282,25 @@ Text TEXT
         }
         catch (Exception e)
         {
-            Debug.WriteLine("{msg}", e.StackTrace);
-            Debug.WriteLine("{msg}", e.Message);
+            Debug.WriteLine($"{e.StackTrace}");
+            Debug.WriteLine($"{e.Message}");
             throw;
         }
 
         return new Tour(name, description, sights.ToArray());
+    }
+
+    public async Task<List<Tour>> GetAllToursAsync(string locale)
+    {
+        List<Route> dbTours = await _database.QueryAsync<Route>("SELECT * FROM Routes");
+
+        List<Tour> tours = [];
+        foreach(Route dbTour in dbTours)
+        {
+            tours.Add(await GetRouteAsync(locale, dbTour.Name));
+        }
+
+        return tours;
     }
 
     private class Description

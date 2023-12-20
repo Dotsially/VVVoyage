@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using VVVoyage.Database;
 using VVVoyage.Models;
 using VVVoyage.ViewModels;
 
@@ -18,6 +19,11 @@ public partial class MainMenuPage : ContentPage
         _viewModel = viewModel;
         BindingContext = viewModel;
     }
+
+	protected async override void OnAppearing()
+	{
+		await _viewModel.LoadToursFromDatabase();
+	}
 
 	private async void TourButton_Clicked(object sender, EventArgs e)
 	{
