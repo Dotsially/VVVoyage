@@ -167,6 +167,15 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Head to:.
+        /// </summary>
+        internal static string Navigation_Instruction {
+            get {
+                return ResourceManager.GetString("Navigation_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next sight:.
         /// </summary>
         internal static string Next_Sight {

@@ -166,6 +166,9 @@ The monument was ceremoniously unveiled in 1905 by Queen Wilhelmina. Around it, 
 
 The renowned Dr. P.J.H. Cuypers, the architect of, among other things, the Rijksmuseum and Central Station in Amsterdam, designed the monument.</value>
   </data>
+  <data name="Navigation_Instruction" xml:space="preserve">
+    <value>Head to:</value>
+  </data>
   <data name="Next_Sight" xml:space="preserve">
     <value>Next sight:</value>
   </data>
