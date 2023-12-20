@@ -153,6 +153,12 @@
   <data name="Old_VVV_Description" xml:space="preserve">
     <value>The building in which the VVV used to be housed inside.</value>
   </data>
+  <data name="Random_Tour_Description" xml:space="preserve">
+    <value>Kun je niet beslissen welke tour je wilt nemen? Laat de app beslissen welke tour het wordt.</value>
+  </data>
+  <data name="Random_Tour_Name" xml:space="preserve">
+    <value>Willekeurige tour</value>
+  </data>
   <data name="Select_Tour" xml:space="preserve">
     <value>Kies een tour</value>
   </data>

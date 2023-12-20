@@ -55,6 +55,13 @@ namespace VVVoyage.ViewModels
                 "Wagenberg tour",
                 Resources.Localization.AppResources.Wagenberg_Description,
                 [.. tour3Landmarks]
+            ),
+            new(
+                "[WIP] " + Resources.Localization.AppResources.Random_Tour_Name,
+                Resources.Localization.AppResources.Random_Tour_Description,
+                true,
+                // TODO get random route from db
+                []
             )
         ];
 
