@@ -7,27 +7,10 @@ using System.Threading.Tasks;
 
 namespace VVVoyage.Models
 {
-    public class Tour
+    public class Tour(string name, string description, params Sight[] landmarks)
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public ObservableCollection<Sight> Landmarks { get; set; }
-        public bool IsRandomTour { get; set; }
-
-        public Tour(string name, string description, bool isRandomTour, params Sight[] landmarks)
-        {
-            Name = name;
-            Description = description;
-            Landmarks = new(landmarks);
-            IsRandomTour = isRandomTour;
-        }
-
-        public Tour(string name, string description, params Sight[] landmarks)
-        {
-            Name = name;
-            Description = description;
-            Landmarks = new(landmarks);
-            IsRandomTour = false;
-        }
+        public string Name { get; set; } = name;
+        public string Description { get; set; } = description;
+        public ObservableCollection<Sight> Landmarks { get; set; } = new(landmarks);
     }
 }

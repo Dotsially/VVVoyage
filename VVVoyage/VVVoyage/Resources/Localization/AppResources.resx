@@ -177,12 +177,6 @@ The renowned Dr. P.J.H. Cuypers, the architect of, among other things, the Rijks
 
 However, a bit of the VVV is making a comeback in the space. CoffeeLab is set to collaborate with InBreda to offer information about the city, local activities, and Breda-themed gifts.</value>
   </data>
-  <data name="Random_Tour_Description" xml:space="preserve">
-    <value>Can't decide which tour to take? Let the app decide a tour for you.</value>
-  </data>
-  <data name="Random_Tour_Name" xml:space="preserve">
-    <value>Random tour</value>
-  </data>
   <data name="Select_Tour" xml:space="preserve">
     <value>Select a tour</value>
   </data>
