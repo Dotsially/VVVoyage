@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VVVoyage.MainPage"
              x:DataType="viewModel:RootPageViewModel"
-             xmlns:viewModel="clr-namespace:VVVoyage.ViewModels">
+             xmlns:viewModel="clr-namespace:VVVoyage.ViewModels"
+             xmlns:lang="clr-namespace:VVVoyage.Resources.Localization">
 
     <Grid RowDefinitions="Auto, *">
         <maps:Map
@@ -36,7 +37,7 @@
             
             <Label 
                 Margin="10"
-                Text="hier de localization"
+                Text="{x:Static lang:AppResources.Next_Sight}"
                 TextColor="Black"
                 BackgroundColor="White"
                 MaximumWidthRequest="150"

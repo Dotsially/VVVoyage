@@ -167,6 +167,15 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next sight:.
+        /// </summary>
+        internal static string Next_Sight {
+            get {
+                return ResourceManager.GetString("Next_Sight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
         ///
         ///However, a bit of the VVV is mak [rest of string was truncated]&quot;;.

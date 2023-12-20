@@ -104,5 +104,13 @@ namespace VVVoyage.Resources.Localization {
                 return ResourceManager.GetString("Old_VVV_Description", resourceCulture);
             }
         }
+
+        internal static string Next_Sight
+        {
+            get
+            {
+                return ResourceManager.GetString("Next_Sight", resourceCulture);
+            }
+        }
     }
 }
