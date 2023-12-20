@@ -25,7 +25,7 @@ namespace VVVoyage
     		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<IAppDatabase>(new SQLAppDatabase(true));
+            builder.Services.AddSingleton<IAppDatabase>(new SQLAppDatabase(false));
             builder.Services.AddSingleton<MainMenuViewModel>();
             builder.Services.AddSingleton<MainMenuPage>();
 
