@@ -25,15 +25,19 @@ namespace VVVoyage
         }
 
         private RootPageViewModel _viewModel;
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
+        private CancellationTokenSource _cancellationTokenSource;
 
         public MainPage()
         {
             InitializeComponent();
+
+            // Hides the App bar at the top of the screen
+            Shell.SetNavBarIsVisible(this, false);
         }
 
         protected async override void OnAppearing()
         {
+            _cancellationTokenSource = new();
             await Task.Delay(500);
 
             // Move map to Grote Kerk Breda
@@ -43,7 +47,8 @@ namespace VVVoyage
                 new(Tour.Landmarks),
                 map,
                 new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
-                new PopupNotifier()
+                new PopupNotifier(),
+                new PushNotifier()
             );
 
             await _viewModel.CheckGPSAccess();
@@ -56,6 +61,16 @@ namespace VVVoyage
             base.OnDisappearing();
 
             _cancellationTokenSource.Cancel();
+        }
+
+        private async void InstructionsButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("InstructionsPage");
+        }
+
+        private async void StopRouteButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

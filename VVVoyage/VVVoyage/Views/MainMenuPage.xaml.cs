@@ -11,7 +11,11 @@ public partial class MainMenuPage : ContentPage
 	public MainMenuPage(MainMenuViewModel viewModel)
 	{
 		InitializeComponent();
-		_viewModel = viewModel;
+		
+		// Hides the App bar at the top of the screen
+        Shell.SetNavBarIsVisible(this, false);
+
+        _viewModel = viewModel;
         BindingContext = viewModel;
     }
 

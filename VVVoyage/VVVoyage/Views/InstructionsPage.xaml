@@ -12,16 +12,16 @@
         </Style>
     </ContentPage.Resources>
     
-    <Grid Margin="10, 0" RowDefinitions="Auto, *">
-        <VerticalStackLayout>
-            <Grid ColumnDefinitions="*,*" Margin="20,0,20,20">
-                <ImageButton
+    <Grid Margin="15, 20, 15, 0" RowDefinitions="Auto, *, Auto">
+        <VerticalStackLayout Spacing="20">
+            <Grid ColumnDefinitions="*,*">
+                <Button
                     Grid.Column="0"
                     HorizontalOptions="Start"
-                    Source="back_arrow.svg"
-                    WidthRequest="70"
-                    HeightRequest="50"
-                    Padding="5"
+                    ImageSource="back_arrow.svg"
+                    Text="Back"
+                    TextColor="Black"
+                    HeightRequest="40"
                     BackgroundColor="{StaticResource Secondary}"
                     CornerRadius="8"
                     Clicked="BackBtn_Clicked"/>
@@ -29,12 +29,12 @@
                 <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
                     <Image 
                         HorizontalOptions="End"
-                        WidthRequest="60"
+                        WidthRequest="40"
                         Source="vvv_logo.svg"/>
 
                     <Image
                         HorizontalOptions="End"
-                        WidthRequest="70"
+                        WidthRequest="40"
                         Source="ags_logo.png" />
                 </HorizontalStackLayout>
             </Grid>
@@ -53,6 +53,7 @@
                     Style="{StaticResource SubHeadline}"
                     Text="{x:Static lang:AppResources.Welcome_Message}"
                     VerticalOptions="Center" 
+                    FontAttributes="Italic"
                     HorizontalOptions="Center"
                     Margin="0,0,0,10"/>
 
@@ -84,5 +85,11 @@
                     Text="{x:Static lang:AppResources.Warning_Close}" />
             </VerticalStackLayout>
         </ScrollView>
+
+        <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Center">
+            <Label
+                Text="▼ Scroll this page to see more ▼"
+                TextColor="{StaticResource Gray400}"/>
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>
