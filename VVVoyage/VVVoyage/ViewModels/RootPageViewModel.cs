@@ -115,7 +115,7 @@ namespace VVVoyage.ViewModels
                     // This way, when the user does reach a landmark, there is no/less
                     // delay when loading the next landmark
                     try { await Task.Delay(2000, cancellationToken); }
-                    catch (TaskCanceledException) { }
+                    catch (TaskCanceledException) { break; }
                 }
             }
 

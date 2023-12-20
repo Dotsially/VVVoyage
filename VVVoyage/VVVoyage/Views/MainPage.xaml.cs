@@ -25,7 +25,7 @@ namespace VVVoyage
         }
 
         private RootPageViewModel _viewModel;
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
+        private CancellationTokenSource _cancellationTokenSource;
 
         public MainPage()
         {
@@ -37,6 +37,7 @@ namespace VVVoyage
 
         protected async override void OnAppearing()
         {
+            _cancellationTokenSource = new();
             await Task.Delay(500);
 
             // Move map to Grote Kerk Breda
