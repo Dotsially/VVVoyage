@@ -25,48 +25,25 @@ namespace VVVoyage.ViewModels
         [ObservableProperty]
         private string imageString;
 
-        public async Task CheckGPSAccess()
+        public async Task<bool> IsUserInProximity(Location location, int maxDistanceKm)
+        {
+            Location userLocation = await _navigator.GetUserLocationAsync(new());
+
+            return Distance.BetweenPositions(location, userLocation).Kilometers < maxDistanceKm;
+        }
+
+        public async Task<PermissionStatus> CheckGPSAccess()
         {
             // Check the status before displaying the prompt.
-            // If the permission was already granted, just return.
+            // If the permission was already granted, just return and don't request for it again.
             var status = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
 
-            if (status == PermissionStatus.Granted) return;
-
-            // Some permissions show a rationale, which happens when a permission has a reason
-            // to be granted by the user. If true, we can write a custom popup that explains
-            // why we need that permission.
-            if (Permissions.ShouldShowRationale<Permissions.LocationAlways>())
-                await _popupNotifier.ShowNotificationAsync("Need permissions", "Map needs to work.", "OK");
+            if (status == PermissionStatus.Granted) return PermissionStatus.Granted;
 
             // Request the permission.
             status = await Permissions.RequestAsync<Permissions.LocationAlways>();
 
-            // GPS location permission not granted let the user know.
-            if (status != PermissionStatus.Granted)
-            {
-                await _popupNotifier.ShowNotificationAsync("Permission Required", "GPS location permission is required to use this app.", "OK");
-
-                await Shell.Current.GoToAsync("MainMenuPage");
-            }
-
-            try
-            {
-                await _navigator.GetUserLocationAsync(new());
-            }
-            catch (FeatureNotSupportedException)
-            {
-                await _popupNotifier.ShowNotificationAsync("GPS not supported", "The app cannot work on this phone, since it does not have a GPS.", "OK");
-
-                await Shell.Current.GoToAsync("MainMenuPage");
-            }
-            catch (FeatureNotEnabledException)
-            {
-                // GPS not on   
-                await _popupNotifier.ShowNotificationAsync("GPS Required", "GPS is required but turned off now :c", "OK");
-
-                await Shell.Current.GoToAsync("MainMenuPage");
-            }
+            return status;
         }
 
         public async Task UpdateMapRepeatedly(CancellationToken cancellationToken)

@@ -134,6 +134,9 @@ namespace VVVoyage.Subsystems.Navigation
             // Read response as JSON
             var jsonResponse = await response.Content.ReadFromJsonAsync<JsonObject>(cancellationToken);
 
+            if (jsonResponse!["status"]!.ToString() == "ZERO_RESULTS")
+                throw new ApplicationException("No route possible");
+
             // Get the encoded polyline value from the response
             // TODO more robust error handling
             var encodedPolyline =

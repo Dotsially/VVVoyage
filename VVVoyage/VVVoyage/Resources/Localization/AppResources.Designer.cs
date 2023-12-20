@@ -196,6 +196,24 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t decide which tour to take? Let the app decide a tour for you..
+        /// </summary>
+        internal static string Random_Tour_Description {
+            get {
+                return ResourceManager.GetString("Random_Tour_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Random tour.
+        /// </summary>
+        internal static string Random_Tour_Name {
+            get {
+                return ResourceManager.GetString("Random_Tour_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a tour.
         /// </summary>
         internal static string Select_Tour {

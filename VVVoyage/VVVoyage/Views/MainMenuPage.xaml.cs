@@ -19,12 +19,6 @@ public partial class MainMenuPage : ContentPage
         BindingContext = viewModel;
     }
 
-	private void SelectedLanguage_Changed(object sender, EventArgs e)
-	{
-		if (sender is Picker picker && picker.SelectedItem is string selectedLanguage)
-			_viewModel.SetLanguage(selectedLanguage);
-	}
-
 	private async void TourButton_Clicked(object sender, EventArgs e)
 	{
 		if (sender is Button button && button.BindingContext is Tour tour)

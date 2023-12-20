@@ -8,11 +8,9 @@
              xmlns:lang="clr-namespace:VVVoyage.Resources.Localization">
 
     <Grid RowDefinitions="Auto, Auto, *">
-        <maps:Map
-            Grid.Row="0"
-            Grid.RowSpan="3"
-            x:Name="map"
-            IsShowingUser="True" />
+        <StackLayout Grid.Row="0" Grid.RowSpan="3" x:Name="mapContainer" HorizontalOptions="Center" VerticalOptions="Center">
+            <ActivityIndicator IsRunning="True"/>
+        </StackLayout>
 
         <HorizontalStackLayout
             Grid.Row="0"
@@ -56,6 +54,8 @@
 
         <VerticalStackLayout Margin="0,65,10,0" Spacing="15" HorizontalOptions="End">
             <Button
+                x:Name="instructionsBtn"
+                IsEnabled="False"
                 VerticalOptions="Start"
                 ImageSource="help_circle.svg"
                 Clicked="InstructionsButton_Clicked"
@@ -64,6 +64,8 @@
                 TextColor="White"/>
 
             <Button
+                x:Name="stopRouteBtn"
+                IsEnabled="False"
                 VerticalOptions="Start"
                 Text="Stop tour"
                 Clicked="StopRouteButton_Clicked"
