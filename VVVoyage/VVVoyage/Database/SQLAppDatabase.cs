@@ -30,8 +30,12 @@ public class SQLAppDatabase : IAppDatabase
         Sight sister = new("Liefdeszuster", new Location(51.59336561016905, 4.779405797254084), "", "liefdeszuster.jpg");
         Sight nassau = new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
         Sight lightHouse = new("The Light House", new Location(51.584039168945026, 4.774673039583854), "", "light_house.jpg");
-        Sight castle = new("Kasteel van Breda", new Location(51.59108157152743, 4.776103712549693), "", "kasteel.jpg");
+        Sight castle = new("Kasteel van Breda", new Location(51.59063724580636, 4.776220241517539), "", "kasteel.jpg");
         List<Sight> landmarks = [vvv, sister, nassau, lightHouse, castle];
+
+        Sight kloosterKazerne = new("Kloosterkazerne", new Location(51.58767769010314, 4.7818096779501165), "", "kloosterkazerne.jpg");
+        Sight antoniusKathedraal = new("Sint-Antoniuskathedraal", new Location(51.58773348225241, 4.777311726507635), "", "kathedraal.jpg");
+        Sight groteKerk = new("Grote Kerk", new Location(51.58909419302802, 4.775721439630147), "", "grotekerk.jpg");
 
         string vvvDescriptionEn = "At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.\r\n\r\nHowever, a bit of the VVV is making a comeback in the space. CoffeeLab is set to collaborate with InBreda to offer information about the city, local activities, and Breda-themed gifts.";
         string vvvDescriptionNl = "Aan het begin van de COVID-19-crisis moest VVV Breda de deuren sluiten. Een paar maanden later, in juni, werd besloten dat deze sluiting definitief zou zijn. De winkel kampte al geruime tijd met verliezen en pogingen om het tij te keren bleken niet succesvol. In juli van dat jaar nam CoffeeLab de ruimte aan de Willemstraat over. Sindsdien is het een plek waar je heerlijk kunt genieten van een kopje koffie, lunchen of werken op een van de flexibele werkplekken.\r\n\r\nEen stukje VVV maakt echter een comeback in de ruimte. CoffeeLab gaat samenwerken met InBreda om informatie aan te bieden over de stad, lokale activiteiten en cadeaus met een Breda-thema.";
