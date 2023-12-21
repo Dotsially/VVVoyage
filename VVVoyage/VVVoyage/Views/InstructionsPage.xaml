@@ -83,6 +83,10 @@
                 <Label
                     Style="{StaticResource InstructionBody}"
                     Text="{x:Static lang:AppResources.Warning_Close}" />
+
+                <Label
+                    Style="{StaticResource InstructionBody}"
+                    Text="{x:Static lang:AppResources.Ensure_Permissions}" />
             </VerticalStackLayout>
         </ScrollView>
 
