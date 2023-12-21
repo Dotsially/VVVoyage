@@ -31,11 +31,20 @@ public class SQLAppDatabase : IAppDatabase
         Sight nassau = new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
         Sight lightHouse = new("The Light House", new Location(51.584039168945026, 4.774673039583854), "", "light_house.jpg");
         Sight castle = new("Kasteel van Breda", new Location(51.59063724580636, 4.776220241517539), "", "kasteel.jpg");
-        List<Sight> landmarks = [vvv, sister, nassau, lightHouse, castle];
 
         Sight kloosterKazerne = new("Kloosterkazerne", new Location(51.58767769010314, 4.7818096779501165), "", "kloosterkazerne.jpg");
         Sight antoniusKathedraal = new("Sint-Antoniuskathedraal", new Location(51.58773348225241, 4.777311726507635), "", "kathedraal.jpg");
         Sight groteKerk = new("Grote Kerk", new Location(51.58909419302802, 4.775721439630147), "", "grotekerk.jpg");
+
+        Sight avans1 = new("Avans LA nr 1", new Location(51.585852, 4.791732), "", "avans_logo.svg");
+        Sight avans2 = new("Avans LA nr 2", new Location(51.585865, 4.792367), "", "avans_logo.svg");
+        Sight avans3 = new("Avans LA nr 3", new Location(51.585765, 4.792867), "", "avans_logo.svg");
+        Sight avans4 = new("Avans LA parkeerplaats", new Location(51.585543, 4.792317), "", "avans_logo.svg");
+        Sight avans5 = new("Avans LA fietsenstalling", new Location(51.585522, 4.792828), "", "avans_logo.svg");
+
+        List<Sight> landmarks = [vvv, sister, nassau, lightHouse, castle,
+                                kloosterKazerne, antoniusKathedraal, groteKerk,
+                                avans1, avans2, avans3, avans4, avans5];
 
         string vvvDescriptionEn = "At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.\r\n\r\nHowever, a bit of the VVV is making a comeback in the space. CoffeeLab is set to collaborate with InBreda to offer information about the city, local activities, and Breda-themed gifts.";
         string vvvDescriptionNl = "Aan het begin van de COVID-19-crisis moest VVV Breda de deuren sluiten. Een paar maanden later, in juni, werd besloten dat deze sluiting definitief zou zijn. De winkel kampte al geruime tijd met verliezen en pogingen om het tij te keren bleken niet succesvol. In juli van dat jaar nam CoffeeLab de ruimte aan de Willemstraat over. Sindsdien is het een plek waar je heerlijk kunt genieten van een kopje koffie, lunchen of werken op een van de flexibele werkplekken.\r\n\r\nEen stukje VVV maakt echter een comeback in de ruimte. CoffeeLab gaat samenwerken met InBreda om informatie aan te bieden over de stad, lokale activiteiten en cadeaus met een Breda-thema.";
@@ -67,25 +76,22 @@ public class SQLAppDatabase : IAppDatabase
                 [kloosterKazerne, antoniusKathedraal, groteKerk, castle, nassau]
             );
         Tour foodTour = new(
-                "Food tour",
+                "Park tour",
                 "",
-                [nassau, castle, vvv, lightHouse, sister]
+                [vvv, sister, nassau, lightHouse, castle]
             );
-        Tour wagenbergTour = new(
-                "Wagenberg tour",
+        Tour avansTour = new(
+                "Avans tour",
                 "",
-                [sister, nassau, lightHouse, castle, vvv]
+                [avans1, avans2, avans3, avans4, avans5]
             );
-        List<Tour> tours = [antiqueTour, foodTour, wagenbergTour];
+        List<Tour> tours = [antiqueTour, foodTour, avansTour];
 
         string antiqueDescriptionEn = "Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today.";
         string antiqueDescriptionNl = "Ontdek enkele van de oudste bezienswaardigheden van Breda. Ontdek welke culturele betekenis ze vandaag de dag nog steeds hebben.";
 
         string foodDescriptionEn = "Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?";
         string foodDescriptionNl = "Breda is de thuisbasis van enkele van de meest unieke snacks en maaltijden. Altijd al willen weten hoe een frikandel of kroket smaakt?";
-
-        string wagenbergDescriptionEn = "One-way ticket to Wagenberg (if it even exists). You'll probably die alone on this tour.";
-        string wagenbergDescriptionNl = "Enkeltje Wagenberg (als dat überhaupt bestaat). Tijdens deze tour zul je waarschijnlijk alleen sterven. (pas op voor wilde vcw voetbalfans)";
 
         try
         {
@@ -125,6 +131,23 @@ public class SQLAppDatabase : IAppDatabase
             await AddDescriptionAsync(antoniusKathedraal, "en", antoniusDescriptionEn);
             await AddDescriptionAsync(antoniusKathedraal, "nl", antoniusDescriptionNl);
 
+            await AddDescriptionAsync(avans1, "en", "Avans nr 1");
+            await AddDescriptionAsync(avans1, "nl", "Avans nr 1");
+
+            await AddDescriptionAsync(avans2, "en", "Avans nr 2");
+            await AddDescriptionAsync(avans2, "nl", "Avans nr 2");
+
+            await AddDescriptionAsync(avans3, "en", "Avans nr 3");
+            await AddDescriptionAsync(avans3, "nl", "Avans nr 3");
+
+            await AddDescriptionAsync(avans4, "en", "Avans nr 4");
+            await AddDescriptionAsync(avans4, "nl", "Avans nr 4");
+
+            await AddDescriptionAsync(avans5, "en", "Avans nr 5");
+            await AddDescriptionAsync(avans5, "nl", "Avans nr 5");
+
+
+
             await AddDescriptionAsync(kloosterKazerne, "en", kazerneDescriptionEn);
             await AddDescriptionAsync(kloosterKazerne, "nl", kazerneDescriptionNl);
 
@@ -137,8 +160,8 @@ public class SQLAppDatabase : IAppDatabase
             await AddDescriptionAsync(foodTour, "en", foodDescriptionEn);
             await AddDescriptionAsync(foodTour, "nl", foodDescriptionNl);
 
-            await AddDescriptionAsync(wagenbergTour, "en", wagenbergDescriptionEn);
-            await AddDescriptionAsync(wagenbergTour, "nl", wagenbergDescriptionNl);
+            await AddDescriptionAsync(avansTour, "en", "Avans yourself!!!1");
+            await AddDescriptionAsync(avansTour, "nl", "Avans yourself!!!1");
         }
         catch (Exception e)
         {
