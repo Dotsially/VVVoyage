@@ -79,7 +79,7 @@ namespace VVVoyage.Subsystems.Navigation
         /// <exception cref="InvalidNavigationException">Any other error that occurs when attempting to reetrieve the user's location.</exception>
         public async Task<Location> GetUserLocationAsync(CancellationToken cancellationToken)
         {
-            GeolocationRequest request = new(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
 
             Location? userLocation = await _geolocationAPI.GetLocationAsync(request, cancellationToken);
 
@@ -98,7 +98,7 @@ namespace VVVoyage.Subsystems.Navigation
             // TODO think about replacing this calculation with one that accounts for roads.
             double distanceKM = Location.CalculateDistance(userLocation, landmarkLocation, DistanceUnits.Kilometers);
 
-            return distanceKM <= 0.015;
+            return distanceKM <= 0.03;
         }
 
         /// <summary>
