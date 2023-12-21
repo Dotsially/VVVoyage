@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Antique_Description" xml:space="preserve">
-    <value>Ontdek enkele van de oudste bezienswaardigheden van Breda. Ontdek welke culturele betekenis ze vandaag de dag nog steeds hebben.</value>
+    <value>Ontdek de mooiste oude bezienswaardigheden van Breda. Herleef de rijke geschiedenis en onderga een culturele reis door de Nassaustad. </value>
   </data>
   <data name="App_Instructions" xml:space="preserve">
-    <value>Om een route te starten, klikt u eenvoudig op de routeknop in het hoofdmenuscherm. Vervolgens kunt u elke gewenste route kiezen. De route gaat meteen van start! Volg de lijn op het scherm om bij het volgende oriëntatiepunt te komen. Je krijgt een melding zodra je in de buurt bent. De app geeft ook een nuttige naam en beschrijving voor het oriëntatiepunt. Bewonder de schoonheid ervan en bezoek vervolgens het volgende monument. De tour eindigt automatisch zodra je alle bezienswaardigheden van de route hebt bezocht.</value>
+    <value>Om een route te starten, klikt u eenvoudig op de routeknop in het hoofdmenuscherm. Vervolgens kunt u de gewenste route kiezen. De route gaat meteen van start! Volg de lijn op het scherm om bij het volgende oriëntatiepunt te komen. Je krijgt een melding zodra je in de buurt bent. De app geeft ook een nuttige naam en beschrijving voor het oriëntatiepunt. Bewonder de schoonheid ervan en bezoek vervolgens het volgende monument. De tour eindigt automatisch zodra je alle bezienswaardigheden van de route hebt bezocht.</value>
   </data>
   <data name="Castle_Description" xml:space="preserve">
     <value>Het Kasteel van Breda was ooit het stamslot van de Nassaus, de voorouders van onze Koninklijke familie. 
@@ -206,9 +206,6 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   </data>
   <data name="Stop_Route_Confirmation" xml:space="preserve">
     <value>Weet u zeker dat u wilt stoppen met het volgen van de tour? Alle progressie zal verloren gaan!</value>
-  </data>
-  <data name="Wagenberg_Description" xml:space="preserve">
-    <value>Enkeltje Wagenberg (als dat überhaupt bestaat). Tijdens deze tour zul je waarschijnlijk alleen sterven. (pas op voor wilde vcw voetbalfans)</value>
   </data>
   <data name="Warning_Close" xml:space="preserve">
     <value>• Als u de app sluit terwijl u de rondleiding doet, wordt de rondleiding stopgezet.</value>

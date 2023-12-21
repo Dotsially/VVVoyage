@@ -61,7 +61,7 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today..
+        ///   Looks up a localized string similar to Discover the most beautiful historical landmarks of Breda. Relive the rich history and embark on a cultural journey through the Nassau city..
         /// </summary>
         internal static string Antique_Description {
             get {
@@ -286,16 +286,7 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One-way ticket to Wagenberg (if it even exists). You&apos;ll probably die alone on this tour..
-        /// </summary>
-        internal static string Wagenberg_Description {
-            get {
-                return ResourceManager.GetString("Wagenberg_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to • Closing the app while doing the tour stops the tour..
+        ///   Looks up a localized string similar to • Closing the app while doing the tour, stops the tour..
         /// </summary>
         internal static string Warning_Close {
             get {
