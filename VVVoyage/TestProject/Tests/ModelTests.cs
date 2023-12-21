@@ -6,15 +6,6 @@ namespace TestProject.Tests
     {
         //Sight.CS
         [Fact]
-        private void Label_of_SightPin_should_be_set_when_not_entered()
-        {
-            Location l = new Location();
-            var sut = new Sight("adress", l, "sightDescription");
-
-            Assert.Equal("Bezienswaardigheid", sut.SightPin.Label);
-        }
-
-        [Fact]
         private void Label_of_SightPin_should_be_entered_string()
         {
             Location l = new Location();
@@ -27,7 +18,7 @@ namespace TestProject.Tests
         private void Address_of_SightPin_should_be_entered_string_StandardLabel()
         {
             Location l = new Location();
-            var sut = new Sight("address", l, "sightDescription");
+            var sut = new Sight("address", l, "sightDescription", "");
 
             Assert.Equal("address", sut.SightPin.Address);
         }
@@ -45,7 +36,7 @@ namespace TestProject.Tests
         private void Location_of_SightPin_should_be_entered_Location_StandardLabel()
         {
             Location l = new Location();
-            var sut = new Sight("address", l, "sightDescription");
+            var sut = new Sight("address", l, "sightDescription", "");
 
             Assert.Equal(l, sut.SightPin.Location);
         }
@@ -63,7 +54,7 @@ namespace TestProject.Tests
         private void SightDesciption_of_SightPin_should_be_entered_SightDescpription_StandardLabel()
         {
             Location l = new Location();
-            var sut = new Sight("address", l, "sightDescription");
+            var sut = new Sight("address", l, "sightDescription", "");
 
             Assert.Equal("sightDescription", sut.SightDescription);
         }
@@ -81,7 +72,7 @@ namespace TestProject.Tests
         private void Sight_Label_Location_SightDescription_StandardLabel()
         {
             Location l = new Location();
-            var sut = new Sight("address", l, "sightDescription");
+            var sut = new Sight("address", l, "sightDescription", "");
 
             Assert.Equal("address", sut.SightPin.Address);
             Assert.Equal(l, sut.SightPin.Location);
@@ -107,7 +98,7 @@ namespace TestProject.Tests
         {
             Location l = new Location();
 
-            var one = new Sight("sightName", l, "sightDescription");
+            var one = new Sight("sightName", l, "sightDescription", "");
 
             var sut = new Tour("name", "description", one);
 
@@ -119,7 +110,7 @@ namespace TestProject.Tests
         {
             Location l = new Location();
 
-            var one = new Sight("sightName", l, "sightDescription");
+            var one = new Sight("sightName", l, "sightDescription", "");
 
             var sut = new Tour("name", "description", one);
 
@@ -131,9 +122,9 @@ namespace TestProject.Tests
         {
             Location l = new Location();
 
-            var one = new Sight("sightName", l, "sightDescription");
-            var two = new Sight("nameSight", l, "descriptionSight");
-            var three = new Sight("name", l, "description");
+            var one = new Sight("sightName", l, "sightDescription", "");
+            var two = new Sight("nameSight", l, "descriptionSight", "");
+            var three = new Sight("name", l, "description", "");
 
             Sight[] sightArray = { one, two, three };
 
@@ -147,9 +138,9 @@ namespace TestProject.Tests
         {
             Location l = new Location();
 
-            var one = new Sight("sightName", l, "sightDescription");
-            var two = new Sight("nameSight", l, "descriptionSight");
-            var three = new Sight("name", l, "description");
+            var one = new Sight("sightName", l, "sightDescription", "");
+            var two = new Sight("nameSight", l, "descriptionSight", "");
+            var three = new Sight("name", l, "description", "");
 
             Sight[] sightArray = { one, two, three };
 

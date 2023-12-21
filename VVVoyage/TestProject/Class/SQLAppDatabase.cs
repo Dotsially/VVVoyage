@@ -23,6 +23,9 @@ namespace TestProject.Class
 
             string path = Path.Combine(Microsoft.VisualBasic.FileIO.FileSystem.CurrentDirectory, FILENAME);
 
+            if (File.Exists(path))
+                File.Delete(path);
+
             _database = new SQLiteAsyncConnection(path, flags);
 
             try
@@ -162,7 +165,7 @@ Text TEXT
                         await _database.QueryAsync<Description>(@"SELECT * FROM ? WHERE ID = ?", tableNameLandmark, id);
                     if (lm.Count != 1) throw new Exception("Invalid route");
                     Sight sight = new Sight(lm[0].Name, new Location(lm[0].Latitude, lm[0].Longitude),
-                        lmDesc.Count != 1 ? "" : lmDesc[0].Text);
+                        lmDesc.Count != 1 ? "" : lmDesc[0].Text, lm[0].ImagePath);
                     sights.Add(sight);
                 }
             }
