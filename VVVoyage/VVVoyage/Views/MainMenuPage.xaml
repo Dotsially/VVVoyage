@@ -49,7 +49,7 @@
 
                                 <Button
                                     Grid.Column="1"
-                                    Text="Select"
+                                    Text="{x:Static lang:AppResources.Select_Instruction}"
                                     Clicked="TourButton_Clicked"
                                     HorizontalOptions="End" />
                             </Grid>

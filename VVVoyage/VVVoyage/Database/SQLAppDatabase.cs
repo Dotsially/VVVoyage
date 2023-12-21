@@ -75,7 +75,7 @@ public class SQLAppDatabase : IAppDatabase
                 "",
                 [kloosterKazerne, antoniusKathedraal, groteKerk, castle, nassau]
             );
-        Tour foodTour = new(
+        Tour parkTour = new(
                 "Park tour",
                 "",
                 [vvv, sister, nassau, lightHouse, castle]
@@ -85,13 +85,13 @@ public class SQLAppDatabase : IAppDatabase
         //        "",
         //        [avans1, avans2, avans3, avans4, avans5]
         //    );
-        List<Tour> tours = [antiqueTour, foodTour, /*avansTour*/];
+        List<Tour> tours = [antiqueTour, parkTour, /*avansTour*/];
 
-        string antiqueDescriptionEn = "Discover some of the oldest landmarks of Breda. Find out what cultural significance they still have today.";
-        string antiqueDescriptionNl = "Ontdek enkele van de oudste bezienswaardigheden van Breda. Ontdek welke culturele betekenis ze vandaag de dag nog steeds hebben.";
+        string antiqueDescriptionEn = "Discover the most beautiful historical landmarks of Breda. Relive the rich history and embark on a cultural journey through the Nassau city.";
+        string antiqueDescriptionNl = "Ontdek de mooiste oude bezienswaardigheden van Breda. Herleef de rijke geschiedenis en onderga een culturele reis door de Nassaustad. ";
 
-        string foodDescriptionEn = "Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?";
-        string foodDescriptionNl = "Breda is de thuisbasis van enkele van de meest unieke snacks en maaltijden. Altijd al willen weten hoe een frikandel of kroket smaakt?";
+        string parkDescriptionEn = "Familiarize yourself with one of the most breathtaking parks of Breda, the Valkenberg park! The route will start from the train station of Breda.";
+        string parkDescriptionNl = "Maak kennis met een van de meest adembenemende parken van Breda, Het Valkenberg stadspark! De route begint vanaf het treinstation van Breda.";
 
         try
         {
@@ -157,8 +157,8 @@ public class SQLAppDatabase : IAppDatabase
             await AddDescriptionAsync(antiqueTour, "en", antiqueDescriptionEn);
             await AddDescriptionAsync(antiqueTour, "nl", antiqueDescriptionNl);
 
-            await AddDescriptionAsync(foodTour, "en", foodDescriptionEn);
-            await AddDescriptionAsync(foodTour, "nl", foodDescriptionNl);
+            await AddDescriptionAsync(parkTour, "en", parkDescriptionEn);
+            await AddDescriptionAsync(parkTour, "nl", parkDescriptionNl);
 
             //await AddDescriptionAsync(avansTour, "en", "Avans yourself!!!1");
             //await AddDescriptionAsync(avansTour, "nl", "Avans yourself!!!1");

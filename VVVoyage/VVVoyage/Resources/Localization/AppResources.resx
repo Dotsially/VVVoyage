@@ -117,22 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Antique_Description" xml:space="preserve">
-    <value>Discover the most beautiful historical landmarks of Breda. Relive the rich history and embark on a cultural journey through the Nassau city.</value>
-  </data>
   <data name="App_Instructions" xml:space="preserve">
     <value>To start a route, simply click the route button on the main menu screen. You are then able to choose any route you'd like. The route will start right away! Follow the line on the screen to arrive at the next landmark. You will get a notification once you're close. The app will give a useful name and description for the landmark as well. Admire its beauty, and then visit the next landmark. The tour will automatically end once you've visited all landmarks of the route.</value>
   </data>
-  <data name="Castle_Description" xml:space="preserve">
-    <value>Breda Castle was once the ancestral home of the Nassaus, the ancestors of our royal family. Because of the important international role of the Nassaus, the Castle was an important place in Europe during the 15th to 17th centuries.
-
-A long history
-Breda Castle has a long history. A castle stood on the site of the current castle as early as 1198. The castle came into the hand of the Nassaus in the early 15th century through the marriage of German count Engelbrecht van Nassau to Breda’s Johanna van Polanen.
-
-The castle has been demolished and built almost continuously over the centuries.
-
-From Renaissance Palace to KMA
-In the 16th century, County Henry III of Nassau had the castle rigorously rebuilt into a Renaissance palace. For this, he brought Thomas Vincidor de Bologna, a pupil of Rafael, to Breda. With the arrival of the Royal Military Academy in 1826, the castle was again downsized and many of the Renaissance ornaments disappeared.</value>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
@@ -143,34 +132,32 @@ In the 16th century, County Henry III of Nassau had the castle rigorously rebuil
   <data name="Ensure_Wifi" xml:space="preserve">
     <value>• Ensure that you are using Wi-Fi or cellular data throughout the tour;</value>
   </data>
-  <data name="Food_Description" xml:space="preserve">
-    <value>Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?</value>
-  </data>
   <data name="General_Outline" xml:space="preserve">
     <value>General outline</value>
   </data>
   <data name="Important" xml:space="preserve">
     <value>Important</value>
   </data>
-  <data name="Liefdeszusters_Description" xml:space="preserve">
-    <value>Officially, this statue is called the "Liefdeszuster of St. Vincent de St. Paul de Chartres." It symbolizes the religious history of Breda. The creator, Jos van Riemsdijk, depicts with the Liefdeszuster the care that the hospice sisters practiced for centuries.
-
-The Meeùs concern donated the statue in 1990.</value>
+  <data name="Landmark_Default_Label" xml:space="preserve">
+    <value>Landmark</value>
   </data>
-  <data name="Light_House_Description" xml:space="preserve">
-    <value>Certainly noteworthy, a lighthouse in the Breda canal. It is not intended to guide seafaring vessels, though. "The Lighthouse" is an artwork by the Italian architect/artist Aldo Rossi. The idea for a Rossi artwork in Breda originated when he exhibited in the Breda Beyerd in the 1980s (the current location of the Stedelijk Museum). Rossi had previously exhibited lighthouses in Toronto and Rotterdam, and in 1992, "The Lighthouse" was installed in Breda. Initially placed in the Wilhelminavijver, it found its permanent location in the Academiesingel after protests from local residents.
-
-Opinions on its aesthetic appeal may vary, but it is certainly an eye-catching piece.</value>
+  <data name="Location_Disabled_Message" xml:space="preserve">
+    <value>The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.</value>
   </data>
-  <data name="Nassau_Description" xml:space="preserve">
-    <value>The Nassau Monument, also known as the Baroniemonument, commemorates the arrival of the German Count Engelbrecht of Nassau in the Netherlands. The three reliefs depict the inauguration of Engelbrecht and his wife, the eleven-year-old Johanna van Polanen from Breda, as Lord and Lady of Breda. Through their marriage, Engelbrecht and Johanna laid the foundation for the House of Orange-Nassau, our Dutch Royal Family.
-
-The monument was ceremoniously unveiled in 1905 by Queen Wilhelmina. Around it, the coats of arms of twenty municipalities around Breda are displayed. At the top, the Lion of Nassau rises with a royal crown, sword, and coat of arms.
-
-The renowned Dr. P.J.H. Cuypers, the architect of, among other things, the Rijksmuseum and Central Station in Amsterdam, designed the monument.</value>
+  <data name="Location_Disabled_Title" xml:space="preserve">
+    <value>Error: location disabled</value>
+  </data>
+  <data name="Location_Permission_Message" xml:space="preserve">
+    <value>GPS location permission is required to use this app.</value>
+  </data>
+  <data name="Location_Permission_Title" xml:space="preserve">
+    <value>Permission required</value>
   </data>
   <data name="Navigation_Instruction" xml:space="preserve">
     <value>Head to:</value>
+  </data>
+  <data name="Next_Landmark" xml:space="preserve">
+    <value>Next landmark</value>
   </data>
   <data name="Next_Sight" xml:space="preserve">
     <value>Next sight:</value>
@@ -190,10 +177,17 @@ The renowned Dr. P.J.H. Cuypers, the architect of, among other things, the Rijks
   <data name="No_Internet_Title" xml:space="preserve">
     <value>No internet</value>
   </data>
-  <data name="Old_VVV_Description" xml:space="preserve">
-    <value>At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
-
-However, a bit of the VVV is making a comeback in the space. CoffeeLab is set to collaborate with InBreda to offer information about the city, local activities, and Breda-themed gifts.</value>
+  <data name="No_Location_Support_Message" xml:space="preserve">
+    <value>The app cannot work on this phone, since it does not have a GPS.</value>
+  </data>
+  <data name="No_Location_Support_Title" xml:space="preserve">
+    <value>GPS not supported</value>
+  </data>
+  <data name="Phone_Too_Far_Away_Message" xml:space="preserve">
+    <value>The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.</value>
+  </data>
+  <data name="Phone_Too_Far_Away_Title" xml:space="preserve">
+    <value>Error: too far away</value>
   </data>
   <data name="Random_Tour_Description" xml:space="preserve">
     <value>Can't decide which tour to take? Let the app decide a tour for you.</value>
@@ -201,11 +195,23 @@ However, a bit of the VVV is making a comeback in the space. CoffeeLab is set to
   <data name="Random_Tour_Name" xml:space="preserve">
     <value>Random tour</value>
   </data>
+  <data name="Scroll_Page_Instruction" xml:space="preserve">
+    <value>▼ Scroll this page to see more ▼</value>
+  </data>
+  <data name="Select_Instruction" xml:space="preserve">
+    <value>Select</value>
+  </data>
   <data name="Select_Tour" xml:space="preserve">
     <value>Select a tour</value>
   </data>
   <data name="Stop_Route_Confirmation" xml:space="preserve">
     <value>Are you sure you want to stop the tour? Your progress will be lost!</value>
+  </data>
+  <data name="Tour_End_Message" xml:space="preserve">
+    <value>You have finished the tour! We hope you had a wonderful experience!</value>
+  </data>
+  <data name="Tour_End_Title" xml:space="preserve">
+    <value>Tour finished!</value>
   </data>
   <data name="Warning_Close" xml:space="preserve">
     <value>• Closing the app while doing the tour, stops the tour.</value>

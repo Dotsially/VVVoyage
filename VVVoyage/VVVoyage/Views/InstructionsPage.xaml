@@ -19,7 +19,7 @@
                     Grid.Column="0"
                     HorizontalOptions="Start"
                     ImageSource="back_arrow.svg"
-                    Text="Back"
+                    Text="{x:Static lang:AppResources.Back}"
                     TextColor="Black"
                     HeightRequest="40"
                     BackgroundColor="{StaticResource Secondary}"
@@ -88,7 +88,7 @@
 
         <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Center">
             <Label
-                Text="▼ Scroll this page to see more ▼"
+                Text="{x:Static lang:AppResources.Scroll_Page_Instruction}"
                 TextColor="{StaticResource Gray400}"/>
         </HorizontalStackLayout>
     </Grid>

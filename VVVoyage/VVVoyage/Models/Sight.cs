@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VVVoyage.Resources.Localization;
 
 namespace VVVoyage.Models
 {
@@ -22,7 +23,7 @@ namespace VVVoyage.Models
         {
             SightPin = new Pin
             {
-                Label = "Bezienswaardigheid",
+                Label = AppResources.Landmark_Default_Label,
                 Address = sightName,
                 Type = PinType.Place,  
                 Location = location
