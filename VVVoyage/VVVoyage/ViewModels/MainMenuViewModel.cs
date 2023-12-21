@@ -25,7 +25,6 @@ namespace VVVoyage.ViewModels
         public MainMenuViewModel(IAppDatabase database)
         {
             _database = database;
-            Debug.WriteLine("language is " + CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
         }
 
         public async Task LoadToursFromDatabase()

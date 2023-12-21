@@ -117,26 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Antique_Description" xml:space="preserve">
-    <value>Ontdek de mooiste oude bezienswaardigheden van Breda. Herleef de rijke geschiedenis en onderga een culturele reis door de Nassaustad. </value>
-  </data>
   <data name="App_Instructions" xml:space="preserve">
     <value>Om een route te starten, klikt u eenvoudig op de routeknop in het hoofdmenuscherm. Vervolgens kunt u de gewenste route kiezen. De route gaat meteen van start! Volg de lijn op het scherm om bij het volgende oriëntatiepunt te komen. Je krijgt een melding zodra je in de buurt bent. De app geeft ook een nuttige naam en beschrijving voor het oriëntatiepunt. Bewonder de schoonheid ervan en bezoek vervolgens het volgende monument. De tour eindigt automatisch zodra je alle bezienswaardigheden van de route hebt bezocht.</value>
   </data>
-  <data name="Castle_Description" xml:space="preserve">
-    <value>Het Kasteel van Breda was ooit het stamslot van de Nassaus, de voorouders van onze Koninklijke familie. 
-Vanwege de belangrijke internationale rol van de Nassaus was het Kasteel in de 15e t/m de 17e eeuw een belangrijke plek in Europa.  
-
-Lange geschiedenis
-Het Kasteel van Breda kent een lange geschiedenis. Al in 1198 stond er op de plaats van het huidige kasteel een burcht. Het Kasteel kwam begin 15e eeuw in handen van de Nassaus door het huwelijk van de Duitse graaf Engelbrecht van Nassau met de Bredase Johanna van Polanen. 
-
- Er is in de loop der eeuwen bijna voortdurend aan het Kasteel gesloopt en gebouwd.
-
-Van Renaissancepaleis naar KMA
-In de zestiende eeuw liet Graaf Hendrik III van Nassau het kasteel rigoureus verbouwen tot renaissancepaleis. Hij haalde hiervoor Thomas Vincidor de Bologna, een leerling van Rafael, naar Breda. Met de komst van de Koninklijke Militaire Academie in 1826 is het kasteel weer versoberd en zijn er veel van de renaissancistische ornamenten verdwenen.
-
-Rondleidingen
-Omdat het Kasteel op militair terrein staat, is het maar heel beperkt te bezoeken. Gilde de Baronie geeft regelmatig rondleidingen over het terrein. Hiervoor dien je je van tevoren aan te melden.</value>
+  <data name="Back" xml:space="preserve">
+    <value>Terug</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmatie</value>
@@ -147,32 +132,32 @@ Omdat het Kasteel op militair terrein staat, is het maar heel beperkt te bezoeke
   <data name="Ensure_Wifi" xml:space="preserve">
     <value>• Zorg ervoor dat u tijdens de tour Wi-Fi of mobiele data gebruikt;</value>
   </data>
-  <data name="Food_Description" xml:space="preserve">
-    <value>Breda is de thuisbasis van enkele van de meest unieke snacks en maaltijden. Altijd al willen weten hoe een frikandel of kroket smaakt?</value>
-  </data>
   <data name="General_Outline" xml:space="preserve">
     <value>Algemeen overzicht</value>
   </data>
   <data name="Important" xml:space="preserve">
     <value>Belangrijk</value>
   </data>
-  <data name="Liefdeszusters_Description" xml:space="preserve">
-    <value>Officieel heet dit beeld de Liefdeszuster van St. Vincent de St. Paul de Chartres. Het staat symbool voor het religieus verleden van Breda. Maker Jos van Riemsdijk geeft met de Liefdeszuster de zorg weer, zoals de gasthuiszusters die eeuwenlang in praktijk brachten.
-Het Meeùs concern schonk het beeld in 1990.</value>
+  <data name="Landmark_Default_Label" xml:space="preserve">
+    <value>Bezienswaardigheid</value>
   </data>
-  <data name="Light_House_Description" xml:space="preserve">
-    <value>Op z´n minst opmerkelijk, een vuurtoren in de Bredase singel. Die is dan ook niet bedoeld om zeeschepen de weg te wijzen. The Lighthouse is een kunstwerk van de Italiaanse architect/kunstenaar Aldo Rossi. Toen hij in de tachtiger jaren exposeerde in de Bredase Beyerd (de locatie waar nu Stedelijk Museum huist), ontstond het idee van een kunstwerk van Rossi in Breda. Vuurtorens had Aldo Rossi eerder al in Toronto en Rotterdam geëxposeerd en in 1992 werd The Lighthouse in Breda geplaatst. Eerst in de Wilhelminavijver, maar na protest van omwonenden kreeg het kunstwerk zijn vaste plek in de Academiesingel.
-Over mooi of niet zijn de meningen verdeeld, maar een eyecatcher is het zeker.</value>
+  <data name="Location_Disabled_Message" xml:space="preserve">
+    <value>De rondleiding kan niet worden gestart, omdat de locatiediensten van de telefoon (inclusief GPS-diensten) zijn uitgeschakeld. Tip: schakel de locatiediensten opnieuw in door naar het menu Snelle Instellingen te gaan (vanaf de bovenkant naar beneden vegen) en de tegel met de naam 'Locatie' te activeren.</value>
   </data>
-  <data name="Nassau_Description" xml:space="preserve">
-    <value>Het Nassaumonument of Baroniemonument herinnert aan de komst van de Duitse graaf Engelbrecht van Nassau naar Nederland. Op de drie reliëfs kun je zien hoe hij en zijn vrouw, de elfjarige Bredase Johanna van Polanen werden ingehuldigd als Heer en Vrouwe van Breda. Engelbrecht en Johanna legden met hun huwelijk de basis voor het Huis Oranje Nassau, ons Nederlands Koningshuis. 
-
-Het monument werd in 1905 feestelijk onthuld door koningin Wilhelmina. Rondom zijn de wapenschilden van twintig gemeenten rond Breda aangebracht. Bovenop torent de Leeuw van Nassau met koningskroon, zwaard en wapenschild.
-
-De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraal Station in Amsterdam, ontwierp het monument.</value>
+  <data name="Location_Disabled_Title" xml:space="preserve">
+    <value>Fout: locatie uitgeschakeld</value>
+  </data>
+  <data name="Location_Permission_Message" xml:space="preserve">
+    <value>GPS locatie toestemming is noodzakelijk voor het gebruik van deze app.</value>
+  </data>
+  <data name="Location_Permission_Title" xml:space="preserve">
+    <value>Toestemming nodig</value>
   </data>
   <data name="Navigation_Instruction" xml:space="preserve">
     <value>Ga naar:</value>
+  </data>
+  <data name="Next_Landmark" xml:space="preserve">
+    <value>Volgende bezienswaardigheid</value>
   </data>
   <data name="Next_Sight" xml:space="preserve">
     <value>Volgende bezienswaardigheid:</value>
@@ -192,8 +177,17 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   <data name="No_Internet_Title" xml:space="preserve">
     <value>Geen internet</value>
   </data>
-  <data name="Old_VVV_Description" xml:space="preserve">
-    <value>Aan het begin van de coronacrisis moest de Bredase VVV de deuren sluiten. Een paar maanden later, in juni, werd besloten dat dit permament was. De winkel leed al geruime tijd verlies en pogingen het tij te keren mochten niet baten. In juli van dat jaar nam CoffeeLab zijn intrek in het pand aan de Willemstraat. Sindsdien was het plek om te genieten van een kop koffie of een lunch of om op een van de flexplekken te werken. Toch wil keert er weer een beetje VVV terug in het pand. CoffeeLab gaat namelijk samenwerken met InBreda om informatie over de stad, uitjes en Bredase cadeaus aan te bieden.</value>
+  <data name="No_Location_Support_Message" xml:space="preserve">
+    <value>De app kan niet werken op deze telefoon, aangezien het geen GPS of locatiefunctionaliteiten heeft.</value>
+  </data>
+  <data name="No_Location_Support_Title" xml:space="preserve">
+    <value>GPS niet ondersteund</value>
+  </data>
+  <data name="Phone_Too_Far_Away_Message" xml:space="preserve">
+    <value>De tour kan niet gestart worden, omdat de telefoon te ver weg is van Breda! Tip: als je een emulator gebruikt, stel de emulatorlocatie dan ergens in Breda in de emulatorinstellingen in.</value>
+  </data>
+  <data name="Phone_Too_Far_Away_Title" xml:space="preserve">
+    <value>Fout: te ver weg</value>
   </data>
   <data name="Random_Tour_Description" xml:space="preserve">
     <value>Kun je niet beslissen welke tour je wilt nemen? Laat de app beslissen welke tour het wordt.</value>
@@ -201,11 +195,23 @@ De bekende dr. P.J.H. Cuypers, architect van o.a. het Rijksmuseum en het Centraa
   <data name="Random_Tour_Name" xml:space="preserve">
     <value>Willekeurige tour</value>
   </data>
+  <data name="Scroll_Page_Instruction" xml:space="preserve">
+    <value>▼ Scrol om meer te zien ▼</value>
+  </data>
+  <data name="Select_Instruction" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
   <data name="Select_Tour" xml:space="preserve">
     <value>Kies een tour</value>
   </data>
   <data name="Stop_Route_Confirmation" xml:space="preserve">
     <value>Weet u zeker dat u wilt stoppen met het volgen van de tour? Alle progressie zal verloren gaan!</value>
+  </data>
+  <data name="Tour_End_Message" xml:space="preserve">
+    <value>U heeft de tour beëindigd! Wij hopen dat u een fantastische ervaring heeft gehad!</value>
+  </data>
+  <data name="Tour_End_Title" xml:space="preserve">
+    <value>Tour afgerond!</value>
   </data>
   <data name="Warning_Close" xml:space="preserve">
     <value>• Als u de app sluit terwijl u de rondleiding doet, wordt de rondleiding stopgezet.</value>

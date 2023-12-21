@@ -122,7 +122,7 @@ namespace VVVoyage.ViewModels
                 {
                     await _pushNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "");
 
-                    await _popupNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "Continue");
+                    await _popupNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, AppResources.Next_Landmark);
 
                     _currentLandmarkIndex++;
 
@@ -133,9 +133,9 @@ namespace VVVoyage.ViewModels
                     }
                     else
                     {
-                        await _pushNotifier.ShowNotificationAsync("You have finished the tour! We hope you had a wonderful experience!", "Tour end", "");
+                        await _pushNotifier.ShowNotificationAsync(AppResources.Tour_End_Message, AppResources.Tour_End_Title, "");
                         
-                        await _popupNotifier.ShowNotificationAsync("Route is done.", "Finished", "OK");
+                        await _popupNotifier.ShowNotificationAsync(AppResources.Tour_End_Message, AppResources.Tour_End_Title, "OK");
 
                         await Shell.Current.GoToAsync("..");
 

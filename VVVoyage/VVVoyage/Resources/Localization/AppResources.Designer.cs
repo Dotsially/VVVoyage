@@ -61,15 +61,6 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discover the most beautiful historical landmarks of Breda. Relive the rich history and embark on a cultural journey through the Nassau city..
-        /// </summary>
-        internal static string Antique_Description {
-            get {
-                return ResourceManager.GetString("Antique_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to To start a route, simply click the route button on the main menu screen. You are then able to choose any route you&apos;d like. The route will start right away! Follow the line on the screen to arrive at the next landmark. You will get a notification once you&apos;re close. The app will give a useful name and description for the landmark as well. Admire its beauty, and then visit the next landmark. The tour will automatically end once you&apos;ve visited all landmarks of the route..
         /// </summary>
         internal static string App_Instructions {
@@ -79,14 +70,11 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breda Castle was once the ancestral home of the Nassaus, the ancestors of our royal family. Because of the important international role of the Nassaus, the Castle was an important place in Europe during the 15th to 17th centuries.
-        ///
-        ///A long history
-        ///Breda Castle has a long history. A castle stood on the site of the current castle as early as 1198. The castle came into the hand of the Nassaus in the early 15th century through the marriage of German count Engelbrecht van Nassau to Breda’s Johanna van Polanen. [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Back.
         /// </summary>
-        internal static string Castle_Description {
+        internal static string Back {
             get {
-                return ResourceManager.GetString("Castle_Description", resourceCulture);
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -118,15 +106,6 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breda is home to some of the most unique snacks and meals. Ever wanted to know what a frikandel or a kroket tastes like?.
-        /// </summary>
-        internal static string Food_Description {
-            get {
-                return ResourceManager.GetString("Food_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to General outline.
         /// </summary>
         internal static string General_Outline {
@@ -145,33 +124,47 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Officially, this statue is called the &quot;Liefdeszuster of St. Vincent de St. Paul de Chartres.&quot; It symbolizes the religious history of Breda. The creator, Jos van Riemsdijk, depicts with the Liefdeszuster the care that the hospice sisters practiced for centuries.
-        ///
-        ///The Meeùs concern donated the statue in 1990..
+        ///   Looks up a localized string similar to Landmark.
         /// </summary>
-        internal static string Liefdeszusters_Description {
+        internal static string Landmark_Default_Label {
             get {
-                return ResourceManager.GetString("Liefdeszusters_Description", resourceCulture);
+                return ResourceManager.GetString("Landmark_Default_Label", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Certainly noteworthy, a lighthouse in the Breda canal. It is not intended to guide seafaring vessels, though. &quot;The Lighthouse&quot; is an artwork by the Italian architect/artist Aldo Rossi. The idea for a Rossi artwork in Breda originated when he exhibited in the Breda Beyerd in the 1980s (the current location of the Stedelijk Museum). Rossi had previously exhibited lighthouses in Toronto and Rotterdam, and in 1992, &quot;The Lighthouse&quot; was installed in Breda. Initially placed in the Wilhelminavijver, it found its p [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The tour cannot be started, because the phone&apos;s location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named &apos;Location&apos;..
         /// </summary>
-        internal static string Light_House_Description {
+        internal static string Location_Disabled_Message {
             get {
-                return ResourceManager.GetString("Light_House_Description", resourceCulture);
+                return ResourceManager.GetString("Location_Disabled_Message", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Nassau Monument, also known as the Baroniemonument, commemorates the arrival of the German Count Engelbrecht of Nassau in the Netherlands. The three reliefs depict the inauguration of Engelbrecht and his wife, the eleven-year-old Johanna van Polanen from Breda, as Lord and Lady of Breda. Through their marriage, Engelbrecht and Johanna laid the foundation for the House of Orange-Nassau, our Dutch Royal Family.
-        ///
-        ///The monument was ceremoniously unveiled in 1905 by Queen Wilhelmina. Around it, the coats of [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Error: location disabled.
         /// </summary>
-        internal static string Nassau_Description {
+        internal static string Location_Disabled_Title {
             get {
-                return ResourceManager.GetString("Nassau_Description", resourceCulture);
+                return ResourceManager.GetString("Location_Disabled_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPS location permission is required to use this app..
+        /// </summary>
+        internal static string Location_Permission_Message {
+            get {
+                return ResourceManager.GetString("Location_Permission_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission required.
+        /// </summary>
+        internal static string Location_Permission_Title {
+            get {
+                return ResourceManager.GetString("Location_Permission_Title", resourceCulture);
             }
         }
         
@@ -181,6 +174,15 @@ namespace VVVoyage.Resources.Localization {
         internal static string Navigation_Instruction {
             get {
                 return ResourceManager.GetString("Navigation_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next landmark.
+        /// </summary>
+        internal static string Next_Landmark {
+            get {
+                return ResourceManager.GetString("Next_Landmark", resourceCulture);
             }
         }
         
@@ -239,13 +241,38 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to At the beginning of the COVID-19 crisis, the Breda Tourist Information Office (VVV) had to close its doors. A few months later, in June, it was decided that this closure would be permanent. The store had been experiencing losses for quite some time, and efforts to turn the tide proved unsuccessful. In July of that year, CoffeeLab took over the space on Willemstraat. Since then, it has been a place to enjoy a cup of coffee, lunch, or work at one of the flexible workspaces.
-        ///
-        ///However, a bit of the VVV is mak [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The app cannot work on this phone, since it does not have a GPS..
         /// </summary>
-        internal static string Old_VVV_Description {
+        internal static string No_Location_Support_Message {
             get {
-                return ResourceManager.GetString("Old_VVV_Description", resourceCulture);
+                return ResourceManager.GetString("No_Location_Support_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPS not supported.
+        /// </summary>
+        internal static string No_Location_Support_Title {
+            get {
+                return ResourceManager.GetString("No_Location_Support_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The tour cannot be started, because the phone is too far away from Breda! Hint: if you&apos;re running an emulator, set the emulator location to somewhere in Breda in the emulator settings..
+        /// </summary>
+        internal static string Phone_Too_Far_Away_Message {
+            get {
+                return ResourceManager.GetString("Phone_Too_Far_Away_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: too far away.
+        /// </summary>
+        internal static string Phone_Too_Far_Away_Title {
+            get {
+                return ResourceManager.GetString("Phone_Too_Far_Away_Title", resourceCulture);
             }
         }
         
@@ -268,6 +295,24 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ▼ Scroll this page to see more ▼.
+        /// </summary>
+        internal static string Scroll_Page_Instruction {
+            get {
+                return ResourceManager.GetString("Scroll_Page_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Select_Instruction {
+            get {
+                return ResourceManager.GetString("Select_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a tour.
         /// </summary>
         internal static string Select_Tour {
@@ -282,6 +327,24 @@ namespace VVVoyage.Resources.Localization {
         internal static string Stop_Route_Confirmation {
             get {
                 return ResourceManager.GetString("Stop_Route_Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have finished the tour! We hope you had a wonderful experience!.
+        /// </summary>
+        internal static string Tour_End_Message {
+            get {
+                return ResourceManager.GetString("Tour_End_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tour finished!.
+        /// </summary>
+        internal static string Tour_End_Title {
+            get {
+                return ResourceManager.GetString("Tour_End_Title", resourceCulture);
             }
         }
         

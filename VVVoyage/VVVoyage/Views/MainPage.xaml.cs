@@ -88,12 +88,12 @@ namespace VVVoyage
             }
             catch (ApplicationException)
             {
-                await _popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Error: too far away", "OK");
+                await _popupNotifier.ShowNotificationAsync(AppResources.Phone_Too_Far_Away_Message, AppResources.Phone_Too_Far_Away_Title, "OK");
                 await Shell.Current.GoToAsync("..");
             }
             catch (FeatureNotEnabledException)
             {
-                await _popupNotifier.ShowNotificationAsync("The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.", "Error: location disabled", "OK");
+                await _popupNotifier.ShowNotificationAsync(AppResources.Location_Disabled_Message, AppResources.Location_Disabled_Title, "OK");
                 await Shell.Current.GoToAsync("..");
             }
         }
@@ -126,7 +126,7 @@ namespace VVVoyage
             // Permission not granted, let the user know.
             if (status != PermissionStatus.Granted)
             {
-                await notifier.ShowNotificationAsync("Permission Required", "GPS location permission is required to use this app.", "OK");
+                await notifier.ShowNotificationAsync(AppResources.Location_Permission_Message, AppResources.Location_Permission_Title, "OK");
 
                 await Shell.Current.GoToAsync("..");
             }
@@ -140,20 +140,20 @@ namespace VVVoyage
             {
                 if (!await _viewModel.IsUserInProximity(centerOfBreda, 5))
                 {
-                    await notifier.ShowNotificationAsync("The tour cannot be started, because the phone is too far away from Breda! Hint: if you're running an emulator, set the emulator location to somewhere in Breda in the emulator settings.", "Too far away", "OK");
+                    await _popupNotifier.ShowNotificationAsync(AppResources.Phone_Too_Far_Away_Message, AppResources.Phone_Too_Far_Away_Title, "OK");
                     await Shell.Current.GoToAsync("..");
                 }
             }
             catch (FeatureNotSupportedException)
             {
-                await notifier.ShowNotificationAsync("GPS not supported", "The app cannot work on this phone, since it does not have a GPS.", "OK");
+                await notifier.ShowNotificationAsync(AppResources.No_Location_Support_Message, AppResources.No_Location_Support_Title, "OK");
 
                 await Shell.Current.GoToAsync("..");
             }
             catch (FeatureNotEnabledException)
             {
                 // GPS not on   
-                await notifier.ShowNotificationAsync("The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.", "Error: location disabled", "OK");
+                await _popupNotifier.ShowNotificationAsync(AppResources.Location_Disabled_Message, AppResources.Location_Disabled_Title, "OK");
 
                 await Shell.Current.GoToAsync("..");
             }
