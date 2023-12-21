@@ -12,20 +12,33 @@ using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace VVVoyage.ViewModels
 {
-    public partial class RootPageViewModel(List<Sight> landmarks, Map map, INavigator navigator, INotifier popupNotifier, INotifier pushNotifier):ObservableObject
+    public partial class RootPageViewModel : ObservableObject
     {
-        private readonly Map _map = map;
-        private readonly INavigator _navigator = navigator;
-        private readonly INotifier _popupNotifier = popupNotifier;
-        private readonly INotifier _pushNotifier = pushNotifier;
+        private readonly Map _map;
+        private readonly INavigator _navigator;
+        private readonly INotifier _popupNotifier;
+        private readonly INotifier _pushNotifier;
 
-        private readonly List<Sight> _landmarks = landmarks;
+        private readonly List<Sight> _landmarks;
+        private int _currentLandmarkIndex = 0;
 
         [ObservableProperty]
         private string landmarkName;
 
         [ObservableProperty]
         private string imageString;
+
+        public RootPageViewModel(List<Sight> landmarks, int landmarkStartIndex, Map map, INavigator navigator, INotifier popupNotifier, INotifier pushNotifier)
+        {
+            _landmarks = landmarks;
+            _currentLandmarkIndex = landmarkStartIndex;
+            _map = map;
+            _navigator = navigator;
+            _popupNotifier = popupNotifier;
+            _pushNotifier = pushNotifier;
+
+            Debug.WriteLine($"Starting tour at index {_currentLandmarkIndex} with landmark {_landmarks[_currentLandmarkIndex].SightPin.Address}");
+        }
 
         public async Task<bool> IsUserInProximity(Location location, int maxDistanceKm)
         {
@@ -54,7 +67,7 @@ namespace VVVoyage.ViewModels
         public async Task UpdateMapRepeatedly(CancellationToken cancellationToken)
         {
             List<Sight> visibleLandmarks = [];
-            visibleLandmarks.Add(_landmarks[0]);
+            visibleLandmarks.Add(_landmarks[_currentLandmarkIndex]);
 
             while (Shell.Current.CurrentPage is MainPage)
             {
@@ -111,9 +124,11 @@ namespace VVVoyage.ViewModels
 
                     await _popupNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "Continue");
 
-                    if (visibleLandmarks.Count < _landmarks.Count)
+                    _currentLandmarkIndex++;
+
+                    if (_currentLandmarkIndex < _landmarks.Count)
                     {
-                        Sight nextSight = _landmarks[visibleLandmarks.Count];
+                        Sight nextSight = _landmarks[_currentLandmarkIndex];
                         visibleLandmarks.Add(nextSight);
                     }
                     else
@@ -197,6 +212,13 @@ namespace VVVoyage.ViewModels
                 polyline.Geopath.Add(location);
 
             _map.MapElements.Add(polyline);
+        }
+
+        public async Task OnInstructionsButtonClicked()
+        {
+            Dictionary<string, object> param = new() { { "LandmarkStartIndex", _currentLandmarkIndex } };
+
+            await Shell.Current.GoToAsync("InstructionsPage", param);
         }
     }
 }
