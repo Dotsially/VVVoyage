@@ -58,9 +58,9 @@ namespace VVVoyage.ViewModels
                 tourToStart = tour;
             }
 
-            Dictionary<string, object> param = new() {{ "Tour", tourToStart }};
+            Dictionary<string, object> parameters = new() {{ "Tour", tourToStart }, { "LandmarkStartIndex", 0 } };
 
-            await Shell.Current.GoToAsync($"MainPage", param);
+            await Shell.Current.GoToAsync($"MainPage", parameters);
         }
     }
 }

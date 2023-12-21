@@ -12,7 +12,7 @@ using VVVoyage.Resources.Localization;
 
 namespace VVVoyage
 {
-    [QueryProperty(nameof(Tour), "Tour")]
+    [QueryProperty(nameof(Tour), "Tour"), QueryProperty(nameof(LandmarkStartIndex), "LandmarkStartIndex")]
     public partial class MainPage : ContentPage
     {
         private Tour _tour;
@@ -22,6 +22,17 @@ namespace VVVoyage
             set
             {
                 _tour = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _tourStartIndex;
+        public int LandmarkStartIndex
+        {
+            get => _tourStartIndex;
+            set
+            {
+                _tourStartIndex = value;
                 OnPropertyChanged();
             }
         }
@@ -40,6 +51,8 @@ namespace VVVoyage
             Shell.SetNavBarIsVisible(this, false);
 
             _map = new() { IsShowingUser = true };
+
+            Debug.WriteLine($"On MainPage, landmark start index is: {LandmarkStartIndex}");
         }
 
         protected async override void OnAppearing()
@@ -48,6 +61,7 @@ namespace VVVoyage
 
             _viewModel = new RootPageViewModel(
                 new(Tour.Landmarks),
+                LandmarkStartIndex,
                 _map,
                 new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
                 _popupNotifier,
@@ -93,7 +107,7 @@ namespace VVVoyage
 
         private async void InstructionsButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("InstructionsPage");
+            await _viewModel.OnInstructionsButtonClicked();
         }
 
         private async void StopRouteButton_Clicked(object sender, EventArgs e)

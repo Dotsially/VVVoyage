@@ -1,8 +1,22 @@
+using System.Diagnostics;
+
 namespace VVVoyage.Views;
 
+[QueryProperty(nameof(LandmarkStartIndex), "LandmarkStartIndex")]
 public partial class InstructionsPage : ContentPage
 {
-	public InstructionsPage()
+    private int _landmarkStartIndex;
+    public int LandmarkStartIndex
+    {
+        get => _landmarkStartIndex;
+        set
+        {
+            _landmarkStartIndex = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public InstructionsPage()
 	{
 		InitializeComponent();
 
@@ -12,6 +26,10 @@ public partial class InstructionsPage : ContentPage
 
 	public async void BackBtn_Clicked(object sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync("..");
+        Debug.WriteLine($"On Instructions, landmark start index is: {LandmarkStartIndex}");
+
+        Dictionary<string, object> param = new() { { "LandmarkStartIndex", LandmarkStartIndex } };
+
+		await Shell.Current.GoToAsync("..", param);
 	}
 }
