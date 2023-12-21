@@ -122,7 +122,14 @@ public class SQLAppDatabase : IAppDatabase
             await AddDescriptionAsync(castle, "en", castleDescriptionEn);
             await AddDescriptionAsync(castle, "nl", castleDescriptionNl);
 
+            await AddDescriptionAsync(antoniusKathedraal, "en", antoniusDescriptionEn);
+            await AddDescriptionAsync(antoniusKathedraal, "nl", antoniusDescriptionNl);
 
+            await AddDescriptionAsync(kloosterKazerne, "en", kazerneDescriptionEn);
+            await AddDescriptionAsync(kloosterKazerne, "nl", kazerneDescriptionNl);
+
+            await AddDescriptionAsync(groteKerk, "en", churchDescriptionEn);
+            await AddDescriptionAsync(groteKerk, "nl", churchDescriptionNl);
 
             await AddDescriptionAsync(antiqueTour, "en", antiqueDescriptionEn);
             await AddDescriptionAsync(antiqueTour, "nl", antiqueDescriptionNl);
