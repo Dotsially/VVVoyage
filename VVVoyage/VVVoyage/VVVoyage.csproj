@@ -61,8 +61,12 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\ags_logo.svg" />
+	  <None Remove="Resources\Images\avans_logo.svg" />
 	  <None Remove="Resources\Images\back_arrow.svg" />
+	  <None Remove="Resources\Images\grotekerk.jpg" />
 	  <None Remove="Resources\Images\help_circle.svg" />
+	  <None Remove="Resources\Images\kathedraal.jpg" />
+	  <None Remove="Resources\Images\kloosterkazerne.jpg" />
 	  <None Remove="Resources\Images\vvv_logo.svg" />
 	</ItemGroup>
 
