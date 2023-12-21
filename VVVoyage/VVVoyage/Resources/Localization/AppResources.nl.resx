@@ -129,6 +129,9 @@
   <data name="Ensure_Gps" xml:space="preserve">
     <value>• Zorg ervoor dat de GPS-functionaliteit op uw telefoon werkt en dat deze app hier toegang toe heeft;</value>
   </data>
+  <data name="Ensure_Permissions" xml:space="preserve">
+    <value>• Zorg ervoor dat de app toegang heeft tot de locatie, ook als de app niet actief is. Dus niet alleen tijdens het gebruik van de app, maar ook in de achtergrond.</value>
+  </data>
   <data name="Ensure_Wifi" xml:space="preserve">
     <value>• Zorg ervoor dat u tijdens de tour Wi-Fi of mobiele data gebruikt;</value>
   </data>

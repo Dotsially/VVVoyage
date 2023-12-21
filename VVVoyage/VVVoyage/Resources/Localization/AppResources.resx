@@ -129,6 +129,9 @@
   <data name="Ensure_Gps" xml:space="preserve">
     <value>• Ensure that the GPS functionality on your phone is working and that this app has access to it;</value>
   </data>
+  <data name="Ensure_Permissions" xml:space="preserve">
+    <value>• Make sure the app has access to location, even when the app is inactive. So not only while using the app, but also in the background.</value>
+  </data>
   <data name="Ensure_Wifi" xml:space="preserve">
     <value>• Ensure that you are using Wi-Fi or cellular data throughout the tour;</value>
   </data>

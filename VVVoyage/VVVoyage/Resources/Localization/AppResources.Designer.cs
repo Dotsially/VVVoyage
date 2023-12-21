@@ -97,6 +97,15 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to • Make sure the app has access to location, even when the app is inactive. So not only while using the app, but also in the background..
+        /// </summary>
+        internal static string Ensure_Permissions {
+            get {
+                return ResourceManager.GetString("Ensure_Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to • Ensure that you are using Wi-Fi or cellular data throughout the tour;.
         /// </summary>
         internal static string Ensure_Wifi {
