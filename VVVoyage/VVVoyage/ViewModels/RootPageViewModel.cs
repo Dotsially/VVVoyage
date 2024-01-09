@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Controls.Maps;
+using ShapeControls = Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Maps;
 using System.Diagnostics;
 using System.Net;
@@ -15,12 +16,16 @@ namespace VVVoyage.ViewModels
     public partial class RootPageViewModel : ObservableObject
     {
         private readonly Map _map;
+        private readonly StackLayout _mapContainer;
+        private readonly HorizontalStackLayout _nextLandmarkView;
+        private readonly VerticalStackLayout _buttonsView;
         private readonly INavigator _navigator;
         private readonly INotifier _popupNotifier;
         private readonly INotifier _pushNotifier;
 
         private readonly List<Sight> _landmarks;
         private int _currentLandmarkIndex = 0;
+        private bool _tourFinished = false;
 
         [ObservableProperty]
         private string landmarkName;
@@ -28,11 +33,23 @@ namespace VVVoyage.ViewModels
         [ObservableProperty]
         private string imageString;
 
-        public RootPageViewModel(List<Sight> landmarks, int landmarkStartIndex, Map map, INavigator navigator, INotifier popupNotifier, INotifier pushNotifier)
+        public RootPageViewModel(
+            List<Sight> landmarks, 
+            int landmarkStartIndex, 
+            Map map, 
+            StackLayout mapContainer, 
+            HorizontalStackLayout nextLandmarkView,
+            VerticalStackLayout buttonsView,
+            INavigator navigator, 
+            INotifier popupNotifier, 
+            INotifier pushNotifier)
         {
             _landmarks = landmarks;
             _currentLandmarkIndex = landmarkStartIndex;
             _map = map;
+            _mapContainer = mapContainer;
+            _nextLandmarkView = nextLandmarkView;
+            _buttonsView = buttonsView;
             _navigator = navigator;
             _popupNotifier = popupNotifier;
             _pushNotifier = pushNotifier;
@@ -120,9 +137,12 @@ namespace VVVoyage.ViewModels
 
                 if (mapUpdate.IsUserCloseToLandmark)
                 {
-                    await _pushNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "");
+                    _nextLandmarkView.IsVisible = false;
+                    _buttonsView.IsVisible = false;
+                    _mapContainer.Clear();
+                    _mapContainer.Add(GetLandmarkPopupView(lastLandmark.SightPin.Address, lastLandmark.SightDescription, lastLandmark.ImagePath));
 
-                    await _popupNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, AppResources.Next_Landmark);
+                    await _pushNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "");
 
                     _currentLandmarkIndex++;
 
@@ -133,11 +153,7 @@ namespace VVVoyage.ViewModels
                     }
                     else
                     {
-                        await _pushNotifier.ShowNotificationAsync(AppResources.Tour_End_Message, AppResources.Tour_End_Title, "");
-                        
-                        await _popupNotifier.ShowNotificationAsync(AppResources.Tour_End_Message, AppResources.Tour_End_Title, "OK");
-
-                        await Shell.Current.GoToAsync("..");
+                        _tourFinished = true;
 
                         break;
                     }
@@ -219,6 +235,47 @@ namespace VVVoyage.ViewModels
             Dictionary<string, object> param = new() { { "LandmarkStartIndex", _currentLandmarkIndex } };
 
             await Shell.Current.GoToAsync("InstructionsPage", param);
+        }
+
+        private StackLayout GetLandmarkPopupView(string title, string description, string imageSource)
+        {
+            return new()
+            {
+                Children =
+                {
+                    new Label() { Text = title },
+                    new Label() { Text = description },
+                    new Border()
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        MaximumWidthRequest = 130,
+                        MaximumHeightRequest = 130,
+                        StrokeThickness = 0,
+                        StrokeShape = new ShapeControls.RoundRectangle() { CornerRadius = 10 },
+                        Content = new Image() { Aspect = Aspect.AspectFit, Source = imageSource }
+                    },
+                    new Button
+                    {
+                        Text = AppResources.Next_Landmark,
+                        Command = new Command(async() =>
+                        {
+                            _mapContainer.Clear();
+                            _mapContainer.Add(_map);
+                            _nextLandmarkView.IsVisible = true;
+                            _buttonsView.IsVisible = true;
+
+                            if (_tourFinished)
+                            {
+                                await _pushNotifier.ShowNotificationAsync(AppResources.Tour_End_Message, AppResources.Tour_End_Title, "");
+
+                                await _popupNotifier.ShowNotificationAsync(AppResources.Tour_End_Message, AppResources.Tour_End_Title, "OK");
+
+                                await Shell.Current.GoToAsync("..");
+                            }
+                        })
+                    }
+                }
+            };
         }
     }
 }

@@ -63,6 +63,9 @@ namespace VVVoyage
                 new(Tour.Landmarks),
                 LandmarkStartIndex,
                 _map,
+                mapContainer,
+                nextLandmarkView,
+                buttonsView,
                 new MapNavigator(Geolocation.Default, "AIzaSyBXG_XrA3JRTL58osjxd0DbqH563e2t84o"),
                 _popupNotifier,
                 new PushNotifier()
