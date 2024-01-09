@@ -26,15 +26,15 @@ public class SQLAppDatabase : IAppDatabase
 
     public async Task Init()
     {
-        Sight vvv = new("Oude VVV pand", new Location(51.594112, 4.779417), "", "old_vvv.jpg");
-        Sight sister = new("Liefdeszuster", new Location(51.59336561016905, 4.779405797254084), "", "liefdeszuster.jpg");
-        Sight nassau = new("Nassau Baronie Monument", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
-        Sight lightHouse = new("The Light House", new Location(51.584039168945026, 4.774673039583854), "", "light_house.jpg");
-        Sight castle = new("Kasteel van Breda", new Location(51.59063724580636, 4.776220241517539), "", "kasteel.jpg");
+        Sight vvv = new("Oude VVV pand (est. 1967)", new Location(51.594112, 4.779417), "", "old_vvv.jpg");
+        Sight sister = new("Liefdeszuster (est. 1990)", new Location(51.59336561016905, 4.779405797254084), "", "liefdeszuster.jpg");
+        Sight nassau = new("Nassau Baronie Monument (est. 1904)", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
+        Sight lightHouse = new("The Light House (est. 1985)", new Location(51.592783, 4.778387), "", "light_house.jpg");
+        Sight castle = new("Kasteel van Breda (est. 1353)", new Location(51.59063724580636, 4.776220241517539), "", "kasteel.jpg");
 
-        Sight kloosterKazerne = new("Kloosterkazerne", new Location(51.58767769010314, 4.7818096779501165), "", "kloosterkazerne.jpg");
-        Sight antoniusKathedraal = new("Sint-Antoniuskathedraal", new Location(51.58773348225241, 4.777311726507635), "", "kathedraal.jpg");
-        Sight groteKerk = new("Grote Kerk", new Location(51.58909419302802, 4.775721439630147), "", "grotekerk.jpg");
+        Sight kloosterKazerne = new("Kloosterkazerne (est. 1504)", new Location(51.58767769010314, 4.7818096779501165), "", "kloosterkazerne.jpg");
+        Sight antoniusKathedraal = new("Sint-Antoniuskathedraal (est. 1837)", new Location(51.58773348225241, 4.777311726507635), "", "kathedraal.jpg");
+        Sight groteKerk = new("Grote Kerk (est. 1410)", new Location(51.58909419302802, 4.775721439630147), "", "grotekerk.jpg");
 
         //Sight avans1 = new("Avans LA nr 1", new Location(51.585852, 4.791732), "", "avans_logo.svg");
         //Sight avans2 = new("Avans LA nr 2", new Location(51.585865, 4.792367), "", "avans_logo.svg");
