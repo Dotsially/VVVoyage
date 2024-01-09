@@ -142,6 +142,24 @@ namespace VVVoyage.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You visited the last landmark on {0} with id {1}. Note that this progress will not be updated on the map!.
+        /// </summary>
+        internal static string Landmark_Progress_Message {
+            get {
+                return ResourceManager.GetString("Landmark_Progress_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Landmark progress.
+        /// </summary>
+        internal static string Landmark_Progress_Title {
+            get {
+                return ResourceManager.GetString("Landmark_Progress_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The tour cannot be started, because the phone&apos;s location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named &apos;Location&apos;..
         /// </summary>
         internal static string Location_Disabled_Message {

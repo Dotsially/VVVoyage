@@ -17,9 +17,9 @@ namespace VVVoyage.Models
         public string ImagePath { get; set; }
 
         private string imageString;
+        public int Id { get; }
 
-
-        public Sight(string sightName, Location location, string sightDescription, string imageString)
+        public Sight(int id, string sightName, Location location, string sightDescription, string imageString)
         {
             SightPin = new Pin
             {
@@ -30,6 +30,7 @@ namespace VVVoyage.Models
             };
 
             SightDescription = sightDescription;
+            Id = id;
 
             this.imageString = imageString;
 

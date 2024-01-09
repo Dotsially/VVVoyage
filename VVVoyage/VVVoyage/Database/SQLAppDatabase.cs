@@ -26,15 +26,15 @@ public class SQLAppDatabase : IAppDatabase
 
     public async Task Init()
     {
-        Sight vvv = new("Oude VVV pand (est. 1967)", new Location(51.594112, 4.779417), "", "old_vvv.jpg");
-        Sight sister = new("Liefdeszuster (est. 1990)", new Location(51.59336561016905, 4.779405797254084), "", "liefdeszuster.jpg");
-        Sight nassau = new("Nassau Baronie Monument (est. 1904)", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
-        Sight lightHouse = new("The Light House (est. 1985)", new Location(51.592783, 4.778387), "", "light_house.jpg");
-        Sight castle = new("Kasteel van Breda (est. 1353)", new Location(51.59063724580636, 4.776220241517539), "", "kasteel.jpg");
+        Sight vvv = new(0, "Oude VVV pand (est. 1967)", new Location(51.594112, 4.779417), "", "old_vvv.jpg");
+        Sight sister = new(1, "Liefdeszuster (est. 1990)", new Location(51.59336561016905, 4.779405797254084), "", "liefdeszuster.jpg");
+        Sight nassau = new(2, "Nassau Baronie Monument (est. 1904)", new Location(51.59268164269348, 4.779718410749389), "", "nassau_baronie.jpg");
+        Sight lightHouse = new(3, "The Light House (est. 1985)", new Location(51.592783, 4.778387), "", "light_house.jpg");
+        Sight castle = new(4, "Kasteel van Breda (est. 1353)", new Location(51.59063724580636, 4.776220241517539), "", "kasteel.jpg");
 
-        Sight kloosterKazerne = new("Kloosterkazerne (est. 1504)", new Location(51.58767769010314, 4.7818096779501165), "", "kloosterkazerne.jpg");
-        Sight antoniusKathedraal = new("Sint-Antoniuskathedraal (est. 1837)", new Location(51.58773348225241, 4.777311726507635), "", "kathedraal.jpg");
-        Sight groteKerk = new("Grote Kerk (est. 1410)", new Location(51.58909419302802, 4.775721439630147), "", "grotekerk.jpg");
+        Sight kloosterKazerne = new(5, "Kloosterkazerne (est. 1504)", new Location(51.58767769010314, 4.7818096779501165), "", "kloosterkazerne.jpg");
+        Sight antoniusKathedraal = new(6, "Sint-Antoniuskathedraal (est. 1837)", new Location(51.58773348225241, 4.777311726507635), "", "kathedraal.jpg");
+        Sight groteKerk = new(7, "Grote Kerk (est. 1410)", new Location(51.58909419302802, 4.775721439630147), "", "grotekerk.jpg");
 
         //Sight avans1 = new("Avans LA nr 1", new Location(51.585852, 4.791732), "", "avans_logo.svg");
         //Sight avans2 = new("Avans LA nr 2", new Location(51.585865, 4.792367), "", "avans_logo.svg");
@@ -317,7 +317,7 @@ Text TEXT
                     await _database.QueryAsync<Description>(@"SELECT * FROM " + tableNameLandmark + @" WHERE ID = ?",
                         id);
                 if (lm.Count != 1) throw new Exception("Invalid Landmark (route)");
-                Sight sight = new Sight(lm[0].Name, new Location(lm[0].Latitude, lm[0].Longitude),
+                Sight sight = new Sight(lm[0].ID, lm[0].Name, new Location(lm[0].Latitude, lm[0].Longitude),
                     lmDesc.Count != 1 ? "" : lmDesc[0].Text, lm[0].ImagePath);
                 sights.Add(sight);
             }

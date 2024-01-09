@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using VVVoyage.Database;
 using VVVoyage.Models;
+using VVVoyage.Resources.Localization;
+using VVVoyage.Subsystems.Notification;
 using VVVoyage.ViewModels;
 
 namespace VVVoyage.Views;
@@ -8,8 +10,10 @@ namespace VVVoyage.Views;
 public partial class MainMenuPage : ContentPage
 {
 	private readonly MainMenuViewModel _viewModel;
+	private readonly IAppPreferences _appPreferences;
+	private readonly INotifier _popupNotifier;
 
-	public MainMenuPage(MainMenuViewModel viewModel)
+	public MainMenuPage(MainMenuViewModel viewModel, IAppPreferences appPreferences, INotifier popupNotifier)
 	{
 		InitializeComponent();
 		
@@ -18,11 +22,27 @@ public partial class MainMenuPage : ContentPage
 
         _viewModel = viewModel;
         BindingContext = viewModel;
+
+		_appPreferences = appPreferences;
+		_popupNotifier = popupNotifier;
     }
 
 	protected async override void OnAppearing()
 	{
 		await _viewModel.LoadToursFromDatabase();
+
+		if (_appPreferences.ContainsKey("lastLandmarkVisitedDate")
+			&& _appPreferences.ContainsKey("lastLandmarkVisitedId"))
+		{
+			string date = _appPreferences.GetPreference("lastLandmarkVisitedDate", "");
+			int id = _appPreferences.GetPreference("lastLandmarkVisitedId", 0);
+
+			await _popupNotifier.ShowNotificationAsync(
+				string.Format(AppResources.Landmark_Progress_Message, date, id),
+				AppResources.Landmark_Progress_Title,
+				"OK"
+			);
+		}
 	}
 
 	private async void TourButton_Clicked(object sender, EventArgs e)

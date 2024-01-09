@@ -4,6 +4,15 @@ public class AppPreferences : IAppPreferences
 {
     private IPreferences _preferences = Preferences.Default;
 
+    public AppPreferences(bool reset)
+    {
+        if (reset)
+        {
+            RemovePreference("lastLandmarkVisitedDate");
+            RemovePreference("lastLandmarkVisitedId");
+        }
+    }
+
     public T GetPreference<T>(string key, T defaultValue)
     {
         return _preferences.Get(key, defaultValue);

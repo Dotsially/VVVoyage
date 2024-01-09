@@ -10,12 +10,14 @@ using VVVoyage.Resources.Localization;
 using VVVoyage.Subsystems.Navigation;
 using VVVoyage.Subsystems.Notification;
 using Map = Microsoft.Maui.Controls.Maps.Map;
+using VVVoyage.Database;
 
 namespace VVVoyage.ViewModels
 {
     public partial class RootPageViewModel : ObservableObject
     {
         private readonly Map _map;
+        private readonly IAppPreferences _appPreferences;
         private readonly StackLayout _mapContainer;
         private readonly HorizontalStackLayout _nextLandmarkView;
         private readonly VerticalStackLayout _buttonsView;
@@ -34,9 +36,10 @@ namespace VVVoyage.ViewModels
         private string imageString;
 
         public RootPageViewModel(
-            List<Sight> landmarks, 
-            int landmarkStartIndex, 
-            Map map, 
+            List<Sight> landmarks,
+            int landmarkStartIndex,
+            Map map,
+            IAppPreferences appPreferences,
             StackLayout mapContainer, 
             HorizontalStackLayout nextLandmarkView,
             VerticalStackLayout buttonsView,
@@ -46,6 +49,7 @@ namespace VVVoyage.ViewModels
         {
             _landmarks = landmarks;
             _currentLandmarkIndex = landmarkStartIndex;
+            _appPreferences = appPreferences;
             _map = map;
             _mapContainer = mapContainer;
             _nextLandmarkView = nextLandmarkView;
@@ -145,6 +149,9 @@ namespace VVVoyage.ViewModels
                     await _pushNotifier.ShowNotificationAsync(lastLandmark.SightDescription, lastLandmark.SightPin.Address, "");
 
                     _currentLandmarkIndex++;
+
+                    _appPreferences.SetPreference("lastLandmarkVisitedId", _currentLandmarkIndex);
+                    _appPreferences.SetPreference("lastLandmarkVisitedDate", DateTime.Now.ToString("d/M/yyyy"));
 
                     if (_currentLandmarkIndex < _landmarks.Count)
                     {

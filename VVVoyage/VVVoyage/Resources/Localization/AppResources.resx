@@ -144,6 +144,12 @@
   <data name="Landmark_Default_Label" xml:space="preserve">
     <value>Landmark</value>
   </data>
+  <data name="Landmark_Progress_Message" xml:space="preserve">
+    <value>You visited the last landmark on {0} with id {1}. Note that this progress will not be updated on the map!</value>
+  </data>
+  <data name="Landmark_Progress_Title" xml:space="preserve">
+    <value>Landmark progress</value>
+  </data>
   <data name="Location_Disabled_Message" xml:space="preserve">
     <value>The tour cannot be started, because the phone's location services (including GPS services) have been disabled. Hint: re-enable location services by going to the Quick Settings menu (swipe down from the top) and activate the tile named 'Location'.</value>
   </data>

@@ -9,6 +9,7 @@ using VVVoyage.Subsystems.Navigation;
 using VVVoyage.Subsystems.Notification;
 using Map = Microsoft.Maui.Controls.Maps.Map;
 using VVVoyage.Resources.Localization;
+using VVVoyage.Database;
 
 namespace VVVoyage
 {
@@ -41,15 +42,18 @@ namespace VVVoyage
         private CancellationTokenSource _cancellationTokenSource;
 
         private readonly Map _map;
-        private readonly INotifier _popupNotifier = new PopupNotifier();
+        private readonly IAppPreferences _appPreferences;
+        private readonly INotifier _popupNotifier;
 
-        public MainPage()
+        public MainPage(IAppPreferences appPreferences, INotifier popupNotifier)
         {
             InitializeComponent();
 
             // Hides the App bar at the top of the screen
             Shell.SetNavBarIsVisible(this, false);
 
+            _appPreferences = appPreferences;
+            _popupNotifier = popupNotifier;
             _map = new() { IsShowingUser = true };
 
             Debug.WriteLine($"On MainPage, landmark start index is: {LandmarkStartIndex}");
@@ -63,6 +67,7 @@ namespace VVVoyage
                 new(Tour.Landmarks),
                 LandmarkStartIndex,
                 _map,
+                _appPreferences,
                 mapContainer,
                 nextLandmarkView,
                 buttonsView,

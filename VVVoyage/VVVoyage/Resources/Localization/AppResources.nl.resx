@@ -144,6 +144,12 @@
   <data name="Landmark_Default_Label" xml:space="preserve">
     <value>Bezienswaardigheid</value>
   </data>
+  <data name="Landmark_Progress_Message" xml:space="preserve">
+    <value>Je hebt voor het laatst een bezienswaardigheid bezocht op {0} met id {1}. Let op dat deze progressie niet zal worden geupdate op de kaart!</value>
+  </data>
+  <data name="Landmark_Progress_Title" xml:space="preserve">
+    <value>Bezienswaardigheid voortgang</value>
+  </data>
   <data name="Location_Disabled_Message" xml:space="preserve">
     <value>De rondleiding kan niet worden gestart, omdat de locatiediensten van de telefoon (inclusief GPS-diensten) zijn uitgeschakeld. Tip: schakel de locatiediensten opnieuw in door naar het menu Snelle Instellingen te gaan (vanaf de bovenkant naar beneden vegen) en de tegel met de naam 'Locatie' te activeren.</value>
   </data>

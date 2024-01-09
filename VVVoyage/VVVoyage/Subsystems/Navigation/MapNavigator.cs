@@ -98,7 +98,7 @@ namespace VVVoyage.Subsystems.Navigation
             // TODO think about replacing this calculation with one that accounts for roads.
             double distanceKM = Location.CalculateDistance(userLocation, landmarkLocation, DistanceUnits.Kilometers);
 
-            return distanceKM <= 0.015;
+            return distanceKM <= 0.215;
         }
 
         /// <summary>
